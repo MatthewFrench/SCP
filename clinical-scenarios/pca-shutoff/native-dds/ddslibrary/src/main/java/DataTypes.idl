@@ -1,0 +1,22 @@
+struct SimpleValue {
+  short value;
+
+};
+
+enum Command {
+  START,
+  STOP
+};
+
+enum CompletionStatus {
+  SUCCESS,
+  FAILURE
+};
+
+struct CommandRequest {
+  Command cmd;
+};
+
+struct CommandResponse {
+  CompletionStatus status;
+};

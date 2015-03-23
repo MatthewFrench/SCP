@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="scp.api.SenderConfigurationTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2015-03-11T09:32:18" hostname="Matthews-MacBook-Pro.local" time="0.005">
+  <properties/>
+  <testcase name="testNullDataType" classname="scp.api.SenderConfigurationTest" time="0.001"/>
+  <testcase name="testValidConfiguration" classname="scp.api.SenderConfigurationTest" time="0.0"/>
+  <testcase name="testZeroMinimumSeparation" classname="scp.api.SenderConfigurationTest" time="0.001"/>
+  <testcase name="testMaximumLatencyGreaterThanOrEqualMinimumSeparation" classname="scp.api.SenderConfigurationTest" time="0.0"/>
+  <testcase name="testEmptyIdentifier" classname="scp.api.SenderConfigurationTest" time="0.0"/>
+  <testcase name="testZeroMaximumLatency" classname="scp.api.SenderConfigurationTest" time="0.0"/>
+  <testcase name="testNullIdentifier" classname="scp.api.SenderConfigurationTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

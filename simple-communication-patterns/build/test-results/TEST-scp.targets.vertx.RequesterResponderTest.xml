@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="scp.targets.vertx.RequesterResponderTest" tests="8" skipped="1" failures="0" errors="0" timestamp="2015-03-11T09:32:27" hostname="Matthews-MacBook-Pro.local" time="0.324">
+  <properties/>
+  <testcase name="testExcessLoad" classname="scp.targets.vertx.RequesterResponderTest" time="0.013"/>
+  <testcase name="testRemoteUnknownFailure" classname="scp.targets.vertx.RequesterResponderTest" time="0.106"/>
+  <testcase name="testLocalTimeOut" classname="scp.targets.vertx.RequesterResponderTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="testStaleData" classname="scp.targets.vertx.RequesterResponderTest" time="0.004"/>
+  <testcase name="testDataUnavailable" classname="scp.targets.vertx.RequesterResponderTest" time="0.098"/>
+  <testcase name="testSuccessfulRequest" classname="scp.targets.vertx.RequesterResponderTest" time="0.004"/>
+  <testcase name="testFastRequest" classname="scp.targets.vertx.RequesterResponderTest" time="0.002"/>
+  <testcase name="testRemoteTimeOut" classname="scp.targets.vertx.RequesterResponderTest" time="0.096"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[[vert.x-eventloop-thread-0] WARN scp.impl.ResponderInvoker - Dropping 2-th reception
+[vert.x-eventloop-thread-5] ERROR scp.impl.ResponderInvoker - Failed to handle 1-th reception
+java.util.concurrent.ExecutionException: java.lang.RuntimeException: Don't Panic! This exception is good :)
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:206)
+	at scp.impl.ResponderInvoker.invokeHandler(ResponderInvoker.java:100)
+	at scp.impl.ResponderInvoker.serviceRequest(ResponderInvoker.java:87)
+	at scp.targets.vertx.CommunicationManagerImpl.lambda$registerResponder$18(CommunicationManagerImpl.java:141)
+	at scp.targets.vertx.CommunicationManagerImpl$$Lambda$17/1297965269.handle(Unknown Source)
+	at org.vertx.java.core.eventbus.impl.DefaultEventBus$11.run(DefaultEventBus.java:951)
+	at org.vertx.java.core.impl.DefaultContext$3.run(DefaultContext.java:175)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:370)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:357)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:116)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.RuntimeException: Don't Panic! This exception is good :)
+	at scp.api.RequesterResponderTest$3.respond(RequesterResponderTest.java:163)
+	at scp.impl.ResponderInvoker$$Lambda$8/1727168397.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	... 1 more
+[Test worker] INFO scp.impl.RequestRequester - Handling stale 1-th response
+[Test worker] INFO scp.impl.RequestRequester - Handling stale 1-th response
+[Test worker] WARN scp.impl.RequestRequester - Dropping 2-th request
+[vert.x-eventloop-thread-4] WARN scp.impl.ResponderInvoker - Timed out handling 1-th reception
+]]></system-err>
+</testsuite>

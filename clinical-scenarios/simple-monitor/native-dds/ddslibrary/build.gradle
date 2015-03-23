@@ -1,0 +1,55 @@
+/**
+ *  Authors:
+ *    Venkatesh-Prasad Ranganath
+ *  
+ *  Copyright (c) 2014, Kansas State University
+ *  Licensed under Eclipse Public License v1.0 
+ *  http://www.eclipse.org/legal/epl-v10.html                             
+ */
+
+apply plugin: 'java'
+
+repositories {
+  mavenCentral()
+
+  flatDir {
+    dirs 'libs'
+  }
+}
+
+dependencies {
+  compile name:'nddsjava'
+  compile name:'rticonnextmsg'
+}
+
+apply plugin: 'groovy'
+
+dependencies {
+  compile files('build/classes/main')
+  compile localGroovy()  
+
+}
+
+task copyLibsToMonitor(type: Copy) {
+  from 'libs'
+  from 'build/libs'
+  into '../monitor/lib'
+}
+
+task copyLibsToCapnometer(type: Copy) {
+  from 'libs'
+  from 'build/libs'
+  into '../capnometer/lib'
+}
+
+task copyLibsToPulseOximeter(type: Copy) {
+  from 'libs'
+  from 'build/libs'
+  into '../pulseoximeter/lib'
+}
+
+task copyLibs() { }
+
+copyLibs.dependsOn copyLibsToMonitor, copyLibsToCapnometer,copyLibsToPulseOximeter
+
+version = '0.1'

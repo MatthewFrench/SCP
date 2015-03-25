@@ -7,15 +7,12 @@
  * http://www.eclipse.org/legal/epl-v10.html                             
  */
 
-package pcamonitor
+package bpmonitor
 
 import groovy.beans.Bindable
 
-class PcamonitorModel {
-   @Bindable boolean needToStop
-   @Bindable int etco2
-   @Bindable int spo2
-   @Bindable int pulseRate
-   @Bindable int respiratoryRate
-
+class BpmonitorModel {
+   @Bindable int systolic= 120
+   @Bindable int diastolic= 80
+   @Bindable int pulseRate = 80 
 }

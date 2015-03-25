@@ -7,10 +7,10 @@
  * http://www.eclipse.org/legal/epl-v10.html                             
  */
 
-package pulseoximeter
+package monitor
 
-application(title: 'pulseoximeter',
-  preferredSize: [160, 100],
+application(title: 'monitor',
+  preferredSize: [160, 150],
   pack: true,
   locationByPlatform: true,
   iconImage:   imageIcon('/griffon-icon-48x48.png').image,
@@ -19,11 +19,9 @@ application(title: 'pulseoximeter',
                imageIcon('/griffon-icon-16x16.png').image]) {
   panel() {
     migLayout()
-    label text: "SpO2"
-    label text: bind { model.spo2 }, 
-      constraints: 'wrap', foreground: Color.BLUE
-    label text: "Pulse Rate"
-    label text: bind { model.pulseRate }, 
-      constraints: 'wrap', foreground: Color.BLUE
+    model.griffonClass.propertyNames.each { name ->
+      label text: name
+      label text: bind(source:model, name), constraints: 'wrap'
+    }
   }
 }

@@ -194,4 +194,4 @@ log4j = {
 
 
 app.fileType = '.groovy'
-app.defaultPackageName = 'pulseoximeter'
+app.defaultPackageName = 'bpmonitor'

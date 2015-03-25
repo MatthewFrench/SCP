@@ -7,11 +7,11 @@
  * http://www.eclipse.org/legal/epl-v10.html                             
  */
 
-package pulseoximeter
+package insufflationpump
 
 import groovy.beans.Bindable
 
-class PulseoximeterModel {
-   @Bindable int spo2= 99
-   @Bindable int pulseRate = 80 
+class InsufflationpumpModel {
+   @Bindable String state = "Active"
+   @Bindable float pressure = 0.0
 }

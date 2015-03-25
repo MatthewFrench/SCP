@@ -1,6 +1,6 @@
 application {
-    title = 'Infusionpump'
-    startupGroups = ['infusionpump']
+    title = 'Insufflationpump'
+    startupGroups = ['insufflationpump']
 
     // Should Griffon exit when no Griffon created frames are showing?
     autoShutdown = true
@@ -9,11 +9,11 @@ application {
     //frameClass = 'javax.swing.JFrame'
 }
 mvcGroups {
-    // MVC Group for "infusionpump"
+    // MVC Group for "insufflationpump"
     'infusionpump' {
-        model      = 'infusionpump.InfusionpumpModel'
-        view       = 'infusionpump.InfusionpumpView'
-        controller = 'infusionpump.InfusionpumpController'
+        model      = 'insufflationpump.InsufflationpumpModel'
+        view       = 'insufflationpump.InsufflationpumpView'
+        controller = 'insufflationpump.InsufflationpumpController'
     }
 
 }

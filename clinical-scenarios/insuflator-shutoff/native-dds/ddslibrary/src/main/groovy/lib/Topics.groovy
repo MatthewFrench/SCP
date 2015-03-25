@@ -10,9 +10,9 @@
 package lib
 
 class Topics {
-  public static final RESPIRATORY_RATE = 'respiratoryRate',
+  public static final SYSTOLIC = 'systolic',
                       PULSE_RATE = 'pulseRate', 
-                      ETCO2 = 'etco2', 
-                      SPO2 = 'spo2',
+                      DIASTOLIC = 'diastolic', 
+                      PRESSURE = 'pressure',
                       DEVICE_STATE = 'deviceState'
 }

@@ -7,8 +7,15 @@
  * http://www.eclipse.org/legal/epl-v10.html                             
  */
 
-package lib
+package monitor
 
-class Constants {
-  public static final INSUFFLATION_PUMP = 'insufflationPump'
+import groovy.beans.Bindable
+
+class PcamonitorModel {
+   @Bindable boolean needToStop
+   @Bindable int pressure
+   @Bindable int diastolic
+   @Bindable int pulseRate
+   @Bindable int systolic
+
 }

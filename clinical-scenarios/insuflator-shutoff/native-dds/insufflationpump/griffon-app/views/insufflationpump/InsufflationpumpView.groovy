@@ -7,9 +7,9 @@
  * http://www.eclipse.org/legal/epl-v10.html                             
  */
 
-package infusionpump
+package insufflationpump
 
-application(title: 'infusionpump',
+application(title: 'insufflationpump',
   preferredSize: [160, 150],
   pack: true,
   locationByPlatform: true,

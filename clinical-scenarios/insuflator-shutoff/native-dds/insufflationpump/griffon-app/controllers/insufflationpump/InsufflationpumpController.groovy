@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html                             
  */
 
-package infusionpump
+package insufflationpump
 
 import lib.Command
 import lib.CompletionStatus
@@ -16,7 +16,7 @@ import lib.DDS
 import lib.Topics
 import com.rti.dds.type.builtin.StringTypeSupport
 
-class InfusionpumpController {
+class InsufflationpumpController {
   // these will be injected by Griffon
   def model
   def view
@@ -27,7 +27,10 @@ class InfusionpumpController {
     dds.publishOn(
         Topics.DEVICE_STATE, 
         StringTypeSupport.get_type_name())
-    dds.initializeCommandHandlerFor(this.&onCommand, Constants.INFUSION_PUMP)
+    dds.publishOn(
+        Topics.PRESSURE, 
+        StringTypeSupport.get_type_name())
+    dds.initializeCommandHandlerFor(this.&onCommand, Constants.INSUFFLATION_PUMP)
   }
 
   void mvcGroupDestroy() {

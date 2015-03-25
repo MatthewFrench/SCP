@@ -194,4 +194,4 @@ log4j = {
 
 
 app.fileType = '.groovy'
-app.defaultPackageName = 'infusionpump'
+app.defaultPackageName = 'insufflationpump'

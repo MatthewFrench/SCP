@@ -7,10 +7,10 @@
  * http://www.eclipse.org/legal/epl-v10.html                             
  */
 
-package pcamonitor
+package bpmonitor
 
-application(title: 'pcamonitor',
-  preferredSize: [160, 150],
+application(title: 'bpmonitor',
+  preferredSize: [160, 100],
   pack: true,
   locationByPlatform: true,
   iconImage:   imageIcon('/griffon-icon-48x48.png').image,
@@ -19,9 +19,14 @@ application(title: 'pcamonitor',
                imageIcon('/griffon-icon-16x16.png').image]) {
   panel() {
     migLayout()
-    model.griffonClass.propertyNames.each { name ->
-      label text: name
-      label text: bind(source:model, name), constraints: 'wrap'
-    }
+    label text: "Systolic"
+    label text: bind { model.systolic }, 
+      constraints: 'wrap', foreground: Color.BLUE
+    label text: "Diastolic"
+    label text: bind { model.diastolic }, 
+      constraints: 'wrap', foreground: Color.BLUE
+    label text: "Pulse Rate"
+    label text: bind { model.pulseRate }, 
+      constraints: 'wrap', foreground: Color.BLUE
   }
 }

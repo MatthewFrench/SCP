@@ -7,25 +7,29 @@
  * http://www.eclipse.org/legal/epl-v10.html                             
  */
 
-package pulseoximeter
+package bpmonitor
 
 import lib.DDS
 import lib.SimpleValue
 import lib.SimpleValueTypeSupport
 import lib.Topics
 
-class PulseoximeterController {
+class BpmonitorController {
   // these will be injected by Griffon
   def model
   def view
 
   def dds = new DDS()
-  def spo2 = new Random()
+  def systolic = new Random()
+  def diastolic = new Random()
   def pr = new Random()
 
   void mvcGroupInit(Map args) {
     dds.publishOn(
-        Topics.SPO2,
+        Topics.SYSTOLIC,
+        SimpleValueTypeSupport.get_type_name())
+    dds.publishOn(
+        Topics.DIASTOLIC,
         SimpleValueTypeSupport.get_type_name())
     dds.publishOn(
         Topics.PULSE_RATE,
@@ -39,17 +43,24 @@ class PulseoximeterController {
 
   def update = { evt ->
     def _pr = model.pulseRate + pr.nextInt(11) - 5 // 60-100 per minute 
-    def _spo2 = model.spo2 + spo2.nextInt(3) - 1  // 96-99 %
+    def _systolic = model.systolic + systolic.nextInt(3) - 1  // 96-99 %
+    def _diastolic = model.diastolic + diastolic.nextInt(3) - 1  // 96-99 %
     edt {
       if (_pr >= 0 && _pr < 151)
         model.pulseRate = _pr
-      if (_spo2 > 0 && _spo2 < 101)
-        model.spo2 = _spo2
+      if (_systolic > 0 && _systolic < 180)
+        model.systolic = _systolic
+      if (_diastolic > 0 && _diastolic < 101)
+        model.diastolic = _diastolic
     }
 
     def tmp1 = new SimpleValue()
-    tmp1.value = _spo2
-    dds.publish(Topics.SPO2, tmp1)
+    tmp1.value = _systolic
+    dds.publish(Topics.SYSTOLIC, tmp1)
+
+    def tmp3 = new SimpleValue()
+    tmp3.value = _diastolic
+    dds.publish(Topics.DIASTOLIC, tmp3)
 
     def tmp2 = new SimpleValue()
     tmp2.value = _pr

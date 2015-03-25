@@ -1,6 +1,6 @@
 application {
-    title = 'Pulseoximeter'
-    startupGroups = ['pulseoximeter']
+    title = 'Bpmonitor'
+    startupGroups = ['bpmonitor']
 
     // Should Griffon exit when no Griffon created frames are showing?
     autoShutdown = true
@@ -9,11 +9,11 @@ application {
     //frameClass = 'javax.swing.JFrame'
 }
 mvcGroups {
-    // MVC Group for "pulseoximeter"
-    'pulseoximeter' {
-        model      = 'pulseoximeter.PulseoximeterModel'
-        view       = 'pulseoximeter.PulseoximeterView'
-        controller = 'pulseoximeter.PulseoximeterController'
+    // MVC Group for "bpmonitor"
+    'bpmonitor' {
+        model      = 'bpmonitor.BpmonitorModel'
+        view       = 'bpmonitor.BpmonitorView'
+        controller = 'bpmonitor.BpmonitorController'
     }
 
 }

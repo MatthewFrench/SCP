@@ -9,6 +9,9 @@
 
 package bpmonitor
 
+import lib.Command
+import lib.CompletionStatus
+import lib.Constants
 import lib.DDS
 import lib.SimpleValue
 import lib.SimpleValueTypeSupport

@@ -108,7 +108,7 @@ class MonitorController {
               systolic: ${model.systolic}
               diastolic: ${model.diastolic}
               pulse rate: ${model.pulseRate}
-              pressure: ${model.[ressure}
+              pressure: ${model.pressure}
               """, 
               'ALERT', 
               JOptionPane.WARNING_MESSAGE)

@@ -15,6 +15,7 @@ import lib.Constants
 import lib.DDS
 import lib.SimpleValue
 import lib.SimpleValueTypeSupport
+import lib.SimpleValueHandlerWrapper
 import lib.Topics
 
 class BpmonitorController {
@@ -26,6 +27,7 @@ class BpmonitorController {
   def systolic = new Random()
   def diastolic = new Random()
   def pr = new Random()
+  def fastRate = false
 
   void mvcGroupInit(Map args) {
     dds.publishOn(
@@ -37,11 +39,29 @@ class BpmonitorController {
     dds.publishOn(
         Topics.PULSE_RATE,
         SimpleValueTypeSupport.get_type_name())
+	def tmp1 = new SimpleValueHandlerWrapper(this.&onBPFREQUENCY)
+    dds.subscribeTo(
+        Topics.BPFREQUENCY,
+        SimpleValueTypeSupport.get_type_name(),
+        tmp1)
     new javax.swing.Timer(1000, update).start()
   }
 
   void mvcGroupDestroy() {
     dds.destroy()
+  }
+  
+  def onBPFREQUENCY(frequency) { 
+	if (frequency == 1) {
+		fastRate = true
+	} else {
+		fastRate = false
+	}
+    //edt { model.systolic = systolic }
+    //allhookedup |= 0x1
+    //if (!model.needToStop && allhookedup == 0xF) {
+    //  app.event "Update"
+    //}
   }
 
   def update = { evt ->

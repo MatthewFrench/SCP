@@ -10,7 +10,7 @@ application {
 }
 mvcGroups {
     // MVC Group for "insufflationpump"
-    'infusionpump' {
+    'insufflationpump' {
         model      = 'insufflationpump.InsufflationpumpModel'
         view       = 'insufflationpump.InsufflationpumpView'
         controller = 'insufflationpump.InsufflationpumpController'

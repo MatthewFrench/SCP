@@ -32,25 +32,25 @@ dependencies {
 task copyLibsToPCAMonitor(type: Copy) {
   from 'libs'
   from 'build/libs'
-  into '../pcamonitor/lib'
+  into '../monitor/lib'
 }
 
 task copyLibsToCapnometer(type: Copy) {
   from 'libs'
   from 'build/libs'
-  into '../capnometer/lib'
+  into '../bpmonitor/lib'
 }
 
 task copyLibsToPulseOximeter(type: Copy) {
   from 'libs'
   from 'build/libs'
-  into '../pulseoximeter/lib'
+  into '../monitor/lib'
 }
 
 task copyLibsToInfusionPump(type: Copy) {
   from 'libs'
   from 'build/libs'
-  into '../infusionpump/lib'
+  into '../insufflationpump/lib'
 }
 
 task copyLibs() { }

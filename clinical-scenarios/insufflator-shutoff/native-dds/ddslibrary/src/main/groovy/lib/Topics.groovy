@@ -14,5 +14,7 @@ class Topics {
                       PULSE_RATE = 'pulseRate', 
                       DIASTOLIC = 'diastolic', 
                       PRESSURE = 'pressure',
-                      DEVICE_STATE = 'deviceState'
+                      DEVICE_STATE = 'deviceState',
+                      BPFREQUENCY = 'bpFrequency'
+
 }

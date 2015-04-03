@@ -11,7 +11,7 @@ package monitor
 
 import groovy.beans.Bindable
 
-class PcamonitorModel {
+class MonitorModel {
    @Bindable boolean needToStop
    @Bindable int pressure
    @Bindable int diastolic

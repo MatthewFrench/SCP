@@ -10,7 +10,7 @@
 package insufflationpump
 
 application(title: 'insufflationpump',
-  preferredSize: [160, 150],
+  preferredSize: [160, 100],
   pack: true,
   locationByPlatform: true,
   iconImage:   imageIcon('/griffon-icon-48x48.png').image,

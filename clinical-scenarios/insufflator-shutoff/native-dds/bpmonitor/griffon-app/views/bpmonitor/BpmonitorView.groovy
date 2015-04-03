@@ -10,7 +10,7 @@
 package bpmonitor
 
 application(title: 'bpmonitor',
-  preferredSize: [160, 100],
+  preferredSize: [160, 110],
   pack: true,
   locationByPlatform: true,
   iconImage:   imageIcon('/griffon-icon-48x48.png').image,

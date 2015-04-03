@@ -20,6 +20,7 @@ import lib.Topics
 import com.rti.dds.subscription.DataReaderAdapter
 import com.rti.dds.subscription.SampleInfo
 import javax.swing.JOptionPane
+import com.rti.dds.type.builtin.StringTypeSupport
 
 class MonitorController {
   // these will be injected by Griffon
@@ -31,7 +32,7 @@ class MonitorController {
   private allhookedup = 0
 
   void mvcGroupInit(Map args) {
-    dds.initializeCommandSendCapability(Constants.INFUSION_PUMP)
+    dds.initializeCommandSendCapability(Constants.INSUFFLATION_PUMP)
     def tmp1 = new SimpleValueHandlerWrapper(this.&onSYSTOLIC)
     dds.subscribeTo(
         Topics.SYSTOLIC,
@@ -52,6 +53,11 @@ class MonitorController {
         Topics.PULSE_RATE,
         SimpleValueTypeSupport.get_type_name(),
         tmp1)
+		tmp1 = new SimpleValueHandlerWrapper(this.&onDeviceState)
+    dds.subscribeTo(
+        Topics.DEVICE_STATE,
+        SimpleValueTypeSupport.get_type_name(),
+        tmp1)
   }
 
   void mvcGroupDestroy() {
@@ -59,6 +65,10 @@ class MonitorController {
     dds.destroy()
   }
 
+  def onDeviceState(state) { 
+    edt { model.state = state?"Active":"Inactive" }
+  }
+  
   def onSYSTOLIC(systolic) { 
     edt { model.systolic = systolic }
     allhookedup |= 0x1

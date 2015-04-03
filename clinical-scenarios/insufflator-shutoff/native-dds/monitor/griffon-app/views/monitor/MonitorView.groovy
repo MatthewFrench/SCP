@@ -10,7 +10,7 @@
 package monitor
 
 application(title: 'monitor',
-  preferredSize: [160, 150],
+  preferredSize: [160, 170],
   pack: true,
   locationByPlatform: true,
   iconImage:   imageIcon('/griffon-icon-48x48.png').image,

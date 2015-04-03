@@ -17,5 +17,5 @@ class MonitorModel {
    @Bindable int diastolic
    @Bindable int pulseRate
    @Bindable int systolic
-
+   @Bindable String state
 }

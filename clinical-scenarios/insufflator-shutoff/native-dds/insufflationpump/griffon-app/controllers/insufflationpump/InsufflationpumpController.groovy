@@ -14,6 +14,8 @@ import lib.CompletionStatus
 import lib.Constants
 import lib.DDS
 import lib.Topics
+import lib.SimpleValue
+import lib.SimpleValueTypeSupport
 import com.rti.dds.type.builtin.StringTypeSupport
 
 class InsufflationpumpController {
@@ -22,19 +24,52 @@ class InsufflationpumpController {
   def view
 
   def dds = new DDS()
-
+  def deviceOn = true
+  def pressure = 0.0
+  def pr = new Random()
+  
   void mvcGroupInit(Map args) {
     dds.publishOn(
         Topics.DEVICE_STATE, 
-        StringTypeSupport.get_type_name())
+        SimpleValueTypeSupport.get_type_name())
     dds.publishOn(
         Topics.PRESSURE, 
-        StringTypeSupport.get_type_name())
+        SimpleValueTypeSupport.get_type_name())
     dds.initializeCommandHandlerFor(this.&onCommand, Constants.INSUFFLATION_PUMP)
+	
+	new javax.swing.Timer(1000, update).start()
+	
+	model.state = 'Active'
+	def tmp1 = new SimpleValue()
+    tmp1.value = deviceOn?1:0
+	dds.publish(Topics.DEVICE_STATE, tmp1)
   }
 
   void mvcGroupDestroy() {
     dds.destroy()
+  }
+  
+  def update = { evt ->
+	if (deviceOn == true ) {
+	  pressure += pr.nextInt(10) / 10.0
+	  if (pressure > 15) {
+		pressure = 15
+	  }
+	} else {
+	  pressure -= pr.nextInt(10) / 10.0
+	  if (pressure < 0) {
+		pressure = 0
+	  }
+	}
+	model.pressure = pressure
+	
+	def tmp1 = new SimpleValue()
+    tmp1.value = pressure
+    dds.publish(Topics.PRESSURE, tmp1)
+	
+	 tmp1 = new SimpleValue()
+    tmp1.value = deviceOn?1:0
+    dds.publish(Topics.DEVICE_STATE, tmp1)
   }
 
   def onCommand(Command cmd) {
@@ -43,9 +78,12 @@ class InsufflationpumpController {
     if (cmd == Command.STOP) { 
         edt{
           model.state = 'Inactive'
+		  deviceOn = false
         }
     }
-    dds.publish(Topics.DEVICE_STATE, model.state)
+	def tmp1 = new SimpleValue()
+    tmp1.value = deviceOn?1:0
+    dds.publish(Topics.DEVICE_STATE, tmp1)
     return CompletionStatus.SUCCESS
   }
 }

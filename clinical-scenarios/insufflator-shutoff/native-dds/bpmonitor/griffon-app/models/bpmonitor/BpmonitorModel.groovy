@@ -14,5 +14,6 @@ import groovy.beans.Bindable
 class BpmonitorModel {
    @Bindable int systolic= 120
    @Bindable int diastolic= 80
-   @Bindable int pulseRate = 80 
+   @Bindable int pulseRate = 80
+   @Bindable int seconds = 0
 }

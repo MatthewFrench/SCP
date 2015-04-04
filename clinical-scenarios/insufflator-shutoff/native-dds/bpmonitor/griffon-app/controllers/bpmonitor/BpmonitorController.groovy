@@ -28,6 +28,14 @@ class BpmonitorController {
   def diastolic = new Random()
   def pr = new Random()
   def fastRate = false
+  
+  def currentSeconds = 0
+  def STATE_IDLE = 0
+  def STATE_INFLATING = 1
+  def LONG_TIME = 180 
+  def SHORT_TIME = 60
+  def INFLATING_TIME = 10 
+  def currentState = STATE_IDLE
 
   void mvcGroupInit(Map args) {
     dds.publishOn(
@@ -38,6 +46,9 @@ class BpmonitorController {
         SimpleValueTypeSupport.get_type_name())
     dds.publishOn(
         Topics.PULSE_RATE,
+        SimpleValueTypeSupport.get_type_name())
+	dds.publishOn(
+        Topics.SECONDS,
         SimpleValueTypeSupport.get_type_name())
 	def tmp1 = new SimpleValueHandlerWrapper(this.&onBPFREQUENCY)
     dds.subscribeTo(
@@ -52,10 +63,16 @@ class BpmonitorController {
   }
   
   def onBPFREQUENCY(frequency) { 
-	if (frequency == 1) {
+  edt { 
+	if (frequency == 1 && fastRate == false) {
 		fastRate = true
-	} else {
+		currentSeconds = INFLATING_TIME 
+		currentState = STATE_INFLATING
+	} else if (fastRate == true && frequency == 0) {
 		fastRate = false
+		currentSeconds = INFLATING_TIME 
+		currentState = STATE_INFLATING
+	}
 	}
     //edt { model.systolic = systolic }
     //allhookedup |= 0x1
@@ -65,28 +82,61 @@ class BpmonitorController {
   }
 
   def update = { evt ->
-    def _pr = model.pulseRate + pr.nextInt(11) - 5 // 60-100 per minute 
-    def _systolic = model.systolic + systolic.nextInt(3) - 1  // 96-99 %
-    def _diastolic = model.diastolic + diastolic.nextInt(3) - 1  // 96-99 %
-    edt {
-      if (_pr >= 0 && _pr < 151)
-        model.pulseRate = _pr
-      if (_systolic > 0 && _systolic < 180)
-        model.systolic = _systolic
-      if (_diastolic > 0 && _diastolic < 101)
-        model.diastolic = _diastolic
-    }
+  
+  if (currentState == STATE_IDLE) {
+	if (currentSeconds > 0) {
+		currentSeconds = currentSeconds - 1
+	} else {
+		currentSeconds = INFLATING_TIME 
+		currentState = STATE_INFLATING
+	}
+  } else if (currentState == STATE_INFLATING) {
+	if (currentSeconds > 0) {
+		currentSeconds -= 1
+	} else {
+		currentState = STATE_IDLE
+		if (fastRate) {
+			currentSeconds = SHORT_TIME
+		} else {
+			currentSeconds = LONG_TIME
+		}
+		
+		def _pr = pr.nextInt(40) + 80 // 60-100 per minute 
+		 def _systolic = systolic.nextInt(50) + 100  // 96-99 %
+		 def _diastolic = diastolic.nextInt(20) + 80  // 96-99 %
+		if (fastRate) {
+			_pr = _pr/2.0
+		 _systolic = _systolic/2.0
+		 _diastolic = _diastolic/2.0
+		}
+			edt {
+			  if (_pr >= 0 && _pr < 151)
+				model.pulseRate = _pr
+			  if (_systolic > 0 && _systolic < 180)
+				model.systolic = _systolic
+			  if (_diastolic > 0 && _diastolic < 101)
+				model.diastolic = _diastolic
+			}
 
-    def tmp1 = new SimpleValue()
-    tmp1.value = _systolic
-    dds.publish(Topics.SYSTOLIC, tmp1)
+			def tmp1 = new SimpleValue()
+			tmp1.value = _systolic
+			dds.publish(Topics.SYSTOLIC, tmp1)
 
-    def tmp3 = new SimpleValue()
-    tmp3.value = _diastolic
-    dds.publish(Topics.DIASTOLIC, tmp3)
+			def tmp3 = new SimpleValue()
+			tmp3.value = _diastolic
+			dds.publish(Topics.DIASTOLIC, tmp3)
 
-    def tmp2 = new SimpleValue()
-    tmp2.value = _pr
-    dds.publish(Topics.PULSE_RATE, tmp2)
+			def tmp2 = new SimpleValue()
+			tmp2.value = _pr
+			dds.publish(Topics.PULSE_RATE, tmp2)
+	}
+  }
+  
+		model.seconds = currentSeconds
+	if (currentState == STATE_IDLE) {
+		def tmp4 = new SimpleValue()
+		tmp4.value = model.seconds
+		dds.publish(Topics.SECONDS, tmp4)
+	}
   }
 }

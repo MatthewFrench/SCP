@@ -53,20 +53,41 @@ class MonitorController {
         Topics.PULSE_RATE,
         SimpleValueTypeSupport.get_type_name(),
         tmp1)
-		tmp1 = new SimpleValueHandlerWrapper(this.&onDeviceState)
+	tmp1 = new SimpleValueHandlerWrapper(this.&onDeviceState)
     dds.subscribeTo(
         Topics.DEVICE_STATE,
         SimpleValueTypeSupport.get_type_name(),
         tmp1)
+	tmp1 = new SimpleValueHandlerWrapper(this.&onSeconds)
+    dds.subscribeTo(
+        Topics.SECONDS,
+        SimpleValueTypeSupport.get_type_name(),
+        tmp1)
+	dds.publishOn(
+        Topics.BPFREQUENCY, 
+        SimpleValueTypeSupport.get_type_name())
   }
 
   void mvcGroupDestroy() {
     println('destroying')
     dds.destroy()
   }
+  
+  def onSeconds(seconds) { 
+    edt { model.seconds = seconds }
+  }
 
   def onDeviceState(state) { 
     edt { model.state = state?"Active":"Inactive" }
+	if (state == 1) {
+		def tmp1 = new SimpleValue()
+			tmp1.value = 1
+			dds.publish(Topics.BPFREQUENCY, tmp1)
+	} else {
+		def tmp1 = new SimpleValue()
+			tmp1.value = 0
+			dds.publish(Topics.BPFREQUENCY, tmp1)
+	}
   }
   
   def onSYSTOLIC(systolic) { 

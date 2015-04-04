@@ -15,6 +15,7 @@ class Topics {
                       DIASTOLIC = 'diastolic', 
                       PRESSURE = 'pressure',
                       DEVICE_STATE = 'deviceState',
-                      BPFREQUENCY = 'bpFrequency'
+                      BPFREQUENCY = 'bpFrequency',
+					  SECONDS = 'seconds'
 
 }

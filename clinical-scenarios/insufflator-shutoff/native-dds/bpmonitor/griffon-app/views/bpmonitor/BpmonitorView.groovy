@@ -10,7 +10,7 @@
 package bpmonitor
 
 application(title: 'bpmonitor',
-  preferredSize: [160, 110],
+  preferredSize: [160, 130],
   pack: true,
   locationByPlatform: true,
   iconImage:   imageIcon('/griffon-icon-48x48.png').image,
@@ -27,6 +27,9 @@ application(title: 'bpmonitor',
       constraints: 'wrap', foreground: Color.BLUE
     label text: "Pulse Rate"
     label text: bind { model.pulseRate }, 
+      constraints: 'wrap', foreground: Color.BLUE
+	label text: "Seconds"
+    label text: bind { model.seconds }, 
       constraints: 'wrap', foreground: Color.BLUE
   }
 }

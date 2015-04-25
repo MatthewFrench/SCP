@@ -25,6 +25,21 @@ import com.rti.dds.type.builtin.StringTypeSupport
 import org.vertx.groovy.core.Vertx;
 import org.vertx.groovy.core.*
 
+import scp.targets.vertx.*;
+import scp.util.Pair;
+import scp.api.*;
+import scp.impl.*;
+import scp.impl.ExecutorInvoker.ExecutorInvokerStatus;
+import scp.impl.ReceiverInvoker.ReceiverInvokerStatus;
+import scp.impl.ResponderInvoker.ResponderInvokerStatus;
+import scp.util.NonNull;
+import scp.util.Pair;
+import scp.util.TimestampedBox;
+
+import java.io.*;
+import java.util.concurrent.Semaphore;
+import scp.api.CommunicationManager;
+
 class InsufflationpumpController {
   // these will be injected by Griffon
   def model
@@ -34,17 +49,39 @@ class InsufflationpumpController {
   def deviceOn = true
   def pressure = 0.0
   def pr = new Random()
+    def communicationManager = new CommunicationManagerImpl();
+  //def eb = Vertx.newVertx().getEventBus()
   
-  def eb = Vertx.newVertx().getEventBus()
-  
-  void mvcGroupInit(Map args) {
-  eb.registerHandler("Insufflator Shut Off", { 
-  edt{
+  PublishRequester<Integer> deviceStatePublisher, pressurePublisher
+class InsufflatorShutOff<T> implements Subscriber {
+	void consume(T data, long remainingLifetime) {
+		edt{
           model.state = 'Inactive'
 		  deviceOn = false
         }
-})
+	}
+	void handleSlowConsumption(int numOfUnconsumedConsecutiveMessages) {
+	}
+	void handleSlowPublication() {
+	}
+	void handleStaleMessage(T data, long remainingLifetime){
+	}
+}
   
+  void mvcGroupInit(Map args) {
+  communicationManager.setUp()
+	deviceStatePublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Device State", 0, 1000, 0, Integer)).second
+	pressurePublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Insufflator Pressure", 0, 1000, 0, Integer)).second
+	
+	communicationManager.registerSubscriber(new SubscriberConfiguration(
+            "InsufflatorShutOff",
+            0,
+            1000,
+            1000,
+            0,
+            100,
+            new InsufflatorShutOff<Integer>()
+			));
   /*
     dds.publishOn(
         Topics.DEVICE_STATE, 
@@ -58,6 +95,8 @@ class InsufflationpumpController {
 	new javax.swing.Timer(1000, update).start()
 	
 	model.state = 'Active'
+	
+	deviceStatePublisher.publish(deviceOn?1:0);
 	/*
 	def tmp1 = new SimpleValue()
     tmp1.value = deviceOn?1:0
@@ -83,7 +122,10 @@ class InsufflationpumpController {
 	}
 	model.pressure = pressure
 	
-	eb.publish("Insufflator Pressure", String.valueOf(pressure))
+	//eb.publish("Insufflator Pressure", String.valueOf(pressure))
+	pressurePublisher.publish(pressure);
+	deviceStatePublisher.publish(deviceOn?1:0);
+	
 	/*
 	def tmp1 = new SimpleValue()
     tmp1.value = pressure

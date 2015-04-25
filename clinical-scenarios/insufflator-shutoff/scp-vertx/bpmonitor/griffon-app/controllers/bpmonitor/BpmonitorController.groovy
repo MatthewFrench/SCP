@@ -13,6 +13,20 @@ package bpmonitor
 //import org.vertx.groovy.core.*
 //import scp.api.*;
 import scp.targets.vertx.*;
+import scp.util.Pair;
+import scp.api.*;
+import scp.impl.*;
+import scp.impl.ExecutorInvoker.ExecutorInvokerStatus;
+import scp.impl.ReceiverInvoker.ReceiverInvokerStatus;
+import scp.impl.ResponderInvoker.ResponderInvokerStatus;
+import scp.util.NonNull;
+import scp.util.Pair;
+import scp.util.TimestampedBox;
+
+import java.io.*;
+import java.util.concurrent.Semaphore;
+import scp.api.CommunicationManager;
+
 
 class BpmonitorController {
   // these will be injected by Griffon
@@ -34,9 +48,46 @@ class BpmonitorController {
   def currentState = STATE_IDLE
   
   def communicationManager = new CommunicationManagerImpl();
+  PublishRequester<Integer> systolicPublisher, diastolicPublisher, pulseRatePublisher, secondsPublisher;
 
+  
+  class bpFrequencySubscriber<T> implements Subscriber {
+	void consume(T data, long remainingLifetime) {
+		edt { 
+			if (data == 1 && fastRate == false) {
+				fastRate = true
+				currentSeconds = INFLATING_TIME 
+				currentState = STATE_INFLATING
+			} else if (fastRate == true && data == 0) {
+				fastRate = false
+				currentSeconds = INFLATING_TIME 
+				currentState = STATE_INFLATING
+			}
+		}
+	}
+	void handleSlowConsumption(int numOfUnconsumedConsecutiveMessages) {
+	}
+	void handleSlowPublication() {
+	}
+	void handleStaleMessage(T data, long remainingLifetime){
+	}
+  }
   void mvcGroupInit(Map args) {
 	communicationManager.setUp()
+	systolicPublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Systolic", 0, 1000, 0, Integer)).second
+	diastolicPublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Diastolic", 0, 1000, 0, Integer)).second
+	pulseRatePublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("PulseRate", 0, 1000, 0, Integer)).second
+	secondsPublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Seconds", 0, 1000, 0, Integer)).second
+	
+	communicationManager.registerSubscriber(new SubscriberConfiguration(
+            "BPFrequency",
+            0,
+            1000,
+            1000,
+            0,
+            100,
+            new bpFrequencySubscriber<Integer>()
+			));
   /*
     dds.publishOn(
         Topics.SYSTOLIC,
@@ -118,6 +169,9 @@ class BpmonitorController {
 			  if (_diastolic > 0 && _diastolic < 101)
 				model.diastolic = _diastolic
 			}
+			systolicPublisher.publish(_systolic)
+			diastolicPublisher.publish(_diastolic)
+			pulseRatePublisher.publish(_pr)
 			/*
 			def tmp1 = new SimpleValue()
 			tmp1.value = _systolic
@@ -136,6 +190,7 @@ class BpmonitorController {
   
 		model.seconds = currentSeconds
 	if (currentState == STATE_IDLE) {
+		secondsPublisher.publish(model.seconds)
 		//def tmp4 = new SimpleValue()
 		//tmp4.value = model.seconds
 		//dds.publish(Topics.SECONDS, tmp4)

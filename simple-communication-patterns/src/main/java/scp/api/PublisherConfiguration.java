@@ -51,7 +51,7 @@ public final class PublisherConfiguration<S> {
      * @param minimumSeparation the minimum duration of time (in milliseconds) between two consecutive publications.
      * @param maximumLatency the maximum latency tolerated for the publish request to be accepted by the lower-level
      *                       communication substrate (in milliseconds).
-     * @param minimumRemainingLifetime the minimum remaining lifetime of published data.
+     * @param minimumRemainingLifetime the minimum remaining lifetime of published data (in milliseconds).
      * @param dataType the type of published data.
      */
     public PublisherConfiguration(

@@ -38,16 +38,16 @@ public class CommunicationManagerImpl implements CommunicationManager {
     private EventBus eventBus;
 
     /**
-     * Instantiates a new Communication manager impl.
+     * Instantiates a new Communication manager impl based on non-clustered Vertx instance.
      */
     public CommunicationManagerImpl() {
         this.vertx = VertxFactory.newVertx();
     }
 
     /**
-     * Instantiates a new Communication manager impl.
+     * Instantiates a new Communication manager impl based on clustered Vertx instance.
      *
-     * @param port the port
+     * @param port the port.  If this argument is 0, then the system will pick the port.
      * @param hostname the hostname
      */
     public CommunicationManagerImpl(int port, String hostname) {
@@ -100,7 +100,7 @@ public class CommunicationManagerImpl implements CommunicationManager {
     public <T extends Serializable> Status registerSubscriber(
             @NonNull SubscriberConfiguration<T> configuration) {
         final SubscriberInvoker<T> _subscriberInvoker = new SubscriberInvoker<>(configuration);
-        this.eventBus.registerLocalHandler(
+        this.eventBus.registerHandler(
                 configuration.topic,
                 (Message<byte[]> msg) -> _subscriberInvoker.processData(getData(msg.body())));
         return Status.SUCCESS;

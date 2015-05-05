@@ -47,11 +47,11 @@ class BpmonitorController {
   def INFLATING_TIME = 10 
   def currentState = STATE_IDLE
   
-  def communicationManager = new CommunicationManagerImpl();
+  def communicationManager = new CommunicationManagerImpl(0, "localhost");
   PublishRequester<Integer> systolicPublisher, diastolicPublisher, pulseRatePublisher, secondsPublisher;
 
   
-  class bpFrequencySubscriber<T> implements Subscriber {
+  class bpFrequencySubscriber<T> implements AbstractSubscriber {
 	void consume(T data, long remainingLifetime) {
 		edt { 
 			if (data == 1 && fastRate == false) {
@@ -64,12 +64,6 @@ class BpmonitorController {
 				currentState = STATE_INFLATING
 			}
 		}
-	}
-	void handleSlowConsumption(int numOfUnconsumedConsecutiveMessages) {
-	}
-	void handleSlowPublication() {
-	}
-	void handleStaleMessage(T data, long remainingLifetime){
 	}
   }
   void mvcGroupInit(Map args) {

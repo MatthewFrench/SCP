@@ -32,9 +32,9 @@ class MonitorController {
   //def dds = new DDS()
 
   private allhookedup = 0
-  def communicationManager = new CommunicationManagerImpl();
+  def communicationManager = new CommunicationManagerImpl(0, "localhost");
 
-  class DiastolicSubscriber<T> implements Subscriber {
+  class DiastolicSubscriber<T> implements AbstractSubscriber {
 	void consume(T data, long remainingLifetime) {
 		println("Recieved diastolic")
 		edt { model.diastolic = data }
@@ -43,14 +43,8 @@ class MonitorController {
 		  app.event "Update"
 		}
 	}
-	void handleSlowConsumption(int numOfUnconsumedConsecutiveMessages) {
-	}
-	void handleSlowPublication() {
-	}
-	void handleStaleMessage(T data, long remainingLifetime){
-	}
 }
-class SystolicSubscriber<T> implements Subscriber {
+class SystolicSubscriber<T> implements AbstractSubscriber {
 	void consume(T data, long remainingLifetime) {
 	edt { model.systolic = data }
 		allhookedup |= 0x1
@@ -58,14 +52,8 @@ class SystolicSubscriber<T> implements Subscriber {
 		  app.event "Update"
 		}
 	}
-	void handleSlowConsumption(int numOfUnconsumedConsecutiveMessages) {
-	}
-	void handleSlowPublication() {
-	}
-	void handleStaleMessage(T data, long remainingLifetime){
-	}
 }
-class PressureSubscriber<T> implements Subscriber {
+class PressureSubscriber<T> implements AbstractSubscriber {
 	void consume(T data, long remainingLifetime) {
 		edt { model.pressure = data }
 		allhookedup |= 0x4
@@ -73,26 +61,14 @@ class PressureSubscriber<T> implements Subscriber {
 		  app.event "Update"
 		}
 	}
-	void handleSlowConsumption(int numOfUnconsumedConsecutiveMessages) {
-	}
-	void handleSlowPublication() {
-	}
-	void handleStaleMessage(T data, long remainingLifetime){
-	}
 }
-class SecondsSubscriber<T> implements Subscriber {
+class SecondsSubscriber<T> implements AbstractSubscriber {
 	void consume(T data, long remainingLifetime) {
 	writeln("Recieved seconds");
 	edt { model.seconds = data }
 	}
-	void handleSlowConsumption(int numOfUnconsumedConsecutiveMessages) {
-	}
-	void handleSlowPublication() {
-	}
-	void handleStaleMessage(T data, long remainingLifetime){
-	}
 }
-class PulseRateSubscriber<T> implements Subscriber {
+class PulseRateSubscriber<T> implements AbstractSubscriber {
 	void consume(T data, long remainingLifetime) {
 		edt { model.pulseRate = data }
 		allhookedup |= 0x8
@@ -100,14 +76,8 @@ class PulseRateSubscriber<T> implements Subscriber {
 		  app.event "Update"
 		}
 	}
-	void handleSlowConsumption(int numOfUnconsumedConsecutiveMessages) {
-	}
-	void handleSlowPublication() {
-	}
-	void handleStaleMessage(T data, long remainingLifetime){
-	}
 }
-class DeviceStateSubscriber<T> implements Subscriber {
+class DeviceStateSubscriber<T> implements AbstractSubscriber {
 	void consume(T data, long remainingLifetime) {
 		edt { model.state = data?"Active":"Inactive" }
 		if (data == 1) {
@@ -121,12 +91,6 @@ class DeviceStateSubscriber<T> implements Subscriber {
 			//	tmp1.value = 0
 			//	dds.publish(Topics.BPFREQUENCY, tmp1)
 		}
-	}
-	void handleSlowConsumption(int numOfUnconsumedConsecutiveMessages) {
-	}
-	void handleSlowPublication() {
-	}
-	void handleStaleMessage(T data, long remainingLifetime){
 	}
 }
   PublishRequester<Integer> bpFrequencyPublisher, insufflatorShutOffPublisher

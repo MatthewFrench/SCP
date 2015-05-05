@@ -49,22 +49,16 @@ class InsufflationpumpController {
   def deviceOn = true
   def pressure = 0.0
   def pr = new Random()
-    def communicationManager = new CommunicationManagerImpl();
+    def communicationManager = new CommunicationManagerImpl(0, "localhost");
   //def eb = Vertx.newVertx().getEventBus()
   
   PublishRequester<Integer> deviceStatePublisher, pressurePublisher
-class InsufflatorShutOff<T> implements Subscriber {
+class InsufflatorShutOff<T> implements AbstractSubscriber {
 	void consume(T data, long remainingLifetime) {
 		edt{
           model.state = 'Inactive'
 		  deviceOn = false
         }
-	}
-	void handleSlowConsumption(int numOfUnconsumedConsecutiveMessages) {
-	}
-	void handleSlowPublication() {
-	}
-	void handleStaleMessage(T data, long remainingLifetime){
 	}
 }
   

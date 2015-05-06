@@ -74,12 +74,15 @@ class BpmonitorController {
   }
   	class secondsResponder<T> extends Responder {
 		 Pair<Responder.ResponseStatus, T> respond() {
+		 	println("Send seconds");
 			return new Pair<>(Responder.ResponseStatus.RESPONSE_PROVIDED, currentSeconds);
 		 }
 	}
   void mvcGroupInit(Map args) {
 	communicationManager.setUp()
-	systolicPublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Systolic", 0, 1000, 0, Integer)).second
+	Pair<CommunicationManager.Status, Publisher<Integer>> p = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Systolic", 0, 1000, 0, Integer))
+	println("Status: " + p.first)
+	systolicPublisher = p.second
 	diastolicPublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Diastolic", 0, 1000, 0, Integer)).second
 	pulseRatePublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("PulseRate", 0, 1000, 0, Integer)).second
 
@@ -89,12 +92,11 @@ class BpmonitorController {
            1000,
             0,
             new secondsResponder<Integer>()));
-	
-	communicationManager.registerReceiver(new ReceiverConfiguration(
+	println("Status: " + communicationManager.registerReceiver(new ReceiverConfiguration(
             "BPFrequency",
             0,
             1000,
-            new bpFrequencyReceiver<Integer>()))
+            new bpFrequencyReceiver<Integer>())))
   /*
     dds.publishOn(
         Topics.SYSTOLIC,
@@ -178,7 +180,7 @@ class BpmonitorController {
 			}
 			systolicPublisher.publish(_systolic)
 			diastolicPublisher.publish(_diastolic)
-			pulseRatePublisher.publish(_pr)
+			println("Status: "+pulseRatePublisher.publish(_pr))
 			/*
 			def tmp1 = new SimpleValue()
 			tmp1.value = _systolic

@@ -48,11 +48,11 @@ class BpmonitorController {
   def currentState = STATE_IDLE
   
   def communicationManager = new CommunicationManagerImpl(0, "localhost");
-  PublishRequester<Integer> systolicPublisher, diastolicPublisher, pulseRatePublisher, secondsPublisher;
+  PublishRequester<Integer> systolicPublisher, diastolicPublisher, pulseRatePublisher;
 
   
-  class bpFrequencySubscriber<T> extends Subscriber.AbstractSubscriber {
-	void consume(T data, long remainingLifetime) {
+  class bpFrequencyReceiver<T> extends Receiver {
+	Receiver.ReceptionAcknowledgement receive(T data) {
 		println("Test")
 		println("Test")
 		println("Test")
@@ -68,41 +68,33 @@ class BpmonitorController {
 				currentState = STATE_INFLATING
 			}
 		}
+		return Receiver.ReceptionAcknowledgement.DATA_ACCEPTED
 	}
-	public void handleStaleMessage( T data, long remainingLifetime) {
-		println("Test1")
-		println("Test1")
-		println("Test1")
-		println("Test1") }
-
-        public void handleSlowPublication() {
-		println("Test2")
-		println("Test2")
-		println("Test2")
-		println("Test2") }
-
-        public void handleSlowConsumption( int numOfUnconsumedConsecutiveMessages) {
-		println("Test3")
-		println("Test3")
-		println("Test3")
-		println("Test3") }
+	
   }
+  	class secondsResponder<T> extends Responder {
+		 Pair<Responder.ResponseStatus, T> respond() {
+			return new Pair<>(Responder.ResponseStatus.RESPONSE_PROVIDED, currentSeconds);
+		 }
+	}
   void mvcGroupInit(Map args) {
 	communicationManager.setUp()
 	systolicPublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Systolic", 0, 1000, 0, Integer)).second
 	diastolicPublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Diastolic", 0, 1000, 0, Integer)).second
 	pulseRatePublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("PulseRate", 0, 1000, 0, Integer)).second
-	secondsPublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Seconds", 0, 1000, 0, Integer)).second
+
+	communicationManager.registerResponder(new ResponderConfiguration(
+            "Seconds",
+            0,
+           1000,
+            0,
+            new secondsResponder<Integer>()));
 	
-	communicationManager.registerSubscriber(new SubscriberConfiguration(
+	communicationManager.registerReceiver(new ReceiverConfiguration(
             "BPFrequency",
             0,
             1000,
-            1000,
-            0,
-            100,
-            new bpFrequencySubscriber<Integer>()
-			));
+            new bpFrequencyReceiver<Integer>()))
   /*
     dds.publishOn(
         Topics.SYSTOLIC,
@@ -205,7 +197,7 @@ class BpmonitorController {
   
 		model.seconds = currentSeconds
 	if (currentState == STATE_IDLE) {
-		secondsPublisher.publish(model.seconds)
+		//secondsPublisher.publish(model.seconds)
 		//def tmp4 = new SimpleValue()
 		//tmp4.value = model.seconds
 		//dds.publish(Topics.SECONDS, tmp4)

@@ -62,12 +62,12 @@ class PressureSubscriber<T> extends Subscriber.AbstractSubscriber {
       }
    }
 }
-class SecondsSubscriber<T> extends Subscriber.AbstractSubscriber {
-   void consume(T data, long remainingLifetime) {
-   writeln("Recieved seconds");
-   edt { model.seconds = data }
-   }
-}
+//class SecondsSubscriber<T> extends Subscriber.AbstractSubscriber {
+//   void consume(T data, long remainingLifetime) {
+//   writeln("Recieved seconds");
+//   edt { model.seconds = data }
+//   }
+//}
 class PulseRateSubscriber<T> extends Subscriber.AbstractSubscriber {
    void consume(T data, long remainingLifetime) {
       edt { model.pulseRate = data }
@@ -81,19 +81,21 @@ class DeviceStateSubscriber<T> extends Subscriber.AbstractSubscriber {
    void consume(T data, long remainingLifetime) {
       edt { model.state = data?"Active":"Inactive" }
       if (data == 1) {
-         bpFrequencyPublisher.publish(1);
+         bpFrequencySender.publish(1);
          //def tmp1 = new SimpleValue()
          //   tmp1.value = 1
          //   dds.publish(Topics.BPFREQUENCY, tmp1)
       } else {
-         bpFrequencyPublisher.publish(0);
+         bpFrequencySender.publish(0);
          //def tmp1 = new SimpleValue()
          //   tmp1.value = 0
          //   dds.publish(Topics.BPFREQUENCY, tmp1)
       }
    }
 }
-  PublishRequester<Integer> bpFrequencyPublisher, insufflatorShutOffPublisher
+  Sender<Integer> bpFrequencySender
+  Initiator<Integer> insufflatorShutOffInitiator
+  Requester<Integer> secondsRequester;
   void mvcGroupInit(Map args) {
     //dds.initializeCommandSendCapability(Constants.INSUFFLATION_PUMP)
    /*
@@ -131,49 +133,33 @@ class DeviceStateSubscriber<T> extends Subscriber.AbstractSubscriber {
         Topics.BPFREQUENCY, 
         SimpleValueTypeSupport.get_type_name())*/
       communicationManager.setUp()
-      bpFrequencyPublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("BPFrequency", 0, 1000, 0,  Integer)).second
-      insufflatorShutOffPublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("InsufflatorShutOff", 0, 1000, 0,  Integer)).second
-   communicationManager.registerSubscriber(new SubscriberConfiguration("Diastolic",
+      bpFrequencySender = communicationManager.createSender(new SenderConfiguration<Integer>("BPFrequency", 0, 1000, Integer)).second
+      
+	  insufflatorShutOffInitiator = communicationManager.createInitiator(
+	  new InitiatorConfiguration<Integer>("InsufflatorShutOff", 0, 1000, Integer)).second
+	  
+	  secondsRequester = communicationManager.createRequester(new RequesterConfiguration(
+            "Seconds",
             0,
             1000,
-            1000,
             0,
-            100,new DiastolicSubscriber<Integer>() ));
+            Integer)).second;
+	  
+		communicationManager.registerSubscriber(new SubscriberConfiguration("Diastolic",
+            0, 1000, 1000, 0, 100,new DiastolicSubscriber<Integer>() ));
          communicationManager.registerSubscriber(new SubscriberConfiguration("Systolic",
-            0,
-            1000,
-            1000,
-            0,
-            100, new SystolicSubscriber<Integer>() ));
-         communicationManager.registerSubscriber(new SubscriberConfiguration("Seconds",
-            0,
-            1000,
-            1000,
-            0,
-            100, new SecondsSubscriber<Integer>() ));
+            0, 1000, 1000, 0, 100, new SystolicSubscriber<Integer>() ));
          communicationManager.registerSubscriber(new SubscriberConfiguration("Pressure",
-            0,
-            1000,
-            1000,
-            0,
-            100,new PressureSubscriber<Integer>() ));
+            0, 1000, 1000, 0, 100,new PressureSubscriber<Integer>() ));
          communicationManager.registerSubscriber(new SubscriberConfiguration("DeviceState",
-            0,
-            1000,
-            1000,
-            0,
-            100,new DeviceStateSubscriber<Integer>() ));
+            0, 1000, 1000, 0, 100,new DeviceStateSubscriber<Integer>() ));
          communicationManager.registerSubscriber(new SubscriberConfiguration("PulseRate",
-            0,
-            1000,
-            1000,
-            0,
-            100, new PulseRateSubscriber<Integer>() ));
+            0, 1000, 1000, 0, 100, new PulseRateSubscriber<Integer>() ));
   }
 
   void mvcGroupDestroy() {
     println('destroying')
-    dds.destroy()
+    //dds.destroy()
   }
   /*
   def onSeconds(seconds) { 
@@ -229,12 +215,14 @@ class DeviceStateSubscriber<T> extends Subscriber.AbstractSubscriber {
     println("updating $allhookedup")
     def needToStop = model.systolic < 96 || 
       model.diastolic < 50 || model.pulseRate < 50
+	  
+	model.seconds = secondsRequester.request().second;
 
     if (needToStop) {
       println("stop pump ${model.systolic} ${model.diastolic} ${model.pressure} ${model.pulseRate}")
       //CompletionStatus reply = dds.issueCommandTo(Command.STOP, 
       //    Constants.INSUFFLATION_PUMP)
-   insufflatorShutOffPublisher.publish(1);
+   insufflatorShutOffInitiator.initiate(1);
       //if (reply == CompletionStatus.SUCCESS) {
         edt {
           JOptionPane.showMessageDialog(null,

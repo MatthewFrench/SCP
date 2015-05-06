@@ -53,12 +53,13 @@ class InsufflationpumpController {
   //def eb = Vertx.newVertx().getEventBus()
   
   PublishRequester<Integer> deviceStatePublisher, pressurePublisher
-class InsufflatorShutOff<T> extends Subscriber.AbstractSubscriber {
-   void consume(T data, long remainingLifetime) {
+class InsufflatorShutOff<T> extends Executor {
+   Executor.ExecutionAcknowledgement execute(T action) {
       edt{
           model.state = 'Inactive'
         deviceOn = false
         }
+		return Executor.ExecutionAcknowledgement.ACTION_SUCCEEDED
    }
 }
   
@@ -67,15 +68,11 @@ class InsufflatorShutOff<T> extends Subscriber.AbstractSubscriber {
    deviceStatePublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Device State", 0, 1000, 0, Integer)).second
    pressurePublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Insufflator Pressure", 0, 1000, 0, Integer)).second
    
-   communicationManager.registerSubscriber(new SubscriberConfiguration(
+   communicationManager.registerExecutor(new ExecutorConfiguration(
             "InsufflatorShutOff",
             0,
             1000,
-            1000,
-            0,
-            100,
-            new InsufflatorShutOff<Integer>()
-         ));
+            new InsufflatorShutOff<Integer>()));
   /*
     dds.publishOn(
         Topics.DEVICE_STATE, 

@@ -1,6 +1,6 @@
 /**  
  * Authors:
- *   Venkatesh-Prasad Ranganath
+ *   Venkatesh-Prasad Ranganath and Matthew French
  * 
  * Copyright (c) 2014, Kansas State University
  * Licensed under Eclipse Public License v1.0 
@@ -51,8 +51,12 @@ class BpmonitorController {
   PublishRequester<Integer> systolicPublisher, diastolicPublisher, pulseRatePublisher, secondsPublisher;
 
   
-  class bpFrequencySubscriber<T> implements AbstractSubscriber {
+  class bpFrequencySubscriber<T> extends Subscriber.AbstractSubscriber {
 	void consume(T data, long remainingLifetime) {
+		println("Test")
+		println("Test")
+		println("Test")
+		println("Test")
 		edt { 
 			if (data == 1 && fastRate == false) {
 				fastRate = true
@@ -65,6 +69,23 @@ class BpmonitorController {
 			}
 		}
 	}
+	public void handleStaleMessage( T data, long remainingLifetime) {
+		println("Test1")
+		println("Test1")
+		println("Test1")
+		println("Test1") }
+
+        public void handleSlowPublication() {
+		println("Test2")
+		println("Test2")
+		println("Test2")
+		println("Test2") }
+
+        public void handleSlowConsumption( int numOfUnconsumedConsecutiveMessages) {
+		println("Test3")
+		println("Test3")
+		println("Test3")
+		println("Test3") }
   }
   void mvcGroupInit(Map args) {
 	communicationManager.setUp()

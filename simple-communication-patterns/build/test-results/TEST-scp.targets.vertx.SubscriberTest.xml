@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="scp.targets.vertx.SubscriberTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2015-05-05T08:24:31" hostname="WIN-KNSH90IPO6B" time="5.3">
+  <properties/>
+  <testcase name="testSlowConsumption" classname="scp.targets.vertx.SubscriberTest" time="4.07"/>
+  <testcase name="testSlowPublication" classname="scp.targets.vertx.SubscriberTest" time="1.122"/>
+  <testcase name="testStaleMessage" classname="scp.targets.vertx.SubscriberTest" time="0.0"/>
+  <testcase name="testSuccessfulConsumption" classname="scp.targets.vertx.SubscriberTest" time="0.108"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[[vert.x-eventloop-thread-0] WARN scp.impl.SubscriberInvoker - Timed out handling 1-th message
+[vert.x-eventloop-thread-0] WARN scp.impl.SubscriberInvoker - Timed out handling 2-th message
+[vert.x-eventloop-thread-0] WARN scp.impl.SubscriberInvoker - Timed out handling 3-th message
+[vert.x-eventloop-thread-0] WARN scp.impl.SubscriberInvoker - Timed out handling 4-th message
+[vert.x-eventloop-thread-1] INFO scp.impl.SubscriberInvoker - Handling stale 1-th message
+]]></system-err>
+</testsuite>

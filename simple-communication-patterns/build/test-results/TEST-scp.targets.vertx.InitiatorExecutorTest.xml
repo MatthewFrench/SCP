@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="scp.targets.vertx.InitiatorExecutorTest" tests="8" skipped="0" failures="1" errors="0" timestamp="2015-05-05T08:24:29" hostname="WIN-KNSH90IPO6B" time="0.733">
+  <properties/>
+  <testcase name="testActionFailed" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.047"/>
+  <testcase name="testExcessLoad" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.234"/>
+  <testcase name="testRemoteUnknownFailure" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.015"/>
+  <testcase name="testActionUnavailable" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.094"/>
+  <testcase name="testLocalTimeOut" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.0">
+    <failure message="java.lang.AssertionError: expected:&lt;LOCAL_TIME_OUT&gt; but was:&lt;ACTION_SUCCEEDED&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;LOCAL_TIME_OUT&gt; but was:&lt;ACTION_SUCCEEDED&gt;
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.junit.Assert.failNotEquals(Assert.java:743)
+	at org.junit.Assert.assertEquals(Assert.java:118)
+	at org.junit.Assert.assertEquals(Assert.java:144)
+	at scp.api.InitiatorExecutorTest.testLocalTimeOut(InitiatorExecutorTest.java:130)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecuter.runTestClass(JUnitTestClassExecuter.java:86)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecuter.execute(JUnitTestClassExecuter.java:49)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassProcessor.processTestClass(JUnitTestClassProcessor.java:69)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:48)
+	at sun.reflect.GeneratedMethodAccessor11.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
+	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.messaging.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:32)
+	at org.gradle.messaging.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:93)
+	at com.sun.proxy.$Proxy2.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.processTestClass(TestWorker.java:105)
+	at sun.reflect.GeneratedMethodAccessor10.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
+	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.messaging.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:355)
+	at org.gradle.internal.concurrent.DefaultExecutorFactory$StoppableExecutorImpl$1.run(DefaultExecutorFactory.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+</failure>
+  </testcase>
+  <testcase name="testFastInitiation" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.125"/>
+  <testcase name="testActionSucceeded" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.0"/>
+  <testcase name="testRemoteTimeOut" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.218"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[[vert.x-eventloop-thread-1] WARN scp.impl.ExecutorInvoker - Dropping 2-th request
+[vert.x-eventloop-thread-0] ERROR scp.impl.ExecutorInvoker - Failed to handle 1-th request
+java.util.concurrent.ExecutionException: java.lang.RuntimeException: Don't Panic! This exception is good :)
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:206)
+	at scp.impl.ExecutorInvoker.invokeHandler(ExecutorInvoker.java:103)
+	at scp.impl.ExecutorInvoker.execute(ExecutorInvoker.java:90)
+	at scp.targets.vertx.CommunicationManagerImpl.lambda$registerExecutor$24(CommunicationManagerImpl.java:216)
+	at scp.targets.vertx.CommunicationManagerImpl$$Lambda$17/108106037.handle(Unknown Source)
+	at org.vertx.java.core.eventbus.impl.DefaultEventBus$11.run(DefaultEventBus.java:951)
+	at org.vertx.java.core.impl.DefaultContext$3.run(DefaultContext.java:175)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:370)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:357)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:116)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.RuntimeException: Don't Panic! This exception is good :)
+	at scp.api.InitiatorExecutorTest$4.execute(InitiatorExecutorTest.java:161)
+	at scp.api.InitiatorExecutorTest$4.execute(InitiatorExecutorTest.java:158)
+	at scp.impl.ExecutorInvoker.lambda$invokeHandler$0(ExecutorInvoker.java:100)
+	at scp.impl.ExecutorInvoker$$Lambda$26/740980524.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	... 1 more
+[Test worker] WARN scp.impl.InitiateRequester - Dropping 2-th initiation
+[vert.x-eventloop-thread-1] WARN scp.impl.ExecutorInvoker - Timed out handling 1-th request
+]]></system-err>
+</testsuite>

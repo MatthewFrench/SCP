@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="scp.targets.vertx.SenderReceiverTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2015-05-05T08:24:30" hostname="WIN-KNSH90IPO6B" time="0.795">
+  <properties/>
+  <testcase name="testExcessLoad" classname="scp.targets.vertx.SenderReceiverTest" time="0.046"/>
+  <testcase name="testRemoteUnknownFailure" classname="scp.targets.vertx.SenderReceiverTest" time="0.11"/>
+  <testcase name="testLocalTimeOut" classname="scp.targets.vertx.SenderReceiverTest" time="0.015"/>
+  <testcase name="testDataAccepted" classname="scp.targets.vertx.SenderReceiverTest" time="0.094"/>
+  <testcase name="testRemoteTimeOut" classname="scp.targets.vertx.SenderReceiverTest" time="0.124"/>
+  <testcase name="testFastSend" classname="scp.targets.vertx.SenderReceiverTest" time="0.406"/>
+  <testcase name="testDataRejected" classname="scp.targets.vertx.SenderReceiverTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[[vert.x-eventloop-thread-0] WARN scp.impl.ReceiverInvoker - Dropping 2-th reception
+[vert.x-eventloop-thread-1] ERROR scp.impl.ReceiverInvoker - Failed to handle 1-th reception
+java.util.concurrent.ExecutionException: java.lang.RuntimeException: Don't Panic! This exception is good :)
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:206)
+	at scp.impl.ReceiverInvoker.invokeHandler(ReceiverInvoker.java:99)
+	at scp.impl.ReceiverInvoker.receive(ReceiverInvoker.java:86)
+	at scp.targets.vertx.CommunicationManagerImpl.lambda$registerReceiver$21(CommunicationManagerImpl.java:177)
+	at scp.targets.vertx.CommunicationManagerImpl$$Lambda$19/157623698.handle(Unknown Source)
+	at org.vertx.java.core.eventbus.impl.DefaultEventBus$11.run(DefaultEventBus.java:951)
+	at org.vertx.java.core.impl.DefaultContext$3.run(DefaultContext.java:175)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:370)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:357)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:116)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.RuntimeException: Don't Panic! This exception is good :)
+	at scp.api.SenderReceiverTest$3.receive(SenderReceiverTest.java:146)
+	at scp.api.SenderReceiverTest$3.receive(SenderReceiverTest.java:143)
+	at scp.impl.ReceiverInvoker.lambda$invokeHandler$3(ReceiverInvoker.java:96)
+	at scp.impl.ReceiverInvoker$$Lambda$4/1539016590.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	... 1 more
+[Test worker] WARN scp.impl.SendRequester - Timed out handling 1-th send
+[vert.x-eventloop-thread-0] WARN scp.impl.ReceiverInvoker - Timed out handling 1-th reception
+[Test worker] WARN scp.impl.SendRequester - Timed out handling 1-th send
+[Test worker] WARN scp.impl.SendRequester - Dropping 2-th send
+]]></system-err>
+</testsuite>

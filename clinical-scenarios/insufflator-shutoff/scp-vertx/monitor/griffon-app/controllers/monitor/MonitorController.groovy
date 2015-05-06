@@ -1,6 +1,6 @@
 /**  
  * Authors:
- *   Venkatesh-Prasad Ranganath
+ *   Venkatesh-Prasad Ranganath and Matthew French
  * 
  * Copyright (c) 2014, Kansas State University
  * Licensed under Eclipse Public License v1.0 
@@ -34,69 +34,69 @@ class MonitorController {
   private allhookedup = 0
   def communicationManager = new CommunicationManagerImpl(0, "localhost");
 
-  class DiastolicSubscriber<T> implements AbstractSubscriber {
-	void consume(T data, long remainingLifetime) {
-		println("Recieved diastolic")
-		edt { model.diastolic = data }
-		allhookedup |= 0x2
-		if (!model.needToStop && allhookedup == 0xF) {
-		  app.event "Update"
-		}
-	}
+  class DiastolicSubscriber<T> extends Subscriber.AbstractSubscriber {
+   void consume(T data, long remainingLifetime) {
+      println("Recieved diastolic")
+      edt { model.diastolic = data }
+      allhookedup |= 0x2
+      if (!model.needToStop && allhookedup == 0xF) {
+        app.event "Update"
+      }
+   }
 }
-class SystolicSubscriber<T> implements AbstractSubscriber {
-	void consume(T data, long remainingLifetime) {
-	edt { model.systolic = data }
-		allhookedup |= 0x1
-		if (!model.needToStop && allhookedup == 0xF) {
-		  app.event "Update"
-		}
-	}
+class SystolicSubscriber<T> extends Subscriber.AbstractSubscriber {
+   void consume(T data, long remainingLifetime) {
+   edt { model.systolic = data }
+      allhookedup |= 0x1
+      if (!model.needToStop && allhookedup == 0xF) {
+        app.event "Update"
+      }
+   }
 }
-class PressureSubscriber<T> implements AbstractSubscriber {
-	void consume(T data, long remainingLifetime) {
-		edt { model.pressure = data }
-		allhookedup |= 0x4
-		if (!model.needToStop && allhookedup == 0xF) {
-		  app.event "Update"
-		}
-	}
+class PressureSubscriber<T> extends Subscriber.AbstractSubscriber {
+   void consume(T data, long remainingLifetime) {
+      edt { model.pressure = data }
+      allhookedup |= 0x4
+      if (!model.needToStop && allhookedup == 0xF) {
+        app.event "Update"
+      }
+   }
 }
-class SecondsSubscriber<T> implements AbstractSubscriber {
-	void consume(T data, long remainingLifetime) {
-	writeln("Recieved seconds");
-	edt { model.seconds = data }
-	}
+class SecondsSubscriber<T> extends Subscriber.AbstractSubscriber {
+   void consume(T data, long remainingLifetime) {
+   writeln("Recieved seconds");
+   edt { model.seconds = data }
+   }
 }
-class PulseRateSubscriber<T> implements AbstractSubscriber {
-	void consume(T data, long remainingLifetime) {
-		edt { model.pulseRate = data }
-		allhookedup |= 0x8
-		if (!model.needToStop && allhookedup == 0xF) {
-		  app.event "Update"
-		}
-	}
+class PulseRateSubscriber<T> extends Subscriber.AbstractSubscriber {
+   void consume(T data, long remainingLifetime) {
+      edt { model.pulseRate = data }
+      allhookedup |= 0x8
+      if (!model.needToStop && allhookedup == 0xF) {
+        app.event "Update"
+      }
+   }
 }
-class DeviceStateSubscriber<T> implements AbstractSubscriber {
-	void consume(T data, long remainingLifetime) {
-		edt { model.state = data?"Active":"Inactive" }
-		if (data == 1) {
-			bpFrequencyPublisher.publish(1);
-			//def tmp1 = new SimpleValue()
-			//	tmp1.value = 1
-			//	dds.publish(Topics.BPFREQUENCY, tmp1)
-		} else {
-			bpFrequencyPublisher.publish(0);
-			//def tmp1 = new SimpleValue()
-			//	tmp1.value = 0
-			//	dds.publish(Topics.BPFREQUENCY, tmp1)
-		}
-	}
+class DeviceStateSubscriber<T> extends Subscriber.AbstractSubscriber {
+   void consume(T data, long remainingLifetime) {
+      edt { model.state = data?"Active":"Inactive" }
+      if (data == 1) {
+         bpFrequencyPublisher.publish(1);
+         //def tmp1 = new SimpleValue()
+         //   tmp1.value = 1
+         //   dds.publish(Topics.BPFREQUENCY, tmp1)
+      } else {
+         bpFrequencyPublisher.publish(0);
+         //def tmp1 = new SimpleValue()
+         //   tmp1.value = 0
+         //   dds.publish(Topics.BPFREQUENCY, tmp1)
+      }
+   }
 }
   PublishRequester<Integer> bpFrequencyPublisher, insufflatorShutOffPublisher
   void mvcGroupInit(Map args) {
     //dds.initializeCommandSendCapability(Constants.INSUFFLATION_PUMP)
-	/*
+   /*
     def tmp1 = new SimpleValueHandlerWrapper(this.&onSYSTOLIC)
     dds.subscribeTo(
         Topics.SYSTOLIC,
@@ -117,53 +117,53 @@ class DeviceStateSubscriber<T> implements AbstractSubscriber {
         Topics.PULSE_RATE,
         SimpleValueTypeSupport.get_type_name(),
         tmp1)
-	tmp1 = new SimpleValueHandlerWrapper(this.&onDeviceState)
+   tmp1 = new SimpleValueHandlerWrapper(this.&onDeviceState)
     dds.subscribeTo(
         Topics.DEVICE_STATE,
         SimpleValueTypeSupport.get_type_name(),
         tmp1)
-	tmp1 = new SimpleValueHandlerWrapper(this.&onSeconds)
+   tmp1 = new SimpleValueHandlerWrapper(this.&onSeconds)
     dds.subscribeTo(
         Topics.SECONDS,
         SimpleValueTypeSupport.get_type_name(),
         tmp1)
-	dds.publishOn(
+   dds.publishOn(
         Topics.BPFREQUENCY, 
         SimpleValueTypeSupport.get_type_name())*/
-		communicationManager.setUp()
-		bpFrequencyPublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("BPFrequency", 0, 1000, 0,  Integer)).second
-		insufflatorShutOffPublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("InsufflatorShutOff", 0, 1000, 0,  Integer)).second
-	communicationManager.registerSubscriber(new SubscriberConfiguration("Diastolic",
+      communicationManager.setUp()
+      bpFrequencyPublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("BPFrequency", 0, 1000, 0,  Integer)).second
+      insufflatorShutOffPublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("InsufflatorShutOff", 0, 1000, 0,  Integer)).second
+   communicationManager.registerSubscriber(new SubscriberConfiguration("Diastolic",
             0,
             1000,
             1000,
             0,
             100,new DiastolicSubscriber<Integer>() ));
-			communicationManager.registerSubscriber(new SubscriberConfiguration("Systolic",
+         communicationManager.registerSubscriber(new SubscriberConfiguration("Systolic",
             0,
             1000,
             1000,
             0,
             100, new SystolicSubscriber<Integer>() ));
-			communicationManager.registerSubscriber(new SubscriberConfiguration("Seconds",
+         communicationManager.registerSubscriber(new SubscriberConfiguration("Seconds",
             0,
             1000,
             1000,
             0,
             100, new SecondsSubscriber<Integer>() ));
-			communicationManager.registerSubscriber(new SubscriberConfiguration("Pressure",
+         communicationManager.registerSubscriber(new SubscriberConfiguration("Pressure",
             0,
             1000,
             1000,
             0,
             100,new PressureSubscriber<Integer>() ));
-			communicationManager.registerSubscriber(new SubscriberConfiguration("DeviceState",
+         communicationManager.registerSubscriber(new SubscriberConfiguration("DeviceState",
             0,
             1000,
             1000,
             0,
             100,new DeviceStateSubscriber<Integer>() ));
-			communicationManager.registerSubscriber(new SubscriberConfiguration("PulseRate",
+         communicationManager.registerSubscriber(new SubscriberConfiguration("PulseRate",
             0,
             1000,
             1000,
@@ -182,15 +182,15 @@ class DeviceStateSubscriber<T> implements AbstractSubscriber {
 /*
   def onDeviceState(state) { 
     edt { model.state = state?"Active":"Inactive" }
-	if (state == 1) {
-		def tmp1 = new SimpleValue()
-			tmp1.value = 1
-			dds.publish(Topics.BPFREQUENCY, tmp1)
-	} else {
-		def tmp1 = new SimpleValue()
-			tmp1.value = 0
-			dds.publish(Topics.BPFREQUENCY, tmp1)
-	}
+   if (state == 1) {
+      def tmp1 = new SimpleValue()
+         tmp1.value = 1
+         dds.publish(Topics.BPFREQUENCY, tmp1)
+   } else {
+      def tmp1 = new SimpleValue()
+         tmp1.value = 0
+         dds.publish(Topics.BPFREQUENCY, tmp1)
+   }
   }*/
   /*
   def onSYSTOLIC(systolic) { 
@@ -234,7 +234,7 @@ class DeviceStateSubscriber<T> implements AbstractSubscriber {
       println("stop pump ${model.systolic} ${model.diastolic} ${model.pressure} ${model.pulseRate}")
       //CompletionStatus reply = dds.issueCommandTo(Command.STOP, 
       //    Constants.INSUFFLATION_PUMP)
-	insufflatorShutOffPublisher.publish(1);
+   insufflatorShutOffPublisher.publish(1);
       //if (reply == CompletionStatus.SUCCESS) {
         edt {
           JOptionPane.showMessageDialog(null,
@@ -248,7 +248,7 @@ class DeviceStateSubscriber<T> implements AbstractSubscriber {
               JOptionPane.WARNING_MESSAGE)
         }
         edt { model.needToStop = true }
-		/*
+      /*
       } else {
         edt {
           JOptionPane.showMessageDialog(null,

@@ -1,6 +1,6 @@
 /**  
  * Authors:
- *   Venkatesh-Prasad Ranganath
+ *   Venkatesh-Prasad Ranganath and Matthew French
  * 
  * Copyright (c) 2014, Kansas State University
  * Licensed under Eclipse Public License v1.0 
@@ -53,21 +53,21 @@ class InsufflationpumpController {
   //def eb = Vertx.newVertx().getEventBus()
   
   PublishRequester<Integer> deviceStatePublisher, pressurePublisher
-class InsufflatorShutOff<T> implements AbstractSubscriber {
-	void consume(T data, long remainingLifetime) {
-		edt{
+class InsufflatorShutOff<T> extends Subscriber.AbstractSubscriber {
+   void consume(T data, long remainingLifetime) {
+      edt{
           model.state = 'Inactive'
-		  deviceOn = false
+        deviceOn = false
         }
-	}
+   }
 }
   
   void mvcGroupInit(Map args) {
   communicationManager.setUp()
-	deviceStatePublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Device State", 0, 1000, 0, Integer)).second
-	pressurePublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Insufflator Pressure", 0, 1000, 0, Integer)).second
-	
-	communicationManager.registerSubscriber(new SubscriberConfiguration(
+   deviceStatePublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Device State", 0, 1000, 0, Integer)).second
+   pressurePublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Insufflator Pressure", 0, 1000, 0, Integer)).second
+   
+   communicationManager.registerSubscriber(new SubscriberConfiguration(
             "InsufflatorShutOff",
             0,
             1000,
@@ -75,7 +75,7 @@ class InsufflatorShutOff<T> implements AbstractSubscriber {
             0,
             100,
             new InsufflatorShutOff<Integer>()
-			));
+         ));
   /*
     dds.publishOn(
         Topics.DEVICE_STATE, 
@@ -84,18 +84,18 @@ class InsufflatorShutOff<T> implements AbstractSubscriber {
         Topics.PRESSURE, 
         SimpleValueTypeSupport.get_type_name())
     dds.initializeCommandHandlerFor(this.&onCommand, Constants.INSUFFLATION_PUMP)
-	*/
-	
-	new javax.swing.Timer(1000, update).start()
-	
-	model.state = 'Active'
-	
-	deviceStatePublisher.publish(deviceOn?1:0);
-	/*
-	def tmp1 = new SimpleValue()
+   */
+   
+   new javax.swing.Timer(1000, update).start()
+   
+   model.state = 'Active'
+   
+   deviceStatePublisher.publish(deviceOn?1:0);
+   /*
+   def tmp1 = new SimpleValue()
     tmp1.value = deviceOn?1:0
-	dds.publish(Topics.DEVICE_STATE, tmp1)
-	*/
+   dds.publish(Topics.DEVICE_STATE, tmp1)
+   */
   }
 
   void mvcGroupDestroy() {
@@ -103,32 +103,32 @@ class InsufflatorShutOff<T> implements AbstractSubscriber {
   }
   
   def update = { evt ->
-	if (deviceOn == true ) {
-	  pressure += pr.nextInt(10) / 10.0
-	  if (pressure > 15) {
-		pressure = 15
-	  }
-	} else {
-	  pressure -= pr.nextInt(10) / 10.0
-	  if (pressure < 0) {
-		pressure = 0
-	  }
-	}
-	model.pressure = pressure
-	
-	//eb.publish("Insufflator Pressure", String.valueOf(pressure))
-	pressurePublisher.publish(pressure);
-	deviceStatePublisher.publish(deviceOn?1:0);
-	
-	/*
-	def tmp1 = new SimpleValue()
+   if (deviceOn == true ) {
+     pressure += pr.nextInt(10) / 10.0
+     if (pressure > 15) {
+      pressure = 15
+     }
+   } else {
+     pressure -= pr.nextInt(10) / 10.0
+     if (pressure < 0) {
+      pressure = 0
+     }
+   }
+   model.pressure = pressure
+   
+   //eb.publish("Insufflator Pressure", String.valueOf(pressure))
+   pressurePublisher.publish(pressure);
+   deviceStatePublisher.publish(deviceOn?1:0);
+   
+   /*
+   def tmp1 = new SimpleValue()
     tmp1.value = pressure
     dds.publish(Topics.PRESSURE, tmp1)
-	
-	 tmp1 = new SimpleValue()
+   
+    tmp1 = new SimpleValue()
     tmp1.value = deviceOn?1:0
     dds.publish(Topics.DEVICE_STATE, tmp1)
-	*/
+   */
   }
 /*
   def onCommand(Command cmd) {
@@ -137,10 +137,10 @@ class InsufflatorShutOff<T> implements AbstractSubscriber {
     if (cmd == Command.STOP) { 
         edt{
           model.state = 'Inactive'
-		  deviceOn = false
+        deviceOn = false
         }
     }
-	def tmp1 = new SimpleValue()
+   def tmp1 = new SimpleValue()
     tmp1.value = deviceOn?1:0
     dds.publish(Topics.DEVICE_STATE, tmp1)
     return CompletionStatus.SUCCESS

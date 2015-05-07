@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html                             
  */
 
-package bpmonitor
+ package bpmonitor
 
 //import org.vertx.groovy.core.Vertx;
 //import org.vertx.groovy.core.*
@@ -25,7 +25,7 @@ import scp.util.TimestampedBox;
 
 import java.io.*;
 import java.util.concurrent.Semaphore;
-import scp.api.CommunicationManager;
+import scp.targets.vertx.CommunicationManagerImpl;
 
 
 class BpmonitorController {
@@ -47,56 +47,71 @@ class BpmonitorController {
   def INFLATING_TIME = 10 
   def currentState = STATE_IDLE
   
-  def communicationManager = new CommunicationManagerImpl(0, "localhost");
+  def communicationManager
   PublishRequester<Integer> systolicPublisher, diastolicPublisher, pulseRatePublisher;
 
-  
-  class bpFrequencyReceiver<T> extends Receiver {
-	Receiver.ReceptionAcknowledgement receive(T data) {
-		println("Test")
-		println("Test")
-		println("Test")
-		println("Test")
-		edt { 
-			if (data == 1 && fastRate == false) {
-				fastRate = true
-				currentSeconds = INFLATING_TIME 
-				currentState = STATE_INFLATING
-			} else if (fastRate == true && data == 0) {
-				fastRate = false
-				currentSeconds = INFLATING_TIME 
-				currentState = STATE_INFLATING
-			}
-		}
-		return Receiver.ReceptionAcknowledgement.DATA_ACCEPTED
-	}
-	
-  }
-  	class secondsResponder<T> extends Responder {
-		 Pair<Responder.ResponseStatus, T> respond() {
-		 	println("Send seconds");
-			return new Pair<>(Responder.ResponseStatus.RESPONSE_PROVIDED, currentSeconds);
-		 }
-	}
-  void mvcGroupInit(Map args) {
-	communicationManager.setUp()
-	Pair<CommunicationManager.Status, Publisher<Integer>> p = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Systolic", 0, 1000, 0, Integer))
-	println("Status: " + p.first)
-	systolicPublisher = p.second
-	diastolicPublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Diastolic", 0, 1000, 0, Integer)).second
-	pulseRatePublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("PulseRate", 0, 1000, 0, Integer)).second
+  def publisher
 
-	communicationManager.registerResponder(new ResponderConfiguration(
-            "Seconds",
-            0,
-           1000,
-            0,
-            new secondsResponder<Integer>()));
-	println("Status: " + communicationManager.registerReceiver(new ReceiverConfiguration(
-            "BPFrequency",
-            0,
-            1000,
-            new bpFrequencyReceiver<Integer>())))
+  def counter = 0
+
+  void mvcGroupInit(Map args) {
+  	communicationManager = new CommunicationManagerImpl(0, "localhost");
+  	communicationManager.setUp()
+  	def p = communicationManager.createPublisher(new PublisherConfiguration("Systolic", 1, 10000, 20000, Integer.class))
+  	println("Status: " + p.first)
+  	systolicPublisher = p.second
+  	diastolicPublisher = communicationManager.createPublisher(
+  		new PublisherConfiguration("Diastolic", 1, 10000, 20000, Integer.class)).second
+
+  	def conf1 = new PublisherConfiguration<Integer>("PulseRate", 1, 10000, 20000, Integer.class)
+  	def tmp2 = communicationManager.createPublisher(conf1)
+  	println tmp2
+  	pulseRatePublisher = tmp2.second
+
+
+  	def conf = new PublisherConfiguration("test",
+  		1, 10000, 20000, Integer.class)
+  	def tmp1 = communicationManager.createPublisher(conf)
+  	println tmp1
+  	publisher = tmp1.second
+
+
+  	communicationManager.registerResponder(new ResponderConfiguration(
+  		"Seconds",
+  		1, 10000, 20000,
+  		new Responder() {
+  			Pair<Responder.ResponseStatus, Integer> respond() {
+  				println("Sending seconds: " + currentSeconds);
+  				return new Pair<>(Responder.ResponseStatus.RESPONSE_PROVIDED, currentSeconds);
+  				}}));
+
+
+  	println("Status: " + communicationManager.registerReceiver(new ReceiverConfiguration(
+  		"BPFrequency",
+  		1,
+  		10000,
+  		new Receiver() {
+  			Receiver.ReceptionAcknowledgement receive(java.io.Serializable data) {
+  				println("Test")
+  				println("Test")
+  				println("Test")
+  				println("Test")
+  				edt { 
+  					if (data == 1 && fastRate == false) {
+  						fastRate = true
+  						currentSeconds = INFLATING_TIME 
+  						currentState = STATE_INFLATING
+  						} else if (fastRate == true && data == 0) {
+  							fastRate = false
+  							currentSeconds = INFLATING_TIME 
+  							currentState = STATE_INFLATING
+  						}
+  					}
+  					return Receiver.ReceptionAcknowledgement.DATA_ACCEPTED
+  				}
+
+  			}
+  			)))
   /*
     dds.publishOn(
         Topics.SYSTOLIC,
@@ -115,13 +130,13 @@ class BpmonitorController {
         Topics.BPFREQUENCY,
         SimpleValueTypeSupport.get_type_name(),
         tmp1)
-		*/
-    new javax.swing.Timer(1000, update).start()
-  }
+*/
+new javax.swing.Timer(1000, update).start()
+}
 
-  void mvcGroupDestroy() {
+void mvcGroupDestroy() {
     //dds.destroy()
-  }
+}
   /*
   def onBPFREQUENCY(frequency) { 
   edt { 
@@ -141,46 +156,56 @@ class BpmonitorController {
     //  app.event "Update"
     //}
   }
-*/
+  */
   def update = { evt ->
-  
-  if (currentState == STATE_IDLE) {
-	if (currentSeconds > 0) {
-		currentSeconds = currentSeconds - 1
-	} else {
-		currentSeconds = INFLATING_TIME 
-		currentState = STATE_INFLATING
-	}
-  } else if (currentState == STATE_INFLATING) {
-	if (currentSeconds > 0) {
-		currentSeconds -= 1
-	} else {
-		currentState = STATE_IDLE
-		if (fastRate) {
-			currentSeconds = SHORT_TIME
-		} else {
-			currentSeconds = LONG_TIME
-		}
-		
+  	def _pr2 = pr.nextInt(40) + 80
+  	println("Status: "+pulseRatePublisher.publish(_pr2))
+  	println("Publishing pulse rate: " + _pr2)
+
+  	println ( "Sent " + (++counter))
+  	publisher.publish(counter)
+
+
+
+  	if (currentState == STATE_IDLE) {
+  		if (currentSeconds > 0) {
+  			currentSeconds = currentSeconds - 1
+  			} else {
+  				currentSeconds = INFLATING_TIME 
+  				currentState = STATE_INFLATING
+  			}
+  			} else if (currentState == STATE_INFLATING) {
+  				if (currentSeconds > 0) {
+  					currentSeconds -= 1
+  					} else {
+  						currentState = STATE_IDLE
+  						if (fastRate) {
+  							currentSeconds = SHORT_TIME
+  							} else {
+  								currentSeconds = LONG_TIME
+  							}
+
 		def _pr = pr.nextInt(40) + 80 // 60-100 per minute 
 		 def _systolic = systolic.nextInt(50) + 100  // 96-99 %
 		 def _diastolic = diastolic.nextInt(20) + 80  // 96-99 %
-		if (fastRate) {
-			_pr = _pr/2.0
-		 _systolic = _systolic/2.0
-		 _diastolic = _diastolic/2.0
-		}
-			edt {
-			  if (_pr >= 0 && _pr < 151)
-				model.pulseRate = _pr
-			  if (_systolic > 0 && _systolic < 180)
-				model.systolic = _systolic
-			  if (_diastolic > 0 && _diastolic < 101)
-				model.diastolic = _diastolic
-			}
-			systolicPublisher.publish(_systolic)
-			diastolicPublisher.publish(_diastolic)
-			println("Status: "+pulseRatePublisher.publish(_pr))
+		 if (fastRate) {
+		 	_pr = _pr/2.0
+		 	_systolic = _systolic/2.0
+		 	_diastolic = _diastolic/2.0
+		 }
+		 edt {
+		 	if (_pr >= 0 && _pr < 151)
+		 	model.pulseRate = _pr
+		 	if (_systolic > 0 && _systolic < 180)
+		 	model.systolic = _systolic
+		 	if (_diastolic > 0 && _diastolic < 101)
+		 	model.diastolic = _diastolic
+		 }
+		 systolicPublisher.publish(_systolic)
+		 diastolicPublisher.publish(_diastolic)
+		 println("Status: "+pulseRatePublisher.publish(_pr))
+		 println("Publishing pulse rate: " + _pr)
+		 println("Published systolic and diastolic");
 			/*
 			def tmp1 = new SimpleValue()
 			tmp1.value = _systolic
@@ -194,15 +219,15 @@ class BpmonitorController {
 			tmp2.value = _pr
 			dds.publish(Topics.PULSE_RATE, tmp2)
 			*/
+		}
 	}
-  }
-  
-		model.seconds = currentSeconds
+
+	model.seconds = currentSeconds
 	if (currentState == STATE_IDLE) {
 		//secondsPublisher.publish(model.seconds)
 		//def tmp4 = new SimpleValue()
 		//tmp4.value = model.seconds
 		//dds.publish(Topics.SECONDS, tmp4)
 	}
-  }
+}
 }

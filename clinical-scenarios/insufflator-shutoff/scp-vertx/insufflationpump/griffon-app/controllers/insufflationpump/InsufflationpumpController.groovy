@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html                             
  */
 
-package insufflationpump
+ package insufflationpump
 
 /*
 import lib.Command
@@ -49,30 +49,30 @@ class InsufflationpumpController {
   def deviceOn = true
   def pressure = 0.0
   def pr = new Random()
-    def communicationManager = new CommunicationManagerImpl(0, "localhost");
+  def communicationManager
   //def eb = Vertx.newVertx().getEventBus()
   
   PublishRequester<Integer> deviceStatePublisher, pressurePublisher
-class InsufflatorShutOff<T> extends Executor {
-   Executor.ExecutionAcknowledgement execute(T action) {
-      edt{
-          model.state = 'Inactive'
-        deviceOn = false
-        }
-		return Executor.ExecutionAcknowledgement.ACTION_SUCCEEDED
-   }
-}
-  
-  void mvcGroupInit(Map args) {
+
+void mvcGroupInit(Map args) {
+  communicationManager = new CommunicationManagerImpl(0, "localhost");
   communicationManager.setUp()
-   deviceStatePublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Device State", 0, 1000, 0, Integer)).second
-   pressurePublisher = communicationManager.createPublisher(new PublisherConfiguration<Integer>("Insufflator Pressure", 0, 1000, 0, Integer)).second
-   
-   communicationManager.registerExecutor(new ExecutorConfiguration(
-            "InsufflatorShutOff",
-            0,
-            1000,
-            new InsufflatorShutOff<Integer>()));
+  deviceStatePublisher = communicationManager.createPublisher(new PublisherConfiguration("Device State", 1, 10000, 20000, Integer.class)).second
+  pressurePublisher = communicationManager.createPublisher(new PublisherConfiguration("Insufflator Pressure", 1, 10000, 20000, Integer.class)).second
+
+  communicationManager.registerExecutor(new ExecutorConfiguration(
+    "InsufflatorShutOff",
+    1,
+    10000,
+    new Executor() {
+   Executor.ExecutionAcknowledgement execute(java.io.Serializable action) {
+    edt{
+      model.state = 'Inactive'
+      deviceOn = false
+    }
+    println("Got insufflator shut off command");
+    return Executor.ExecutionAcknowledgement.ACTION_SUCCEEDED
+  }}));
   /*
     dds.publishOn(
         Topics.DEVICE_STATE, 
@@ -81,21 +81,21 @@ class InsufflatorShutOff<T> extends Executor {
         Topics.PRESSURE, 
         SimpleValueTypeSupport.get_type_name())
     dds.initializeCommandHandlerFor(this.&onCommand, Constants.INSUFFLATION_PUMP)
-   */
-   
-   new javax.swing.Timer(1000, update).start()
-   
-   model.state = 'Active'
-   
-   deviceStatePublisher.publish(deviceOn?1:0);
+    */
+
+    new javax.swing.Timer(1000, update).start()
+
+    model.state = 'Active'
+
+    deviceStatePublisher.publish(deviceOn?1:0);
    /*
    def tmp1 = new SimpleValue()
     tmp1.value = deviceOn?1:0
    dds.publish(Topics.DEVICE_STATE, tmp1)
    */
-  }
+ }
 
-  void mvcGroupDestroy() {
+ void mvcGroupDestroy() {
     //dds.destroy()
   }
   
@@ -104,18 +104,19 @@ class InsufflatorShutOff<T> extends Executor {
      pressure += pr.nextInt(10) / 10.0
      if (pressure > 15) {
       pressure = 15
-     }
-   } else {
+    }
+    } else {
      pressure -= pr.nextInt(10) / 10.0
      if (pressure < 0) {
       pressure = 0
-     }
-   }
-   model.pressure = pressure
-   
+    }
+  }
+  model.pressure = pressure
+
    //eb.publish("Insufflator Pressure", String.valueOf(pressure))
    pressurePublisher.publish(pressure);
    deviceStatePublisher.publish(deviceOn?1:0);
+   println("Send pressure and device state");
    
    /*
    def tmp1 = new SimpleValue()
@@ -125,7 +126,7 @@ class InsufflatorShutOff<T> extends Executor {
     tmp1 = new SimpleValue()
     tmp1.value = deviceOn?1:0
     dds.publish(Topics.DEVICE_STATE, tmp1)
-   */
+    */
   }
 /*
   def onCommand(Command cmd) {
@@ -141,5 +142,5 @@ class InsufflatorShutOff<T> extends Executor {
     tmp1.value = deviceOn?1:0
     dds.publish(Topics.DEVICE_STATE, tmp1)
     return CompletionStatus.SUCCESS
-  }*/
-}
+    }*/
+  }

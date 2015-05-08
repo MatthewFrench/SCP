@@ -22,16 +22,11 @@ public class ReceiverConfiguration<S extends Serializable> {
      * Minimum duration of time (in milliseconds) between two consecutive receptions.  In other words, after a
      * reception, new requests will not be serviced for this duration of time.
      */
-    @NonNull
-    @NonEmpty
-    public final long minimumSeparation; // in millis
+    @NonNull @NonEmpty public final long minimumSeparation; // in millis
     /**
      * Maximum latency to receive the data (in milliseconds).
      */
-    @Supports
-    @NonZero
-    @NonNegative
-    public final long maximumLatency; // in millis
+    @Supports @NonZero @NonNegative public final long maximumLatency; // in millis
     /**
      * Receiver
      */

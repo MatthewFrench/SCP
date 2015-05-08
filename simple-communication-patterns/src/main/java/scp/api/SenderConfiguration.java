@@ -21,17 +21,12 @@ public final class SenderConfiguration<S extends Serializable> {
     /**
      * Receiver's remote identifier.
      */
-    @NonNull
-    @NonEmpty
-    public final String receiverIdentifier;
+    @NonNull @NonEmpty public final String receiverIdentifier;
     /**
      * Minimum duration of time (in milliseconds) between two consecutive sends.  In other words, after a send,
      * new sends will be inhibited for this duration of time.
      */
-    @Offers
-    @NonZero
-    @NonNegative
-    public final long minimumSeparation;
+    @Offers @NonZero @NonNegative public final long minimumSeparation;
     /**
      * Maximum allowed latency for the send to complete (in milliseconds).
      */

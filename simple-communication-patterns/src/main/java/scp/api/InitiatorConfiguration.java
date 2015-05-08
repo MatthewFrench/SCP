@@ -21,21 +21,16 @@ public final class InitiatorConfiguration<S extends Serializable> {
     /**
      * Executor's remote identifier.
      */
-    @NonNull
-    public final String executorIdentifier;
+    @NonNull public final String executorIdentifier;
     /**
      * Maximum latency tolerated to execute the command (in milliseconds).
      */
-    @Offers
-    @NonZero
-    @NonNegative
-    public final long maximumLatency; // in millis
+    @Offers @NonZero @NonNegative public final long maximumLatency; // in millis
     /**
      * Minimum duration of time (in milliseconds) between issuing two consecutive command executions.  In other words,
      * after issuing a request for execution, new requests will be inhibited for this duration of time.
      */
-    @Expects
-    @NonZero @NonNegative public final long minimumSeparation; // in millis
+    @Expects @NonZero @NonNegative public final long minimumSeparation; // in millis
     /**
      * Action type.
      */

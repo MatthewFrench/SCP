@@ -19,17 +19,12 @@ public class ResponderConfiguration<T> {
     /**
      * Responder's remote Identifier.
      */
-    @NonNull
-    @NonEmpty
-    public final String identifier;
+    @NonNull @NonEmpty public final String identifier;
     /**
      * Minimum duration of time (in milliseconds) between two consecutive requests for response.  In other words,
      * after a request has accepted for servicing, new requests will be inhibited for this duration of time.
      */
-    @Supports
-    @NonZero
-    @NonNegative
-    public final long minimumSeparation; // in millis
+    @Supports @NonZero @NonNegative public final long minimumSeparation; // in millis
     /**
      * Maximum latency to service the request with response (in milliseconds).
      */

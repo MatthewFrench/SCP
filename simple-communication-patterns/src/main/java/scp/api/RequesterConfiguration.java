@@ -19,17 +19,12 @@ public final class RequesterConfiguration<S> {
     /**
      * Responder's remote identifier.
      */
-    @NonNull
-    @NonEmpty
-    public final String responderIdentifier;
+    @NonNull @NonEmpty public final String responderIdentifier;
     /**
      * Minimum duration of time (in milliseconds) between two consecutive requests.  In other words, after a request,
      * new requests will be inhibited for this duration of time.
      */
-    @Offers
-    @NonZero
-    @NonNegative
-    public final long minimumSeparation; // in millis
+    @Offers @NonZero @NonNegative public final long minimumSeparation; // in millis
     /**
      * Maximum allowed latency for the request to complete (in milliseconds).
      */

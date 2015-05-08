@@ -21,17 +21,12 @@ public final class ExecutorConfiguration<S extends Serializable> {
     /**
      * Executor's remote identifier.
      */
-    @NonNull
-    @NonEmpty
-    public final String identifier;
+    @NonNull @NonEmpty public final String identifier;
     /**
      * Minimum duration of time (in milliseconds) between servicing two consecutive executions  In other words,
      * after executing a action, new execution requests will not be serviced for this duration of time.
      */
-    @Supports
-    @NonZero
-    @NonNegative
-    public final long minimumSeparation;
+    @Supports @NonZero @NonNegative public final long minimumSeparation;
     /**
      * Maximum latency to execute the action (in milliseconds).
      */

@@ -21,17 +21,12 @@ public class SubscriberConfiguration<T extends Serializable> {
     /**
      * The Topic.
      */
-    @NonNull
-    @NonEmpty
-    public final String topic;
+    @NonNull @NonEmpty public final String topic;
     /**
      * Minimum duration of time (in milliseconds) between two consecutive consumptions.  In other words, after a
      * consumption of data, new data will be inhibited for this duration of time.
      */
-    @Supports
-    @NonZero
-    @NonNegative
-    public final long minimumSeparation; // in millis
+    @Supports @NonZero @NonNegative public final long minimumSeparation; // in millis
     /**
      * Maximum duration of time (in milliseconds) tolerated between two consecutive consumptions.  In other words,
      * after a consumption of data, the subscriber can wait for this duration of time for new data to arrive.  If no

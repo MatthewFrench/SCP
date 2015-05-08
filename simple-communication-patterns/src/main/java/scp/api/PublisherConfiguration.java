@@ -19,17 +19,12 @@ public final class PublisherConfiguration<S> {
     /**
      * Published topic.
      */
-    @NonNull
-    @NonEmpty
-    public final String topic;
+    @NonNull @NonEmpty public final String topic;
     /**
      * Minimum duration of time (in milliseconds) between two consecutive publications.  In other words, after a
      * publication, new publications will be inhibited for this duration of time.
      */
-    @Offers
-    @NonZero
-    @NonNegative
-    public final long minimumSeparation; // in millis
+    @Offers @NonZero @NonNegative public final long minimumSeparation; // in millis
     /**
      * Maximum allowed latency for the publish request to be accepted by the lower-level communication substrate
      * (in milliseconds).

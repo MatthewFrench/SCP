@@ -31,4 +31,4 @@ test.testLogging {
   exceptionFormat = 'full'
 }
 
-version = '0.4'
+version = '0.4.2'

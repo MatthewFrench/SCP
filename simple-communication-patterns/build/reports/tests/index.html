@@ -26,19 +26,19 @@
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">39</div>
+<div class="counter">38</div>
 <p>failures</p>
 </div>
 </td>
 <td>
 <div class="infoBox" id="ignored">
-<div class="counter">2</div>
+<div class="counter">3</div>
 <p>ignored</p>
 </div>
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">17.130s</div>
+<div class="counter">14.953s</div>
 <p>duration</p>
 </div>
 </td>
@@ -225,10 +225,6 @@
 <a href="classes/scp.targets.dds.SubscriberTest.html">SubscriberTest</a>.
 <a href="classes/scp.targets.dds.SubscriberTest.html#testSuccessfulConsumption">testSuccessfulConsumption</a>
 </li>
-<li>
-<a href="classes/scp.targets.vertx.InitiatorExecutorTest.html">InitiatorExecutorTest</a>.
-<a href="classes/scp.targets.vertx.InitiatorExecutorTest.html#testLocalTimeOut">testLocalTimeOut</a>
-</li>
 </ul>
 </div>
 <div id="tab1" class="tab">
@@ -241,6 +237,10 @@
 <li>
 <a href="classes/scp.targets.vertx.RequesterResponderTest.html">RequesterResponderTest</a>.
 <a href="classes/scp.targets.vertx.RequesterResponderTest.html#testLocalTimeOut">testLocalTimeOut</a>
+</li>
+<li>
+<a href="classes/scp.targets.vertx.SenderReceiverTest.html">SenderReceiverTest</a>.
+<a href="classes/scp.targets.vertx.SenderReceiverTest.html#testLocalTimeOut">testLocalTimeOut</a>
 </li>
 </ul>
 </div>
@@ -265,7 +265,7 @@
 <td>62</td>
 <td>0</td>
 <td>0</td>
-<td>0.078s</td>
+<td>0.056s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -275,7 +275,7 @@
 <td>38</td>
 <td>38</td>
 <td>0</td>
-<td>0.187s</td>
+<td>0.006s</td>
 <td class="failures">0%</td>
 </tr>
 <tr>
@@ -285,18 +285,18 @@
 <td>37</td>
 <td>0</td>
 <td>0</td>
-<td>9.554s</td>
+<td>7.967s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
-<td class="failures">
+<td class="skipped">
 <a href="packages/scp.targets.vertx.html">scp.targets.vertx</a>
 </td>
 <td>38</td>
-<td>1</td>
-<td>2</td>
-<td>7.311s</td>
-<td class="failures">97%</td>
+<td>0</td>
+<td>3</td>
+<td>6.924s</td>
+<td class="skipped">100%</td>
 </tr>
 </tbody>
 </table>
@@ -321,7 +321,7 @@
 <td>6</td>
 <td>0</td>
 <td>0</td>
-<td>0.031s</td>
+<td>0.007s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -330,7 +330,7 @@
 <td>7</td>
 <td>0</td>
 <td>0</td>
-<td>0.016s</td>
+<td>0.005s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -339,7 +339,7 @@
 <td>9</td>
 <td>0</td>
 <td>0</td>
-<td>0.016s</td>
+<td>0.007s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -348,7 +348,7 @@
 <td>6</td>
 <td>0</td>
 <td>0</td>
-<td>0s</td>
+<td>0.009s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -357,7 +357,7 @@
 <td>8</td>
 <td>0</td>
 <td>0</td>
-<td>0.015s</td>
+<td>0.004s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -366,7 +366,7 @@
 <td>8</td>
 <td>0</td>
 <td>0</td>
-<td>0s</td>
+<td>0.010s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -375,7 +375,7 @@
 <td>7</td>
 <td>0</td>
 <td>0</td>
-<td>0s</td>
+<td>0.007s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -384,7 +384,7 @@
 <td>11</td>
 <td>0</td>
 <td>0</td>
-<td>0s</td>
+<td>0.007s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -393,7 +393,7 @@
 <td>8</td>
 <td>8</td>
 <td>0</td>
-<td>0.187s</td>
+<td>0.003s</td>
 <td class="failures">0%</td>
 </tr>
 <tr>
@@ -411,7 +411,7 @@
 <td>3</td>
 <td>3</td>
 <td>0</td>
-<td>0s</td>
+<td>0.001s</td>
 <td class="failures">0%</td>
 </tr>
 <tr>
@@ -420,7 +420,7 @@
 <td>8</td>
 <td>8</td>
 <td>0</td>
-<td>0s</td>
+<td>0.001s</td>
 <td class="failures">0%</td>
 </tr>
 <tr>
@@ -429,7 +429,7 @@
 <td>7</td>
 <td>7</td>
 <td>0</td>
-<td>0s</td>
+<td>0.001s</td>
 <td class="failures">0%</td>
 </tr>
 <tr>
@@ -447,7 +447,7 @@
 <td>8</td>
 <td>0</td>
 <td>0</td>
-<td>0s</td>
+<td>0.016s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -456,7 +456,7 @@
 <td>7</td>
 <td>0</td>
 <td>0</td>
-<td>1.403s</td>
+<td>1.020s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -465,7 +465,7 @@
 <td>3</td>
 <td>0</td>
 <td>0</td>
-<td>0.125s</td>
+<td>0.076s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -474,7 +474,7 @@
 <td>8</td>
 <td>0</td>
 <td>0</td>
-<td>1.496s</td>
+<td>0.865s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -483,7 +483,7 @@
 <td>7</td>
 <td>0</td>
 <td>0</td>
-<td>1.277s</td>
+<td>0.830s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -492,7 +492,7 @@
 <td>4</td>
 <td>0</td>
 <td>0</td>
-<td>5.253s</td>
+<td>5.160s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -501,17 +501,17 @@
 <td>8</td>
 <td>0</td>
 <td>0</td>
-<td>0.031s</td>
+<td>0.019s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
-<td class="failures"/>
+<td class="success"/>
 <a href="classes/scp.targets.vertx.InitiatorExecutorTest.html">scp.targets.vertx.InitiatorExecutorTest</a>
 <td>8</td>
-<td>1</td>
 <td>0</td>
-<td>0.733s</td>
-<td class="failures">87%</td>
+<td>0</td>
+<td>0.563s</td>
+<td class="success">100%</td>
 </tr>
 <tr>
 <td class="skipped"/>
@@ -519,7 +519,7 @@
 <td>3</td>
 <td>0</td>
 <td>1</td>
-<td>0.031s</td>
+<td>0.015s</td>
 <td class="skipped">100%</td>
 </tr>
 <tr>
@@ -528,17 +528,17 @@
 <td>8</td>
 <td>0</td>
 <td>1</td>
-<td>0.421s</td>
+<td>0.354s</td>
 <td class="skipped">100%</td>
 </tr>
 <tr>
-<td class="success"/>
+<td class="skipped"/>
 <a href="classes/scp.targets.vertx.SenderReceiverTest.html">scp.targets.vertx.SenderReceiverTest</a>
 <td>7</td>
 <td>0</td>
-<td>0</td>
-<td>0.795s</td>
-<td class="success">100%</td>
+<td>1</td>
+<td>0.737s</td>
+<td class="skipped">100%</td>
 </tr>
 <tr>
 <td class="success"/>
@@ -546,7 +546,7 @@
 <td>4</td>
 <td>0</td>
 <td>0</td>
-<td>5.300s</td>
+<td>5.236s</td>
 <td class="success">100%</td>
 </tr>
 </tbody>
@@ -555,7 +555,7 @@
 </div>
 <div id="footer">
 <p>Generated by 
-<a href="http://www.gradle.org">Gradle 2.1</a> at May 5, 2015 3:24:37 AM</p>
+<a href="http://www.gradle.org">Gradle 2.2.1</a> at May 8, 2015 5:57:03 AM</p>
 </div>
 </div>
 </body>

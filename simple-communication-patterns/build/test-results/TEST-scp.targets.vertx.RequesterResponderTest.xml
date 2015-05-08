@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.vertx.RequesterResponderTest" tests="8" skipped="1" failures="0" errors="0" timestamp="2015-05-05T08:24:30" hostname="WIN-KNSH90IPO6B" time="0.421">
+<testsuite name="scp.targets.vertx.RequesterResponderTest" tests="8" skipped="1" failures="0" errors="0" timestamp="2015-05-08T10:56:56" hostname="Matthews-MacBook-Pro.local" time="0.355">
   <properties/>
-  <testcase name="testExcessLoad" classname="scp.targets.vertx.RequesterResponderTest" time="0.047"/>
-  <testcase name="testRemoteUnknownFailure" classname="scp.targets.vertx.RequesterResponderTest" time="0.124"/>
-  <testcase name="testLocalTimeOut" classname="scp.targets.vertx.RequesterResponderTest" time="0.0">
+  <testcase name="testExcessLoad" classname="scp.targets.vertx.RequesterResponderTest" time="0.014"/>
+  <testcase name="testRemoteUnknownFailure" classname="scp.targets.vertx.RequesterResponderTest" time="0.113"/>
+  <testcase name="testLocalTimeOut" classname="scp.targets.vertx.RequesterResponderTest" time="0.001">
     <skipped/>
   </testcase>
-  <testcase name="testStaleData" classname="scp.targets.vertx.RequesterResponderTest" time="0.016"/>
-  <testcase name="testDataUnavailable" classname="scp.targets.vertx.RequesterResponderTest" time="0.093"/>
-  <testcase name="testSuccessfulRequest" classname="scp.targets.vertx.RequesterResponderTest" time="0.016"/>
+  <testcase name="testStaleData" classname="scp.targets.vertx.RequesterResponderTest" time="0.003"/>
+  <testcase name="testDataUnavailable" classname="scp.targets.vertx.RequesterResponderTest" time="0.097"/>
+  <testcase name="testSuccessfulRequest" classname="scp.targets.vertx.RequesterResponderTest" time="0.008"/>
   <testcase name="testFastRequest" classname="scp.targets.vertx.RequesterResponderTest" time="0.094"/>
-  <testcase name="testRemoteTimeOut" classname="scp.targets.vertx.RequesterResponderTest" time="0.031"/>
+  <testcase name="testRemoteTimeOut" classname="scp.targets.vertx.RequesterResponderTest" time="0.024"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[[vert.x-eventloop-thread-0] WARN scp.impl.ResponderInvoker - Dropping 2-th reception
-[vert.x-eventloop-thread-1] ERROR scp.impl.ResponderInvoker - Failed to handle 1-th reception
+[vert.x-eventloop-thread-7] ERROR scp.impl.ResponderInvoker - Failed to handle 1-th reception
 java.util.concurrent.ExecutionException: java.lang.RuntimeException: Don't Panic! This exception is good :)
 	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
 	at java.util.concurrent.FutureTask.get(FutureTask.java:206)
 	at scp.impl.ResponderInvoker.invokeHandler(ResponderInvoker.java:100)
 	at scp.impl.ResponderInvoker.serviceRequest(ResponderInvoker.java:87)
-	at scp.targets.vertx.CommunicationManagerImpl.lambda$registerResponder$18(CommunicationManagerImpl.java:141)
-	at scp.targets.vertx.CommunicationManagerImpl$$Lambda$18/792887914.handle(Unknown Source)
+	at scp.targets.vertx.CommunicationManagerImpl.lambda$registerResponder$18(CommunicationManagerImpl.java:156)
+	at scp.targets.vertx.CommunicationManagerImpl$$Lambda$17/1550318586.handle(Unknown Source)
 	at org.vertx.java.core.eventbus.impl.DefaultEventBus$11.run(DefaultEventBus.java:951)
 	at org.vertx.java.core.impl.DefaultContext$3.run(DefaultContext.java:175)
 	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:370)
@@ -29,13 +29,14 @@ java.util.concurrent.ExecutionException: java.lang.RuntimeException: Don't Panic
 	at java.lang.Thread.run(Thread.java:745)
 Caused by: java.lang.RuntimeException: Don't Panic! This exception is good :)
 	at scp.api.RequesterResponderTest$3.respond(RequesterResponderTest.java:163)
-	at scp.impl.ResponderInvoker$$Lambda$9/315468707.call(Unknown Source)
+	at scp.impl.ResponderInvoker$$Lambda$8/1693327512.call(Unknown Source)
 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	... 1 more
 [Test worker] INFO scp.impl.RequestRequester - Handling stale 1-th response
+[Test worker] INFO scp.impl.RequestRequester - Handling stale 1-th response
 [Test worker] WARN scp.impl.RequestRequester - Dropping 2-th request
-[vert.x-eventloop-thread-0] WARN scp.impl.ResponderInvoker - Timed out handling 1-th reception
+[vert.x-eventloop-thread-3] WARN scp.impl.ResponderInvoker - Timed out handling 1-th reception
 ]]></system-err>
 </testsuite>

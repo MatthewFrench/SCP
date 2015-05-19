@@ -23,7 +23,8 @@ import javax.swing.JOptionPane
 
 import java.io.*;
 import java.util.concurrent.Semaphore;
-import scp.api.CommunicationManager;
+import scp.targets.vertx.CommunicationManagerImpl as CommunicationManagerVertX;
+import scp.targets.dds.CommunicationManagerImpl as CommunicationManagerDDS;
 
 class MonitorController {
   // these will be injected by Griffon
@@ -39,8 +40,27 @@ class MonitorController {
 
   def stoppedInsufflator = false
 
+    def SCP_DDS = 0, SCP_VERTX = 1
+  def scpPattern = SCP_VERTX
+
   void mvcGroupInit(Map args) {
-    communicationManager = new CommunicationManagerImpl(0, "localhost")
+    def startupArgs = app.getStartupArgs()
+    if (startupArgs.length > 0) {
+      if (startupArgs[0] == "vertx") {
+        scpPattern = SCP_VERTX
+      }
+      if (startupArgs[0] == "dds") {
+        scpPattern = SCP_DDS
+      }
+    }
+    if (scpPattern == SCP_DDS) {
+      println("Initializing DDS")
+      communicationManager = new CommunicationManagerDDS(0)
+    } else if (scpPattern == SCP_VERTX) {
+      println("Initializing VertX")
+      communicationManager = new CommunicationManagerVertX(0, "localhost")
+    }
+
     communicationManager.setUp()
     //Set up the BP Frequency sender. This is how we change read interval
     bpFrequencySender = communicationManager.createSender(new SenderConfiguration("BPFrequency", 1, 10000, Integer.class)).second

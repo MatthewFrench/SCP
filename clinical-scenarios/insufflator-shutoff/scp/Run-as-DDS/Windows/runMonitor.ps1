@@ -14,9 +14,15 @@ $env:PATH=$env:PATH + ";C:\Program Files (x86)\RTI\ndds.5.1.0\lib\x64Win64jdk"
 $scriptpath = $MyInvocation.MyCommand.Path
 $dir = Split-Path $scriptpath
 
-$griffonScript = $dir + "\griffonw.bat"
-
 cd $dir
 
-.$griffonScript run-app
-Read-Host -Prompt "Press Enter to exit."
+cd ..
+
+cd ..
+
+cd "monitor"
+
+$griffonScript = "./griffonw.bat"
+
+.$griffonScript run-app dds
+# Read-Host -Prompt "Press Enter to exit."

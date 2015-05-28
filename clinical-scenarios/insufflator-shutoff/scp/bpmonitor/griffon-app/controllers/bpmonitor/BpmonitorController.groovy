@@ -49,6 +49,14 @@ class BpmonitorController {
   def SCP_DDS = 0, SCP_VERTX = 1
   def scpPattern = SCP_VERTX
 
+//Minimum duration of time (in milliseconds) between two consecutive consumptions. 
+//In other words, after a consumption of data, new data will be inhibited for this duration of time.
+  def minimumSeparation = 100000
+//Maximum latency to consume the data (in milliseconds).
+  def maximumLatency = 100000
+//Minimum remaining lifetime required of the consumed data (in milliseconds).
+  def minimumRemainingLifetime = 100000
+
   void mvcGroupInit(Map args) {
     def startupArgs = app.getStartupArgs()
     if (startupArgs.length > 0) {
@@ -69,18 +77,18 @@ class BpmonitorController {
   	
   	communicationManager.setUp()
     //Create the publishers
-  	systolicPublisher = communicationManager.createPublisher(new PublisherConfiguration("Systolic", 1, 10000, 20000, Integer.class)).second
-  	diastolicPublisher = communicationManager.createPublisher(new PublisherConfiguration("Diastolic", 1, 10000, 20000, Integer.class)).second
-  	pulseRatePublisher = communicationManager.createPublisher(new PublisherConfiguration("PulseRate", 1, 10000, 20000, Integer.class)).second
+  	systolicPublisher = communicationManager.createPublisher(new PublisherConfiguration("Systolic", minimumSeparation, maximumLatency, minimumRemainingLifetime, Integer.class)).second
+  	diastolicPublisher = communicationManager.createPublisher(new PublisherConfiguration("Diastolic", minimumSeparation, maximumLatency, minimumRemainingLifetime, Integer.class)).second
+  	pulseRatePublisher = communicationManager.createPublisher(new PublisherConfiguration("PulseRate", minimumSeparation, maximumLatency, minimumRemainingLifetime, Integer.class)).second
 
     //Responds the current seconds of the BPMonitor
-  	communicationManager.registerResponder(new ResponderConfiguration("Seconds", 1, 10000, 20000, new Responder() {
+  	communicationManager.registerResponder(new ResponderConfiguration("Seconds", minimumSeparation, maximumLatency, minimumRemainingLifetime, new Responder() {
   			Pair<Responder.ResponseStatus, Integer> respond() {
   				return new Pair<>(Responder.ResponseStatus.RESPONSE_PROVIDED, currentSeconds);
   			}
     }))
     //Sets the interval until the next reading
-    communicationManager.registerReceiver(new ReceiverConfiguration("BPFrequency", 1, 10000, new Receiver() {
+    communicationManager.registerReceiver(new ReceiverConfiguration("BPFrequency", minimumSeparation, maximumLatency, new Receiver() {
   			Receiver.ReceptionAcknowledgement receive(java.io.Serializable data) {
           currentInterval = data
           if (currentSeconds > currentInterval && currentState == STATE_IDLE) {

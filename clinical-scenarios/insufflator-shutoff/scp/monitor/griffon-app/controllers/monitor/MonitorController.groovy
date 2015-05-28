@@ -43,6 +43,21 @@ class MonitorController {
     def SCP_DDS = 0, SCP_VERTX = 1
   def scpPattern = SCP_VERTX
 
+//Minimum duration of time (in milliseconds) between two consecutive consumptions. 
+//In other words, after a consumption of data, new data will be inhibited for this duration of time.
+  def minimumSeparation = 1
+//Maximum latency to consume the data (in milliseconds).
+  def maximumLatency = 10000
+//Minimum remaining lifetime required of the consumed data (in milliseconds).
+  def minimumRemainingLifetime = 20000
+//Maximum duration of time (in milliseconds) tolerated between two consecutive consumptions.  In other words,
+// after a consumption of data, the subscriber can wait for this duration of time for new data to arrive.  If no
+// data arrives, then the subscriber is notified of slow publication.
+  def maximumSeparation = 12
+//Number of consecutive consumptions failing to complete within maximum latency duration that can be tolerated by
+// subscriber.  Upon breaching this number, the subscriber will be notified.
+  def consumptionTolerance = 1
+
   void mvcGroupInit(Map args) {
     def startupArgs = app.getStartupArgs()
     if (startupArgs.length > 0) {
@@ -63,31 +78,31 @@ class MonitorController {
 
     communicationManager.setUp()
     //Set up the BP Frequency sender. This is how we change read interval
-    bpFrequencySender = communicationManager.createSender(new SenderConfiguration("BPFrequency", 1, 10000, Integer.class)).second
+    bpFrequencySender = communicationManager.createSender(new SenderConfiguration("BPFrequency", minimumSeparation, maximumLatency, Integer.class)).second
     //Set up the Insufflator Shutoff Initiator, it's how we telll the insufflator to turn off
-    insufflatorShutOffInitiator = communicationManager.createInitiator(new InitiatorConfiguration("InsufflatorShutOff", 1, 10000, Integer.class)).second
+    insufflatorShutOffInitiator = communicationManager.createInitiator(new InitiatorConfiguration("InsufflatorShutOff", minimumSeparation, maximumLatency, Integer.class)).second
     //The seconds requester gets the amount of seconds before next reading
-    secondsRequester = communicationManager.createRequester(new RequesterConfiguration("Seconds", 1, 10000, 20000, Integer.class)).second
+    secondsRequester = communicationManager.createRequester(new RequesterConfiguration("Seconds", minimumSeparation, maximumLatency, minimumRemainingLifetime, Integer.class)).second
     //Set up the subscribers
-    communicationManager.registerSubscriber(new SubscriberConfiguration("Diastolic", 1, 10000, 10000, 12, 1,new Subscriber.AbstractSubscriber() {
+    communicationManager.registerSubscriber(new SubscriberConfiguration("Diastolic", minimumSeparation, maximumSeparation, maximumLatency, minimumRemainingLifetime, consumptionTolerance,new Subscriber.AbstractSubscriber() {
         void consume(java.io.Serializable data, long remainingLifetime) {
           edt { model.diastolic = data }
           onUpdate()
         }
     }))
-    communicationManager.registerSubscriber(new SubscriberConfiguration("Systolic", 1, 10000, 10000, 12, 1,  new Subscriber.AbstractSubscriber() {
+    communicationManager.registerSubscriber(new SubscriberConfiguration("Systolic", minimumSeparation, maximumSeparation, maximumLatency, minimumRemainingLifetime, consumptionTolerance,  new Subscriber.AbstractSubscriber() {
         void consume(java.io.Serializable data, long remainingLifetime) {
           edt { model.systolic = data }
           onUpdate()
         }
     }))
-    communicationManager.registerSubscriber(new SubscriberConfiguration("Insufflator Pressure", 1, 10000, 10000, 12, 1, new Subscriber.AbstractSubscriber() {
+    communicationManager.registerSubscriber(new SubscriberConfiguration("Insufflator Pressure", minimumSeparation, maximumSeparation, maximumLatency, minimumRemainingLifetime, consumptionTolerance, new Subscriber.AbstractSubscriber() {
         void consume(java.io.Serializable data, long remainingLifetime) {
           edt { model.pressure = data }
           onUpdate()
         }
     }))
-    communicationManager.registerSubscriber(new SubscriberConfiguration("Device State", 1, 10000, 10000, 12, 1, new Subscriber.AbstractSubscriber() {
+    communicationManager.registerSubscriber(new SubscriberConfiguration("Device State", minimumSeparation, maximumSeparation, maximumLatency, minimumRemainingLifetime, consumptionTolerance, new Subscriber.AbstractSubscriber() {
         void consume(java.io.Serializable data, long remainingLifetime) {
           edt { model.state = data?"Active":"Inactive" }
           if (data == 1) {
@@ -97,7 +112,7 @@ class MonitorController {
           }
         }
     }))
-    communicationManager.registerSubscriber(new SubscriberConfiguration("PulseRate", 1, 10000, 10000, 12, 1,  new Subscriber.AbstractSubscriber() {
+    communicationManager.registerSubscriber(new SubscriberConfiguration("PulseRate", minimumSeparation, maximumSeparation, maximumLatency, minimumRemainingLifetime, consumptionTolerance,  new Subscriber.AbstractSubscriber() {
         void consume(java.io.Serializable data, long remainingLifetime) {
           edt { model.pulseRate = data }
           onUpdate()

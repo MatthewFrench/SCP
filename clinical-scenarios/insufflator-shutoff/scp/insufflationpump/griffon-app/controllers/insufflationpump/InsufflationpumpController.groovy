@@ -43,6 +43,14 @@ class InsufflationpumpController {
     def SCP_DDS = 0, SCP_VERTX = 1
   def scpPattern = SCP_VERTX
 
+//Minimum duration of time (in milliseconds) between two consecutive consumptions. 
+//In other words, after a consumption of data, new data will be inhibited for this duration of time.
+  def minimumSeparation = 1
+//Maximum latency to consume the data (in milliseconds).
+  def maximumLatency = 10000
+//Minimum remaining lifetime required of the consumed data (in milliseconds).
+  def minimumRemainingLifetime = 20000
+
   void mvcGroupInit(Map args) {
     def startupArgs = app.getStartupArgs()
     if (startupArgs.length > 0) {
@@ -63,10 +71,10 @@ class InsufflationpumpController {
 
     communicationManager.setUp()
     //Create the publishers
-    deviceStatePublisher = communicationManager.createPublisher(new PublisherConfiguration("Device State", 1, 10000, 20000, Integer.class)).second
-    pressurePublisher = communicationManager.createPublisher(new PublisherConfiguration("Insufflator Pressure", 1, 10000, 20000, Integer.class)).second
+    deviceStatePublisher = communicationManager.createPublisher(new PublisherConfiguration("Device State", minimumSeparation, maximumLatency, minimumRemainingLifetime, Integer.class)).second
+    pressurePublisher = communicationManager.createPublisher(new PublisherConfiguration("Insufflator Pressure", minimumSeparation, maximumLatency, minimumRemainingLifetime, Integer.class)).second
     //Create the turn off executor
-    communicationManager.registerExecutor(new ExecutorConfiguration("InsufflatorShutOff", 1, 10000, new Executor() {
+    communicationManager.registerExecutor(new ExecutorConfiguration("InsufflatorShutOff", minimumSeparation, maximumLatency, new Executor() {
         Executor.ExecutionAcknowledgement execute(java.io.Serializable action) {
           deviceOn = false
           edt{

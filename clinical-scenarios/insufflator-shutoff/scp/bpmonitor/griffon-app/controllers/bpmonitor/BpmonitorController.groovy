@@ -51,7 +51,7 @@ class BpmonitorController {
 
 //Minimum duration of time (in milliseconds) between two consecutive consumptions. 
 //In other words, after a consumption of data, new data will be inhibited for this duration of time.
-  def minimumSeparation = 100000
+  def minimumSeparation = 1
 //Maximum latency to consume the data (in milliseconds).
   def maximumLatency = 100000
 //Minimum remaining lifetime required of the consumed data (in milliseconds).

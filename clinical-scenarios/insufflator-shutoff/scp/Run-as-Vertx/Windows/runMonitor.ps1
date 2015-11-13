@@ -18,7 +18,9 @@ cd ..
 
 cd "monitor"
 
-$griffonScript = "./griffonw.bat"
+$griffonScript = "griffon"
+
+gvm v
 
 .$griffonScript run-app vertx
 # Read-Host -Prompt "Press Enter to exit."

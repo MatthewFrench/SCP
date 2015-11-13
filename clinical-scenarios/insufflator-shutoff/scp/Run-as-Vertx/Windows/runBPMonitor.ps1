@@ -18,7 +18,9 @@ cd ..
 
 cd "bpmonitor"
 
-$griffonScript = "./griffonw.bat"
+$griffonScript = "griffon"
+
+gvm v
 
 .$griffonScript run-app vertx
 # Read-Host -Prompt "Press Enter to exit."

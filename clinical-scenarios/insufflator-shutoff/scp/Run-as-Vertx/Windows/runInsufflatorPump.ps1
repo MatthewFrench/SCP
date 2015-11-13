@@ -18,7 +18,7 @@ cd ..
 
 cd "insufflationpump"
 
-$griffonScript = "./griffonw.bat"
+gvm v
 
-.$griffonScript run-app vertx
+griffon run-app vertx
 # Read-Host -Prompt "Press Enter to exit."

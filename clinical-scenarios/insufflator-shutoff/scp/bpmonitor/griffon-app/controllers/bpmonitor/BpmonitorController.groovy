@@ -12,6 +12,7 @@ package bpmonitor
 import scp.targets.vertx.*;
 import scp.util.Pair;
 import scp.api.*;
+import scp.api.CommunicationManager.Status;
 import scp.impl.*;
 import scp.impl.ExecutorInvoker.ExecutorInvokerStatus;
 import scp.impl.ReceiverInvoker.ReceiverInvokerStatus;
@@ -55,7 +56,7 @@ class BpmonitorController {
 //Maximum latency to consume the data (in milliseconds).
   def maximumLatency = 100000
 //Minimum remaining lifetime required of the consumed data (in milliseconds).
-  def minimumRemainingLifetime = 100000
+  def minimumRemainingLifetime = 0
 
   void mvcGroupInit(Map args) {
     def startupArgs = app.getStartupArgs()
@@ -72,23 +73,26 @@ class BpmonitorController {
       communicationManager = new CommunicationManagerDDS(0)
     } else if (scpPattern == SCP_VERTX) {
       println("Initializing VertX")
-      communicationManager = new CommunicationManagerVertX(0, "localhost")
+      communicationManager = new CommunicationManagerVertX(0, "127.0.0.1")
     }
   	
   	communicationManager.setUp()
     //Create the publishers
-  	systolicPublisher = communicationManager.createPublisher(new PublisherConfiguration("Systolic", minimumSeparation, maximumLatency, minimumRemainingLifetime, Integer.class)).second
-  	diastolicPublisher = communicationManager.createPublisher(new PublisherConfiguration("Diastolic", minimumSeparation, maximumLatency, minimumRemainingLifetime, Integer.class)).second
-  	pulseRatePublisher = communicationManager.createPublisher(new PublisherConfiguration("PulseRate", minimumSeparation, maximumLatency, minimumRemainingLifetime, Integer.class)).second
+  	systolicPublisher = communicationManager.createPublisher(new PublisherConfiguration("systolic", minimumSeparation, maximumLatency, minimumRemainingLifetime, Integer.class)).second
+  	diastolicPublisher = communicationManager.createPublisher(new PublisherConfiguration("diastolic", minimumSeparation, maximumLatency, minimumRemainingLifetime, Integer.class)).second
+  	pulseRatePublisher = communicationManager.createPublisher(new PublisherConfiguration("pulseRate", minimumSeparation, maximumLatency, minimumRemainingLifetime, Integer.class)).second
 
     //Responds the current seconds of the BPMonitor
-  	communicationManager.registerResponder(new ResponderConfiguration("Seconds", minimumSeparation, maximumLatency, minimumRemainingLifetime, new Responder() {
+    println("Creating seconds responder")
+  	Status secondsResponderStatus = communicationManager.registerResponder(new ResponderConfiguration("seconds", minimumSeparation, maximumLatency, minimumRemainingLifetime, new Responder() {
   			Pair<Responder.ResponseStatus, Integer> respond() {
+          println("Sending seconds from responder");
   				return new Pair<>(Responder.ResponseStatus.RESPONSE_PROVIDED, currentSeconds);
   			}
     }))
+    println("Registered seconds responder: " + secondsResponderStatus);
     //Sets the interval until the next reading
-    communicationManager.registerReceiver(new ReceiverConfiguration("BPFrequency", minimumSeparation, maximumLatency, new Receiver() {
+    communicationManager.registerReceiver(new ReceiverConfiguration("bpfrequency", minimumSeparation, maximumLatency, new Receiver() {
   			Receiver.ReceptionAcknowledgement receive(java.io.Serializable data) {
           currentInterval = data
           if (currentSeconds > currentInterval && currentState == STATE_IDLE) {

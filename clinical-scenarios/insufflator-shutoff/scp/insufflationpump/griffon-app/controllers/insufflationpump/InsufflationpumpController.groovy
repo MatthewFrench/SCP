@@ -49,7 +49,7 @@ class InsufflationpumpController {
 //Maximum latency to consume the data (in milliseconds).
   def maximumLatency = 10000
 //Minimum remaining lifetime required of the consumed data (in milliseconds).
-  def minimumRemainingLifetime = 20000
+  def minimumRemainingLifetime = 0
 
   void mvcGroupInit(Map args) {
     def startupArgs = app.getStartupArgs()
@@ -66,7 +66,7 @@ class InsufflationpumpController {
       communicationManager = new CommunicationManagerDDS(0)
     } else if (scpPattern == SCP_VERTX) {
       println("Initializing VertX")
-      communicationManager = new CommunicationManagerVertX(0, "localhost")
+      communicationManager = new CommunicationManagerVertX(0, "127.0.0.1")
     }
 
     communicationManager.setUp()
@@ -74,7 +74,7 @@ class InsufflationpumpController {
     deviceStatePublisher = communicationManager.createPublisher(new PublisherConfiguration("Device State", minimumSeparation, maximumLatency, minimumRemainingLifetime, Integer.class)).second
     pressurePublisher = communicationManager.createPublisher(new PublisherConfiguration("Insufflator Pressure", minimumSeparation, maximumLatency, minimumRemainingLifetime, Integer.class)).second
     //Create the turn off executor
-    communicationManager.registerExecutor(new ExecutorConfiguration("InsufflatorShutOff", minimumSeparation, maximumLatency, new Executor() {
+    communicationManager.registerExecutor(new ExecutorConfiguration("insufflatorshutoff", minimumSeparation, maximumLatency, new Executor() {
         Executor.ExecutionAcknowledgement execute(java.io.Serializable action) {
           deviceOn = false
           edt{

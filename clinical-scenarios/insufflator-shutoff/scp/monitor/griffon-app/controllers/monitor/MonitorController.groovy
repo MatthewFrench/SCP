@@ -12,6 +12,7 @@ package monitor
 import scp.targets.vertx.*;
 import scp.util.Pair;
 import scp.api.*;
+import scp.api.CommunicationManager.Status;
 import scp.impl.*;
 import scp.impl.ExecutorInvoker.ExecutorInvokerStatus;
 import scp.impl.ReceiverInvoker.ReceiverInvokerStatus;
@@ -47,16 +48,16 @@ class MonitorController {
 //In other words, after a consumption of data, new data will be inhibited for this duration of time.
   def minimumSeparation = 0
 //Maximum latency to consume the data (in milliseconds).
-  def maximumLatency = 10000
+  def maximumLatency = 500
 //Minimum remaining lifetime required of the consumed data (in milliseconds).
-  def minimumRemainingLifetime = 20000
+  def minimumRemainingLifetime = 1
 //Maximum duration of time (in milliseconds) tolerated between two consecutive consumptions.  In other words,
 // after a consumption of data, the subscriber can wait for this duration of time for new data to arrive.  If no
 // data arrives, then the subscriber is notified of slow publication.
   def maximumSeparation = 12
 //Number of consecutive consumptions failing to complete within maximum latency duration that can be tolerated by
 // subscriber.  Upon breaching this number, the subscriber will be notified.
-  def consumptionTolerance = 1
+  def consumptionTolerance = 5
 
   void mvcGroupInit(Map args) {
     def startupArgs = app.getStartupArgs()
@@ -73,17 +74,20 @@ class MonitorController {
       communicationManager = new CommunicationManagerDDS(0)
     } else if (scpPattern == SCP_VERTX) {
       println("Initializing VertX")
-      communicationManager = new CommunicationManagerVertX(0, "localhost")
+      communicationManager = new CommunicationManagerVertX(0, "127.0.0.1")
     }
 
     communicationManager.setUp()
     //Set up the BP Frequency sender. This is how we change read interval
-    bpFrequencySender = communicationManager.createSender(new SenderConfiguration("BPFrequency", minimumSeparation, maximumLatency, Integer.class)).second
+    bpFrequencySender = communicationManager.createSender(new SenderConfiguration("bpfrequency", minimumSeparation, maximumLatency, Integer.class)).second
     //Set up the Insufflator Shutoff Initiator, it's how we telll the insufflator to turn off
-    insufflatorShutOffInitiator = communicationManager.createInitiator(new InitiatorConfiguration("InsufflatorShutOff", minimumSeparation, maximumLatency, Integer.class)).second
+    insufflatorShutOffInitiator = communicationManager.createInitiator(new InitiatorConfiguration("insufflatorshutoff", minimumSeparation, maximumLatency, Integer.class)).second
     //The seconds requester gets the amount of seconds before next reading
-    secondsRequester = communicationManager.createRequester(new RequesterConfiguration("Seconds", minimumSeparation, maximumLatency, minimumRemainingLifetime, Integer.class)).second
+    Pair<Status, Requester<Integer>> secondsStatusAndRequester = communicationManager.createRequester(new RequesterConfiguration("seconds", minimumSeparation, maximumLatency, minimumRemainingLifetime, Integer.class))
+    secondsRequester = secondsStatusAndRequester.second
+    println("Seconds status: " + secondsStatusAndRequester.first)
     //Set up the subscribers
+    /*
     communicationManager.registerSubscriber(new SubscriberConfiguration("Diastolic", minimumSeparation, maximumSeparation, maximumLatency, minimumRemainingLifetime, consumptionTolerance,new Subscriber.AbstractSubscriber() {
         void consume(java.io.Serializable data, long remainingLifetime) {
           edt { model.diastolic = data }
@@ -118,7 +122,7 @@ class MonitorController {
           onUpdate()
         }
     }))
-
+*/
     new javax.swing.Timer(1000, updateSeconds).start()
   }
 
@@ -130,8 +134,11 @@ class MonitorController {
     if (secondsNeedUpdate) {
       secondsNeedUpdate = false
       Thread.start {
-        def tmp = secondsRequester.request()
+      	println("Calling request on seconds requester")
+        def tmp = secondsRequester.handleRequest()
+        //secondsRequester.request()
         secondsNeedUpdate = true;
+        println("Seconds Requester Request Status: " + tmp.first)
         edt {
           if (tmp.second != null) {
             model.seconds = tmp.second;

@@ -1,5 +1,5 @@
 /**  
-* Authors:
+* Authors: 
 *   Venkatesh-Prasad Ranganath and Matthew French
 * 
 * Copyright (c) 2014, Kansas State University
@@ -50,11 +50,14 @@ class BpmonitorController {
 
 //Minimum duration of time (in milliseconds) between two consecutive consumptions. 
 //In other words, after a consumption of data, new data will be inhibited for this duration of time.
-  def minimumSeparation = 0
+  //def minimumSeparation = 0
+  def minimumSeparation = (int)(-1)
 //Maximum latency to consume the data (in milliseconds).
-  def maximumLatency = 100000
+  //def maximumLatency = 100000
+  def maximumLatency = (int)(15)
 //Minimum remaining lifetime required of the consumed data (in milliseconds).
-  def minimumRemainingLifetime = 0
+  //def minimumRemainingLifetime = 0
+  def minimumRemainingLifetime = (int)(20)
 
   void mvcGroupInit(Map args) {
     def startupArgs = app.getStartupArgs()

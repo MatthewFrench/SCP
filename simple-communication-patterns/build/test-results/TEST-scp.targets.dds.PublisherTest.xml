@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.dds.PublisherTest" tests="3" skipped="0" failures="3" errors="0" timestamp="2015-05-08T10:56:47" hostname="Matthews-MacBook-Pro.local" time="0.001">
+<testsuite name="scp.targets.dds.PublisherTest" tests="3" skipped="0" failures="3" errors="0" timestamp="2015-11-19T17:42:55" hostname="Matthews-MacBook-Pro.local" time="0.0">
   <properties/>
-  <testcase name="testSuccessfulPublication" classname="scp.targets.dds.PublisherTest" time="0.001">
+  <testcase name="testSuccessfulPublication" classname="scp.targets.dds.PublisherTest" time="0.0">
     <failure message="java.lang.NoClassDefFoundError: Could not initialize class com.rti.dds.domain.DomainParticipantFactory" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: Could not initialize class com.rti.dds.domain.DomainParticipantFactory
 	at scp.targets.dds.CommunicationManagerImpl.&lt;init&gt;(CommunicationManagerImpl.java:81)
 	at scp.targets.dds.TestCustomizerForDDS.&lt;init&gt;(TestCustomizerForDDS.java:28)

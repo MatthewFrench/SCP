@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.vertx.SenderReceiverTest" tests="7" skipped="1" failures="0" errors="0" timestamp="2015-05-08T10:56:56" hostname="Matthews-MacBook-Pro.local" time="0.74">
+<testsuite name="scp.targets.vertx.SenderReceiverTest" tests="7" skipped="1" failures="0" errors="0" timestamp="2015-11-19T17:43:04" hostname="Matthews-MacBook-Pro.local" time="0.729">
   <properties/>
-  <testcase name="testExcessLoad" classname="scp.targets.vertx.SenderReceiverTest" time="0.017"/>
-  <testcase name="testRemoteUnknownFailure" classname="scp.targets.vertx.SenderReceiverTest" time="0.106"/>
-  <testcase name="testLocalTimeOut" classname="scp.targets.vertx.SenderReceiverTest" time="0.0">
+  <testcase name="testExcessLoad" classname="scp.targets.vertx.SenderReceiverTest" time="0.008"/>
+  <testcase name="testRemoteUnknownFailure" classname="scp.targets.vertx.SenderReceiverTest" time="0.105"/>
+  <testcase name="testLocalTimeOut" classname="scp.targets.vertx.SenderReceiverTest" time="0.001">
     <skipped/>
   </testcase>
-  <testcase name="testDataAccepted" classname="scp.targets.vertx.SenderReceiverTest" time="0.005"/>
-  <testcase name="testRemoteTimeOut" classname="scp.targets.vertx.SenderReceiverTest" time="0.201"/>
-  <testcase name="testFastSend" classname="scp.targets.vertx.SenderReceiverTest" time="0.406"/>
+  <testcase name="testDataAccepted" classname="scp.targets.vertx.SenderReceiverTest" time="0.003"/>
+  <testcase name="testRemoteTimeOut" classname="scp.targets.vertx.SenderReceiverTest" time="0.206"/>
+  <testcase name="testFastSend" classname="scp.targets.vertx.SenderReceiverTest" time="0.403"/>
   <testcase name="testDataRejected" classname="scp.targets.vertx.SenderReceiverTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[[vert.x-eventloop-thread-0] WARN scp.impl.ReceiverInvoker - Dropping 2-th reception
@@ -19,7 +19,7 @@ java.util.concurrent.ExecutionException: java.lang.RuntimeException: Don't Panic
 	at scp.impl.ReceiverInvoker.invokeHandler(ReceiverInvoker.java:99)
 	at scp.impl.ReceiverInvoker.receive(ReceiverInvoker.java:86)
 	at scp.targets.vertx.CommunicationManagerImpl.lambda$registerReceiver$21(CommunicationManagerImpl.java:204)
-	at scp.targets.vertx.CommunicationManagerImpl$$Lambda$18/1494394755.handle(Unknown Source)
+	at scp.targets.vertx.CommunicationManagerImpl$$Lambda$18/389562740.handle(Unknown Source)
 	at org.vertx.java.core.eventbus.impl.DefaultEventBus$11.run(DefaultEventBus.java:951)
 	at org.vertx.java.core.impl.DefaultContext$3.run(DefaultContext.java:175)
 	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:370)
@@ -30,7 +30,7 @@ Caused by: java.lang.RuntimeException: Don't Panic! This exception is good :)
 	at scp.api.SenderReceiverTest$3.receive(SenderReceiverTest.java:146)
 	at scp.api.SenderReceiverTest$3.receive(SenderReceiverTest.java:143)
 	at scp.impl.ReceiverInvoker.lambda$invokeHandler$3(ReceiverInvoker.java:96)
-	at scp.impl.ReceiverInvoker$$Lambda$3/295313572.call(Unknown Source)
+	at scp.impl.ReceiverInvoker$$Lambda$3/947245298.call(Unknown Source)
 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)

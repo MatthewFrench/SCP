@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.vertx.PublisherTest" tests="3" skipped="1" failures="0" errors="0" timestamp="2015-05-08T10:56:56" hostname="Matthews-MacBook-Pro.local" time="0.017">
+<testsuite name="scp.targets.vertx.PublisherTest" tests="3" skipped="1" failures="0" errors="0" timestamp="2015-11-19T17:43:04" hostname="Matthews-MacBook-Pro.local" time="0.011">
   <properties/>
-  <testcase name="testSuccessfulPublication" classname="scp.targets.vertx.PublisherTest" time="0.005"/>
-  <testcase name="testFastPublication" classname="scp.targets.vertx.PublisherTest" time="0.006"/>
-  <testcase name="testPublicationTimeOut" classname="scp.targets.vertx.PublisherTest" time="0.004">
+  <testcase name="testSuccessfulPublication" classname="scp.targets.vertx.PublisherTest" time="0.006"/>
+  <testcase name="testFastPublication" classname="scp.targets.vertx.PublisherTest" time="0.002"/>
+  <testcase name="testPublicationTimeOut" classname="scp.targets.vertx.PublisherTest" time="0.002">
     <skipped/>
   </testcase>
   <system-out><![CDATA[]]></system-out>

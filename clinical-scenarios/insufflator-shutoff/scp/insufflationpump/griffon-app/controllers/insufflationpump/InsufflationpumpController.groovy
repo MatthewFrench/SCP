@@ -45,11 +45,11 @@ class InsufflationpumpController {
 
 //Minimum duration of time (in milliseconds) between two consecutive consumptions. 
 //In other words, after a consumption of data, new data will be inhibited for this duration of time.
-  def minimumSeparation = 0
+
 //Maximum latency to consume the data (in milliseconds).
-  def maximumLatency = 10000
+
 //Minimum remaining lifetime required of the consumed data (in milliseconds).
-  def minimumRemainingLifetime = 0
+
 
   void mvcGroupInit(Map args) {
     def startupArgs = app.getStartupArgs()
@@ -71,10 +71,10 @@ class InsufflationpumpController {
 
     communicationManager.setUp()
     //Create the publishers
-    deviceStatePublisher = communicationManager.createPublisher(new PublisherConfiguration("Device State", minimumSeparation, maximumLatency, minimumRemainingLifetime, Integer.class)).second
-    pressurePublisher = communicationManager.createPublisher(new PublisherConfiguration("Insufflator Pressure", minimumSeparation, maximumLatency, minimumRemainingLifetime, Integer.class)).second
+    deviceStatePublisher = communicationManager.createPublisher(new PublisherConfiguration("devicestate", 1000, 500, 800,  Integer.class)).second
+    pressurePublisher = communicationManager.createPublisher(new PublisherConfiguration("insufflatorpressure", 1000, 500, 800,  Integer.class)).second
     //Create the turn off executor
-    communicationManager.registerExecutor(new ExecutorConfiguration("insufflatorshutoff", minimumSeparation, maximumLatency, new Executor() {
+    communicationManager.registerExecutor(new ExecutorConfiguration("insufflatorshutoff", -1, 400, new Executor() {
         Executor.ExecutionAcknowledgement execute(java.io.Serializable action) {
           deviceOn = false
           edt{

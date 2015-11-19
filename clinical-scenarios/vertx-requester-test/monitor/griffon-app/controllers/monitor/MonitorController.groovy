@@ -43,11 +43,14 @@ class MonitorController {
 
 //Minimum duration of time (in milliseconds) between two consecutive consumptions. 
 //In other words, after a consumption of data, new data will be inhibited for this duration of time.
-  def minimumSeparation = 0
+  //def minimumSeparation = 0
+  def minimumSeparation = (int)(-1)
 //Maximum latency to consume the data (in milliseconds).
-  def maximumLatency = 500
+  //def maximumLatency = 500 
+  def maximumLatency = (int)(15)
 //Minimum remaining lifetime required of the consumed data (in milliseconds).
-  def minimumRemainingLifetime = 1
+  //def minimumRemainingLifetime = 0
+  def minimumRemainingLifetime = (int)(1)
 //Maximum duration of time (in milliseconds) tolerated between two consecutive consumptions.  In other words,
 // after a consumption of data, the subscriber can wait for this duration of time for new data to arrive.  If no
 // data arrives, then the subscriber is notified of slow publication.
@@ -91,8 +94,8 @@ class MonitorController {
       secondsNeedUpdate = false
       Thread.start {
       	println("Calling request on seconds requester")
-        def tmp = secondsRequester.handleRequest()
-        //secondsRequester.request()
+        //def tmp = secondsRequester.handleRequest()
+        def tmp = secondsRequester.request()
         secondsNeedUpdate = true;
         println("Seconds Requester Request Status: " + tmp.first)
         edt {

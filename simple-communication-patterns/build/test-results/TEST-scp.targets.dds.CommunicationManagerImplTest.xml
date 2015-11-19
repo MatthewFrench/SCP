@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.dds.CommunicationManagerImplTest" tests="8" skipped="0" failures="8" errors="0" timestamp="2015-05-08T10:56:47" hostname="Matthews-MacBook-Pro.local" time="0.005">
+<testsuite name="scp.targets.dds.CommunicationManagerImplTest" tests="8" skipped="0" failures="8" errors="0" timestamp="2015-11-19T17:42:55" hostname="Matthews-MacBook-Pro.local" time="0.009">
   <properties/>
-  <testcase name="testCreateRequesterSuccess" classname="scp.targets.dds.CommunicationManagerImplTest" time="0.003">
+  <testcase name="testCreateRequesterSuccess" classname="scp.targets.dds.CommunicationManagerImplTest" time="0.005">
     <failure message="java.lang.UnsatisfiedLinkError: no nddsjava in java.library.path" type="java.lang.UnsatisfiedLinkError">java.lang.UnsatisfiedLinkError: no nddsjava in java.library.path
 	at java.lang.ClassLoader.loadLibrary(ClassLoader.java:1857)
 	at java.lang.Runtime.loadLibrary0(Runtime.java:870)

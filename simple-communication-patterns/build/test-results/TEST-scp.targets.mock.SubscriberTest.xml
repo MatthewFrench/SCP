@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.mock.SubscriberTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2015-11-19T17:42:58" hostname="Matthews-MacBook-Pro.local" time="5.158">
+<testsuite name="scp.targets.mock.SubscriberTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2015-11-19T22:54:57" hostname="DESKTOP-PE2SLM5" time="5.226">
   <properties/>
-  <testcase name="testSlowConsumption" classname="scp.targets.mock.SubscriberTest" time="4.108"/>
-  <testcase name="testSlowPublication" classname="scp.targets.mock.SubscriberTest" time="1.003"/>
-  <testcase name="testStaleMessage" classname="scp.targets.mock.SubscriberTest" time="0.021"/>
-  <testcase name="testSuccessfulConsumption" classname="scp.targets.mock.SubscriberTest" time="0.025"/>
+  <testcase name="testSlowConsumption" classname="scp.targets.mock.SubscriberTest" time="4.156"/>
+  <testcase name="testSlowPublication" classname="scp.targets.mock.SubscriberTest" time="1.008"/>
+  <testcase name="testStaleMessage" classname="scp.targets.mock.SubscriberTest" time="0.031"/>
+  <testcase name="testSuccessfulConsumption" classname="scp.targets.mock.SubscriberTest" time="0.031"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[[pool-64-thread-1] WARN scp.impl.SubscriberInvoker - Timed out handling 1-th message
 [pool-64-thread-1] WARN scp.impl.SubscriberInvoker - Timed out handling 2-th message

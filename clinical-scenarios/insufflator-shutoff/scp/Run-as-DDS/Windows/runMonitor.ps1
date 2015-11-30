@@ -7,12 +7,20 @@
 #  http://www.eclipse.org/legal/epl-v10.html
 #
 
-$env:NDDSHOME="C:\Program Files (x86)\RTI\ndds.5.1.0"
-$env:RTI_LICENSE_FILE="C:\Program Files (x86)\RTI\rti_license.dat"
-$env:PATH=$env:PATH + ";C:\Program Files (x86)\RTI\ndds.5.1.0\lib\x64Win64jdk"
+# won't work unless you have added stuff to the path:
+# C:\Program Files\rti_connext_dds-5.2.0\lib\x64Win64VS2013
+# C:\Program Files\rti_connext_dds-5.2.0\lib\java
+
+# $env:NDDSHOME="C:\Program Files\rti_connext_dds-5.2.0"
+$env:NDDSHOME="C:\Program Files\rti_connext_dds-5.2.0\lib\x64Win64VS2013"
+$env:RTI_LICENSE_FILE="C:\Program Files\rti_connext_dds-5.2.0\rti_license.dat"
+# $env:PATH=$env:PATH + ";C:\Program Files\rti_connext_dds-5.2.0\lib\java"
+# $env:PATH=$env:PATH + ";C:\Program Files\rti_connext_dds-5.2.0\lib\x64Win64VS2013"
 
 $scriptpath = $MyInvocation.MyCommand.Path
 $dir = Split-Path $scriptpath
+
+echo $env:PATH
 
 cd $dir
 
@@ -22,7 +30,7 @@ cd ..
 
 cd "monitor"
 
-$griffonScript = "./griffonw.bat"
+gvm v
 
-.$griffonScript run-app dds
+griffon run-app dds
 # Read-Host -Prompt "Press Enter to exit."

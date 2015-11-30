@@ -24,5 +24,7 @@ cd "insufflationpump"
 
 $griffonScript = "./griffonw.bat"
 
-.$griffonScript run-app dds
+gvm v
+
+griffon run-app dds
 # Read-Host -Prompt "Press Enter to exit."

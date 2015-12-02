@@ -93,7 +93,7 @@ class BpmonitorController {
 //registerResponder(_responderId, 1000, 100, 600, new BasicResponder());
 //Is this necessary? Does responder even block?
 Thread.start {
-    Status secondsResponderStatus = communicationManager.registerResponder(new ResponderConfiguration("seconds", 1, 50000, 50000, new Responder() {
+    Status secondsResponderStatus = communicationManager.registerResponder(new ResponderConfiguration("seconds", 1, 90000, 90000, new Responder() {
   			Pair<Responder.ResponseStatus, Integer> respond() {
           //println("Sending seconds from responder");
   				return new Pair<>(Responder.ResponseStatus.RESPONSE_PROVIDED, currentSeconds);

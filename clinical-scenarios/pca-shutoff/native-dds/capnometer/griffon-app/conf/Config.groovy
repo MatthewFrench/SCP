@@ -1,15 +1,13 @@
-log4j = {
-    // Example of changing the log pattern for the default console
-    // appender:
-    appenders {
-        console name: 'stdout', layout: pattern(conversionPattern: '%d [%t] %-5p %c - %m%n')
-    }
-
-    error  'org.codehaus.griffon'
-
-    info   'griffon.util',
-           'griffon.core',
-           'griffon.swing',
-           'griffon.app'
+application {
+    title = 'capnometer'
+    startupGroups = ['capnometer']
+    autoShutdown = true
 }
-
+mvcGroups {
+    // MVC Group for "capnometer"
+    'capnometer' {
+        model      = 'clinicalscenario.CapnometerModel'
+        view       = 'clinicalscenario.CapnometerView'
+        controller = 'clinicalscenario.CapnometerController'
+    }
+}

@@ -1,0 +1,101 @@
+/**
+ *  Authors:
+ *    Venkatesh-Prasad Ranganath
+ *  
+ *  Copyright (c) 2014, Kansas State University
+ *  Licensed under Eclipse Public License v1.0 
+ *  http://www.eclipse.org/legal/epl-v10.html                             
+ */
+
+buildscript {
+  repositories {
+    jcenter()
+    mavenLocal()
+  }
+
+  dependencies {
+    classpath 'org.codehaus.griffon:gradle-griffon-plugin:2.4.0'
+    classpath 'net.saliman:gradle-cobertura-plugin:2.2.8'
+    classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.4.0'
+    classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.11.0'
+    classpath 'org.gradle.api.plugins:gradle-izpack-plugin:0.2.3'
+    classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.2'
+    classpath 'com.github.cr0:gradle-macappbundle-plugin:3.1.0'
+    classpath 'org.kordamp.gradle:stats-gradle-plugin:0.1.5'
+    classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
+    classpath 'de.gliderpilot.gradle.jnlp:gradle-jnlp-plugin:0.2.1'
+  }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'org.codehaus.griffon.griffon'
+
+griffon {
+  disableDependencyResolution = false
+  includeGroovyDependencies = true
+  version = '2.4.0'
+  toolkit = 'swing'
+}
+
+ext {
+  macosx = System.getProperty('os.name').contains('Mac OS')
+}
+
+mainClassName = 'clinicalscenario.simplemonitor.Launcher'
+
+apply from: 'gradle/publishing.gradle'
+apply from: 'gradle/code-coverage.gradle'
+apply from: 'gradle/code-quality.gradle'
+apply from: 'gradle/integration-test.gradle'
+apply from: 'gradle/package.gradle'
+apply from: 'gradle/docs.gradle'
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'org.kordamp.gradle.stats'
+apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'com.github.kt3k.coveralls'
+
+dependencies {
+  compile "org.codehaus.griffon:griffon-guice:${griffon.version}"
+
+  compile 'org.slf4j:slf4j-simple:1.7.13'
+
+  compile fileTree(dir: 'lib', include: '*.jar')
+  griffon 'org.codehaus.griffon.plugins:griffon-miglayout-plugin:1.1.1'
+
+  testCompile "org.codehaus.griffon:griffon-fest-test:${griffon.version}"
+  testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+  testCompile 'com.jayway.awaitility:awaitility-groovy:1.6.3'
+}
+
+tasks.withType(JavaCompile) {
+  sourceCompatibility = project.sourceCompatibility
+  targetCompatibility = project.targetCompatibility
+}
+
+tasks.withType(GroovyCompile) {
+  sourceCompatibility = project.sourceCompatibility
+  targetCompatibility = project.targetCompatibility
+}
+
+import com.github.jengelman.gradle.plugins.shadow.transformers.*
+shadowJar {
+  transform(ServiceFileTransformer)
+  transform(ServiceFileTransformer) {
+    path = 'META-INF/griffon'
+  }
+  transform(ServiceFileTransformer) {
+    path = 'META-INF/types'
+  }
+  transform(PropertiesFileTransformer) {
+    paths = [
+      'META-INF/editors/java.beans.PropertyEditor'
+    ]
+  }
+}
+
+startScripts {
+  doLast {
+    if (!macosx) unixScript.text = unixScript.text.replaceAll('"(-Xdock:(name|icon)=)([^"]*?)(")', ' ')
+    windowsScript.text = windowsScript.text.replaceAll('"(-Xdock:(name|icon)=)([^"]*?)(")', ' ')
+  }
+}

@@ -93,7 +93,7 @@ public final class InitiateRequester<T extends Serializable> implements scp.api.
             LOGGER.warn("Timed out handling {}-th initiation", this.sendCount);
             return InitiationStatus.LOCAL_TIME_OUT;
         } catch (ExecutionException | InterruptedException _e) {
-            LOGGER.error(MessageFormat.format("Failed to handle {0}-th initiatrion", this.sendCount), _e);
+            LOGGER.error(MessageFormat.format("Failed to handle {0}-th initiation", this.sendCount), _e);
             return InitiationStatus.LOCAL_UNKNOWN_FAILURE;
         }
     }

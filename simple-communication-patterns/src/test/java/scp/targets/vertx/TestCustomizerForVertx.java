@@ -9,25 +9,31 @@
 
 package scp.targets.vertx;
 
+import io.vertx.core.AsyncResult;
+import io.vertx.core.eventbus.DeliveryOptions;
+import io.vertx.core.Vertx;
+import io.vertx.core.eventbus.EventBus;
+import io.vertx.core.eventbus.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vertx.java.core.Vertx;
-import org.vertx.java.core.VertxFactory;
-import org.vertx.java.core.eventbus.EventBus;
-import org.vertx.java.core.eventbus.Message;
 import scp.api.CommunicationManager;
 import scp.api.TestCustomizer;
 
 import java.util.concurrent.Semaphore;
 
-class TestCustomizerForVertx extends TestCustomizer {
-    /*
-     * Note: We used non-clustered vertx instance in the test.
-     */
+public class TestCustomizerForVertx extends TestCustomizer {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestCustomizerForVertx.class);
-    private final CommunicationManagerImpl communicationManager = new CommunicationManagerImpl();
+    private final CommunicationManagerImpl communicationManager;
     private long minimumInteractionLatency = -1;
     private long minimumTransportLatency = -1;
+
+    public TestCustomizerForVertx(boolean clustered) {
+        if (clustered) {
+            communicationManager = new CommunicationManagerImpl(0, "localhost");
+        } else {
+            communicationManager = new CommunicationManagerImpl();
+        }
+    }
 
     @Override
     protected CommunicationManager getCommunicationManager() {
@@ -37,15 +43,15 @@ class TestCustomizerForVertx extends TestCustomizer {
     @Override
     protected long getMinimumInteractionLatency() {
         if (this.minimumInteractionLatency == -1) {
-            final Vertx _vertex = VertxFactory.newVertx();
-            final EventBus _eb = _vertex.eventBus();
+            final Vertx _vertx = Vertx.vertx();
+            final EventBus _eb = _vertx.eventBus();
 
             final long _start = System.currentTimeMillis();
             _eb.publish("getMinimumInteractionLatency", 10);
             final long _stop = System.currentTimeMillis();
             this.minimumInteractionLatency = _stop - _start;
 
-            _vertex.stop();
+            _vertx.close();
         }
         return this.minimumInteractionLatency;
     }
@@ -53,13 +59,16 @@ class TestCustomizerForVertx extends TestCustomizer {
     @Override
     protected long getMinimumTransportLatency() {
         if (this.minimumTransportLatency == -1) {
-            final Vertx _vertx = VertxFactory.newVertx();
+            final Vertx _vertx = Vertx.vertx();
             final EventBus _eb = _vertx.eventBus();
-            _eb.registerLocalHandler("getMinimumTransportLatency", (m) -> m.reply());
+            _eb.localConsumer("getMinimumTransportLatency", (m) -> m.reply(""));
 
             final Semaphore _sem = new Semaphore(0);
             final long _start = System.currentTimeMillis();
-            _eb.send("getMinimumTransportLatency", 10, (Message<Object> event) -> _sem.release());
+            final DeliveryOptions _opt = new DeliveryOptions();
+            _opt.setSendTimeout(10);
+            _eb.send("getMinimumTransportLatency", "", _opt,
+                    (AsyncResult<Message<Object>> event) -> _sem.release());
             try {
                 _sem.acquire();
             } catch (InterruptedException _e) {
@@ -69,7 +78,7 @@ class TestCustomizerForVertx extends TestCustomizer {
             final long _stop = System.currentTimeMillis();
             this.minimumTransportLatency = _stop - _start;
 
-            _vertx.stop();
+            _vertx.close();
         }
         return this.minimumTransportLatency;
     }

@@ -18,12 +18,14 @@ repositories {
 }
 
 dependencies {
-  compile 'io.vertx:vertx-core:2.1.5'
-  compile 'org.slf4j:slf4j-api:1.7.7'
+  compile 'io.vertx:vertx-core:3.1.0'
+  compile 'io.vertx:vertx-codegen:3.1.0'
+  compile 'io.vertx:vertx-hazelcast:3.1.0'
+  compile 'org.slf4j:slf4j-api:1.7.13'
+  compile 'org.slf4j:slf4j-simple:1.7.13'
   compile name: 'nddsjava'
   compile name: 'rticonnextmsg'
   testCompile 'junit:junit-dep:4.11'
-  testCompile 'org.slf4j:slf4j-simple:1.7.7'
 }
 
 test.testLogging {
@@ -31,4 +33,4 @@ test.testLogging {
   exceptionFormat = 'full'
 }
 
-version = '0.4.2'
+version = '0.5'

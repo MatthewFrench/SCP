@@ -9,12 +9,13 @@
 
 package scp.api;
 
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
+import scp.api.Subscriber.AbstractSubscriber;
+
 import org.junit.After;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
-import scp.api.Subscriber.AbstractSubscriber;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,8 +26,8 @@ import static org.junit.Assert.*;
 import static org.junit.Assume.assumeTrue;
 import static scp.api.PublisherTest.createPublisher;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public abstract class SubscriberTest extends BaseTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SubscriberTest.class);
     protected CommunicationManager communicationManager;
 
     @Before
@@ -44,7 +45,7 @@ public abstract class SubscriberTest extends BaseTest {
     }
 
     @Test(timeout = 5000)
-    public void testSuccessfulConsumption() throws Exception {
+    public void test12SuccessfulConsumption() throws Exception {
         assumeTrue("CommunicationManager was null", this.communicationManager != null);
 
         final String _topic = "testSuccessfulConsumption";
@@ -61,8 +62,7 @@ public abstract class SubscriberTest extends BaseTest {
         assertEquals(1, _subscriber.values.size());
         assertEquals(_value, (int) _subscriber.values.get(0));
     }
-/*
-*/
+
     @Test(timeout = 5000)
     public void testSlowConsumption() throws Exception {
         assumeTrue("CommunicationManager was null", this.communicationManager != null);
@@ -75,8 +75,8 @@ public abstract class SubscriberTest extends BaseTest {
                 assertTrue(remainingLifetime > this.minimumRemainingLifetime);
                 try {
                     Thread.sleep(800);
-                } catch (InterruptedException _e) {
-                    System.err.println(_e);
+                } catch (final InterruptedException _e) {
+                    LOGGER.error("Why was the sleep interrupted?", _e);
                 }
             }
         };
@@ -85,12 +85,13 @@ public abstract class SubscriberTest extends BaseTest {
         final Publisher<Integer> _publisher =
                 createPublisher(_topic, 1000, 100, 5000, Integer.class, this.communicationManager);
         for (int i = 0; i < 4; i++) {
-            final Publisher.PublicationStatus _status = _publisher.publish(10 + i);
+            final Publisher.PublicationStatus _status = _publisher.publish(20 + i);
             assert(_status == Publisher.PublicationStatus.PUBLISHED);
             Thread.sleep(1000);
         }
         _subscriber.sem.acquire();
-        assertTrue(_subscriber.numOfUnconsumedConsecutiveMessages >= 3);
+        assertTrue("Expected 3 or more but got " + _subscriber.numOfUnconsumedConsecutiveMessages,
+                _subscriber.numOfUnconsumedConsecutiveMessages >= 3);
     }
 
     @Test(timeout = 10000)
@@ -102,7 +103,7 @@ public abstract class SubscriberTest extends BaseTest {
         final BasicSubscriber _subscriber = new BasicSubscriber(_minimumRemainingLifetime);
         registerSubscriber(_topic, 1000, 3000, 100, _minimumRemainingLifetime, 1, _subscriber);
 
-        final int _value = 10;
+        final int _value = 30;
         final Publisher<Integer> _publisher =
                 createPublisher(_topic, 1000, 55, 56, Integer.class, this.communicationManager);
         final Publisher.PublicationStatus _status = _publisher.publish(_value);
@@ -113,7 +114,7 @@ public abstract class SubscriberTest extends BaseTest {
     }
 
     @Test(timeout = 10000)
-    public void testSlowPublication() throws Exception {
+    public void test11SlowPublication() throws Exception {
         assumeTrue("CommunicationManager was null", this.communicationManager != null);
 
         final String _topic = "testHandleSlowPublication";
@@ -121,7 +122,7 @@ public abstract class SubscriberTest extends BaseTest {
         final BasicSubscriber _subscriber = new BasicSubscriber(_minimumRemainingLifetime);
         registerSubscriber(_topic, 250, 1000, 100, _minimumRemainingLifetime, 1, _subscriber);
 
-        final int _value = 10;
+        final int _value = 40;
         final Publisher<Integer> _publisher =
                 createPublisher(_topic, 500, 100, 500, Integer.class, this.communicationManager);
         final Publisher.PublicationStatus _status1 = _publisher.publish(_value);
@@ -161,6 +162,7 @@ public abstract class SubscriberTest extends BaseTest {
 
         @Override
         public void consume(Integer message, long remainingLifetime) {
+            LOGGER.info("Consumed " + message);
             assertTrue(remainingLifetime > this.minimumRemainingLifetime);
             this.values.add(message);
             this.sem.release();
@@ -168,19 +170,22 @@ public abstract class SubscriberTest extends BaseTest {
 
         @Override
         public void handleSlowPublication() {
+            LOGGER.info("SlowPub");
             this.slowPublication = true;
             this.sem.release();
         }
 
         @Override
-        public void handleStaleMessage(Integer data, long remainingLifetime) {
-            this.values.add(data);
+        public void handleStaleMessage(Integer message, long remainingLifetime) {
+            LOGGER.info("Staled " + message);
+            this.values.add(message);
             this.staleMessage = true;
             this.sem.release();
         }
 
         @Override
         public void handleSlowConsumption(int numOfUnconsumedConsecutiveMessages) {
+            LOGGER.info("SlowCon " + numOfUnconsumedConsecutiveMessages);
             this.numOfUnconsumedConsecutiveMessages = numOfUnconsumedConsecutiveMessages;
             this.sem.release();
         }

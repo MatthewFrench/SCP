@@ -118,7 +118,12 @@ public class InProcessCommunicationManagerImpl implements CommunicationManager {
                 final Callable<Pair<ResponderInvokerStatus, TimestampedBox<T>>> _tmp1 =
                         () -> {
                             final String _tmp2 = configuration.responderIdentifier;
-                            return _this.identifier2responder.get(_tmp2).serviceRequest();
+                            final ResponderInvoker _tmp3= _this.identifier2responder.get(_tmp2);
+                            if (_tmp3 == null) {
+                                return new Pair(ResponderInvokerStatus.DATA_UNAVAILABLE, null);
+                            } else {
+                                return _tmp3.serviceRequest();
+                            }
                         };
                 try {
                     Thread.sleep(_this.transportLatency);
@@ -158,7 +163,14 @@ public class InProcessCommunicationManagerImpl implements CommunicationManager {
                     Thread.sleep(InProcessCommunicationManagerImpl.this.transportLatency);
                     final String _id = configuration.receiverIdentifier;
                     final Future<ReceiverInvokerStatus> _future =
-                            executorService.submit(() -> _this.identifier2receiver.get(_id).receive(data));
+                            executorService.submit(() -> {
+                                final ReceiverInvoker _tmp1 = _this.identifier2receiver.get(_id);
+                                if (_tmp1 == null) {
+                                    return ReceiverInvokerStatus.DATA_REJECTED;
+                                } else {
+                                    return _tmp1.receive(data);
+                                }
+                            });
                     Thread.sleep(InProcessCommunicationManagerImpl.this.transportLatency);
                     return _future.get();
                 } catch (ExecutionException | InterruptedException _e) {
@@ -193,7 +205,14 @@ public class InProcessCommunicationManagerImpl implements CommunicationManager {
                     Thread.sleep(InProcessCommunicationManagerImpl.this.transportLatency);
                     final String _id = configuration.executorIdentifier;
                     final Future<ExecutorInvokerStatus> _future =
-                            executorService.submit(() -> _this.identifier2executor.get(_id).execute(cmd));
+                            executorService.submit(() -> {
+                                final ExecutorInvoker _tmp1 = _this.identifier2executor.get(_id);
+                                if (_tmp1 == null) {
+                                    return ExecutorInvokerStatus.ACTION_UNAVAILABLE;
+                                } else {
+                                    return _tmp1.execute(cmd);
+                                }
+                            });
                     Thread.sleep(InProcessCommunicationManagerImpl.this.transportLatency);
                     return _future.get();
                 } catch (ExecutionException | InterruptedException _e) {

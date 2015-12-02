@@ -9,24 +9,25 @@
 
 package scp.targets.vertx;
 
+import io.vertx.core.AsyncResult;
+import io.vertx.core.Handler;
+import io.vertx.core.Vertx;
+import io.vertx.core.VertxOptions;
+import io.vertx.core.eventbus.DeliveryOptions;
+import io.vertx.core.eventbus.EventBus;
+import io.vertx.core.eventbus.Message;
+import io.vertx.core.eventbus.ReplyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vertx.java.core.AsyncResult;
-import org.vertx.java.core.Handler;
-import org.vertx.java.core.Vertx;
-import org.vertx.java.core.VertxFactory;
-import org.vertx.java.core.eventbus.EventBus;
-import org.vertx.java.core.eventbus.Message;
-import org.vertx.java.core.eventbus.ReplyException;
-import org.vertx.java.core.eventbus.ReplyFailure;
 import scp.api.*;
 import scp.impl.*;
 import scp.impl.ExecutorInvoker.ExecutorInvokerStatus;
 import scp.impl.ReceiverInvoker.ReceiverInvokerStatus;
 import scp.impl.ResponderInvoker.ResponderInvokerStatus;
-import scp.util.NonNull;
 import scp.util.Pair;
 import scp.util.TimestampedBox;
+
+import scp.util.NonNull;
 
 import java.io.*;
 import java.util.concurrent.Semaphore;
@@ -43,7 +44,7 @@ public class CommunicationManagerImpl implements CommunicationManager {
      * Instantiates a new Communication manager impl based on non-clustered Vertx instance.
      */
     public CommunicationManagerImpl() {
-        this.vertx = VertxFactory.newVertx();
+        this.vertx = Vertx.vertx();
     }
 
     /**
@@ -55,18 +56,27 @@ public class CommunicationManagerImpl implements CommunicationManager {
     public CommunicationManagerImpl(int port, String hostname) {
         final Semaphore _sem = new Semaphore(0);
         final Handler<AsyncResult<Vertx>> _handler = event -> {
-            if (event.succeeded()) {
-                CommunicationManagerImpl.this.vertx = event.result();
+            try {
+                if (event.succeeded()) {
+                    LOGGER.info("Vertx creation succeeded");
+                    CommunicationManagerImpl.this.vertx = event.result();
+                } else {
+                    LOGGER.error("Vertx creation failed");
+                    throw new RuntimeException("Could not initialize Communication manager", event.cause());
+                }
+            } finally {
                 _sem.release();
-            } else if (event.failed()) {
-                _sem.release();
-                throw new RuntimeException("Could not initialize Communication manager", event.cause());
             }
         };
-        VertxFactory.newVertx(port, hostname, _handler);
+        final VertxOptions _opt = new VertxOptions();
+        _opt.setClustered(true);
+        _opt.setClusterHost(hostname);
+        _opt.setClusterPort(port);
+        Vertx.clusteredVertx(_opt, _handler);
+
         try {
             _sem.acquire();
-        } catch (InterruptedException _e) {
+        } catch (final InterruptedException _e) {
             final String _msg = "Why did the semaphore encountered InterruptedException?";
             LOGGER.error(_msg, _e);
             throw new RuntimeException(_msg, _e);
@@ -80,13 +90,28 @@ public class CommunicationManagerImpl implements CommunicationManager {
         this.eventBus = this.vertx.eventBus();
 
         assert this.eventBus != null;
+        LOGGER.info("Done setting up vertx eventbus");
     }
 
     @Override
     public void tearDown() {
         assert this.vertx != null;
 
-        this.vertx.stop();
+        /*
+        TODO: Need to figured out how to call vertx.close without tripping Vertx
+
+        final Semaphore _tmp2 = new Semaphore(0);
+        this.vertx.close(evt -> {
+            LOGGER.info("Vertx closed");
+            _tmp2.release();
+        });
+        try {
+            _tmp2.acquire();
+            LOGGER.info("Done tearing down vertx");
+        } catch (final InterruptedException _e) {
+            throw new RuntimeException((_e));
+        }
+        */
     }
 
     @Override
@@ -102,7 +127,7 @@ public class CommunicationManagerImpl implements CommunicationManager {
     public <T extends Serializable> Status registerSubscriber(
             @NonNull SubscriberConfiguration<T> configuration) {
         final SubscriberInvoker<T> _subscriberInvoker = new SubscriberInvoker<>(configuration);
-        this.eventBus.registerHandler(
+        this.eventBus.consumer(
                 configuration.topic,
                 (Message<byte[]> msg) -> _subscriberInvoker.processData(getData(msg.body())));
         return Status.SUCCESS;
@@ -116,33 +141,15 @@ public class CommunicationManagerImpl implements CommunicationManager {
                 () -> {
                     final Semaphore _sem = new Semaphore(0);
                     final Box<Pair<ResponderInvokerStatus, TimestampedBox<T>>> _ret = new Box<>();
-                    CommunicationManagerImpl.this.eventBus.sendWithTimeout(
+                    final DeliveryOptions _opt = new DeliveryOptions();
+                    _opt.setSendTimeout(configuration.maximumLatency);
+                    CommunicationManagerImpl.this.eventBus.send(
                             configuration.responderIdentifier,
                             new byte[]{},
-                            configuration.maximumLatency,
-                            (AsyncResult<Message<byte[]>> event) -> {
-                                if (event.succeeded()) {
-                                    _ret.data = getData(event.result().body());
-                                } else {
-                                    LOGGER.error("Vertx Send failed: {}",
-                                            ((ReplyException) event.cause()).failureType());
-                                    try {
-                                        Thread.sleep(configuration.maximumLatency * 2);
-                                    } catch (InterruptedException _e) {
-                                        LOGGER.error("This is bad!", _e);
-                                        throw new RuntimeException(_e);
-                                    }
-                                }
-                                _sem.release();
-                            }
-                    );
-                    try {
-                        _sem.acquire();
-                        return _ret.data;
-                    } catch (InterruptedException _e) {
-                        LOGGER.error("Semaphore interrupted", _e);
-                        throw new RuntimeException(_e);
-                    }
+                            _opt,
+                            new SendHandler<T, Pair<ResponderInvokerStatus, TimestampedBox<T>>>(
+                                    configuration.maximumLatency, _sem, _ret));
+                    return waitAndBailOnFailure(_sem, _ret);
                 });
         return new Pair<>(Status.SUCCESS, _requester);
     }
@@ -151,7 +158,7 @@ public class CommunicationManagerImpl implements CommunicationManager {
     public <T extends Serializable> Status registerResponder(
             @NonNull ResponderConfiguration<T> configuration) {
         final ResponderInvoker<T> _responderInvoker = new ResponderInvoker<>(configuration);
-        this.eventBus.registerHandler(
+        this.eventBus.consumer(
                 configuration.identifier,
                 msg -> msg.reply(CommunicationManagerImpl.getBytes(_responderInvoker.serviceRequest())));
         return Status.SUCCESS;
@@ -165,32 +172,14 @@ public class CommunicationManagerImpl implements CommunicationManager {
                 (data) -> {
                     final Semaphore _sem = new Semaphore(0);
                     final Box<ReceiverInvokerStatus> _ret = new Box<>();
-                    CommunicationManagerImpl.this.eventBus.sendWithTimeout(
+                    final DeliveryOptions _opt = new DeliveryOptions();
+                    _opt.setSendTimeout(configuration.maximumLatency);
+                    CommunicationManagerImpl.this.eventBus.send(
                             configuration.receiverIdentifier,
                             getBytes(data),
-                            configuration.maximumLatency,
-                            (AsyncResult<Message<byte[]>> event) -> {
-                                if (event.succeeded()) {
-                                    _ret.data = getData(event.result().body());
-                                } else {
-                                    LOGGER.error("Vertx Send failed: {}",
-                                            ((ReplyException) event.cause()).failureType());
-                                    try {
-                                        Thread.sleep(configuration.maximumLatency * 2);
-                                    } catch (InterruptedException _e) {
-                                        LOGGER.error("This is bad!", _e);
-                                        throw new RuntimeException(_e);
-                                    }
-                                }
-                                _sem.release();
-                            });
-                    try {
-                        _sem.acquire();
-                        return _ret.data;
-                    } catch (InterruptedException _e) {
-                        LOGGER.error("Semaphore interrupted", _e);
-                        throw new RuntimeException(_e);
-                    }
+                            _opt,
+                            new SendHandler<T, ReceiverInvokerStatus>(configuration.maximumLatency, _sem, _ret));
+                    return waitAndBailOnFailure(_sem, _ret);
                 });
         return new Pair<>(Status.SUCCESS, _sender);
     }
@@ -198,7 +187,7 @@ public class CommunicationManagerImpl implements CommunicationManager {
     @Override
     public <T extends Serializable> Status registerReceiver(@NonNull ReceiverConfiguration<T> configuration) {
         final ReceiverInvoker<T> _receiverInvoker = new ReceiverInvoker<>(configuration);
-        this.eventBus.registerHandler(
+        this.eventBus.consumer(
                 configuration.identifier,
                 (Message<byte[]> msg) -> {
                     final ReceiverInvokerStatus _status = _receiverInvoker.receive(getData(msg.body()));
@@ -215,32 +204,14 @@ public class CommunicationManagerImpl implements CommunicationManager {
                 (data) -> {
                     final Semaphore _sem = new Semaphore(0);
                     final Box<ExecutorInvokerStatus> _ret = new Box<>();
-                    CommunicationManagerImpl.this.eventBus.sendWithTimeout(
+                    final DeliveryOptions _opt = new DeliveryOptions();
+                    _opt.setSendTimeout(configuration.maximumLatency);
+                    CommunicationManagerImpl.this.eventBus.send(
                             configuration.executorIdentifier,
                             getBytes(data),
-                            configuration.maximumLatency,
-                            (AsyncResult<Message<byte[]>> event) -> {
-                                if (event.succeeded()) {
-                                    _ret.data = getData(event.result().body());
-                                } else {
-                                    LOGGER.error("Vertx Send failed: {}",
-                                            ((ReplyException) event.cause()).failureType());
-                                    try {
-                                        Thread.sleep(configuration.maximumLatency * 2);
-                                    } catch (InterruptedException _e) {
-                                        LOGGER.error("This is bad!", _e);
-                                        throw new RuntimeException(_e);
-                                    }
-                                }
-                                _sem.release();
-                            });
-                    try {
-                        _sem.acquire();
-                        return _ret.data;
-                    } catch (InterruptedException _e) {
-                        LOGGER.error("Semaphore interrupted", _e);
-                        throw new RuntimeException(_e);
-                    }
+                            _opt,
+                            new SendHandler<T, ExecutorInvokerStatus>(configuration.maximumLatency, _sem, _ret));
+                    return waitAndBailOnFailure(_sem, _ret);
                 });
         return new Pair<>(Status.SUCCESS, _sender);
     }
@@ -249,13 +220,23 @@ public class CommunicationManagerImpl implements CommunicationManager {
     public <T extends Serializable> Status registerExecutor(
             @NonNull ExecutorConfiguration<T> configuration) {
         final ExecutorInvoker<T> _receiverInvoker = new ExecutorInvoker<>(configuration);
-        this.eventBus.registerHandler(
+        this.eventBus.consumer(
                 configuration.identifier,
                 (Message<byte[]> msg) -> {
                     final ExecutorInvokerStatus _status = _receiverInvoker.execute(getData(msg.body()));
                     msg.reply(CommunicationManagerImpl.getBytes(_status));
                 });
         return Status.SUCCESS;
+    }
+
+    private static <T extends Serializable> T waitAndBailOnFailure(Semaphore sem, Box<T> ret) {
+        try {
+            sem.acquire();
+            return ret.data;
+        } catch (final InterruptedException _e) {
+            LOGGER.error("Semaphore interrupted", _e);
+            throw new RuntimeException(_e);
+        }
     }
 
     private static <T extends Serializable> byte[] getBytes(T data) {
@@ -267,7 +248,7 @@ public class CommunicationManagerImpl implements CommunicationManager {
             final byte[] _msg = _tmp1.toByteArray();
             _tmp2.close();
             return _msg;
-        } catch (IOException _e) {
+        } catch (final IOException _e) {
             CommunicationManagerImpl.LOGGER.error("Serialization failed", _e);
             throw new RuntimeException(_e);
         }
@@ -291,5 +272,36 @@ public class CommunicationManagerImpl implements CommunicationManager {
          * The Data.
          */
         T data;
+    }
+
+    private static class SendHandler<T extends Serializable, S extends Serializable>
+            implements Handler<AsyncResult<Message<byte[]>>> {
+        private long maximumLatency;
+        private Semaphore sem;
+        private Box<S> ret;
+
+        public SendHandler(long maximumLatency, Semaphore sem, Box<S> ret) {
+            this.maximumLatency = maximumLatency;
+            this.sem = sem;
+            this.ret = ret;
+        }
+
+        @Override
+        public void handle(AsyncResult<Message<byte[]>> event) {
+
+            if (event.succeeded()) {
+                ret.data = getData(event.result().body());
+            } else {
+                LOGGER.error("Vertx Send failed: {}",
+                        ((ReplyException) event.cause()).failureType());
+                try {
+                    Thread.sleep(maximumLatency * 2);
+                } catch (final InterruptedException _e) {
+                    LOGGER.error("This is bad!", _e);
+                    throw new RuntimeException(_e);
+                }
+            }
+            sem.release();
+        }
     }
 }

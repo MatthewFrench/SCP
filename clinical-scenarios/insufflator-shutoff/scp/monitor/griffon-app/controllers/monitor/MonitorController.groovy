@@ -81,53 +81,57 @@ class MonitorController {
 
 //Sender<Integer> registerSender( String identifier, long minimumSeparation, long maximumLatency)
 //registerSender(_receiverId, 1000, 400);
-    bpFrequencySender = communicationManager.createSender(new SenderConfiguration("bpfrequency", 1, 10000, Integer.class)).second
+    bpFrequencySender = communicationManager.createSender(new SenderConfiguration("bpfrequency", 1, 50000, Integer.class)).second
     //Set up the Insufflator Shutoff Initiator, it's how we telll the insufflator to turn off
 
     //registerInitiator( String identifier, long minimumSeparation, long maximumLatency)
 //registerInitiator(_executorId, 1000, 600);
-    insufflatorShutOffInitiator = communicationManager.createInitiator(new InitiatorConfiguration("insufflatorshutoff", 1, 10000, Integer.class)).second
+    insufflatorShutOffInitiator = communicationManager.createInitiator(new InitiatorConfiguration("insufflatorshutoff", 1, 50000, Integer.class)).second
     //The seconds requester gets the amount of seconds before next reading
 
     //getRequester(  String identifier, long minimumSeparation, long maximumLatency, long minimumRemainingLifetime)
 //getRequester(_responderId, 1000, 600, 300);
     Pair<Status, Requester<Integer>> secondsStatusAndRequester = communicationManager.createRequester(
-      new RequesterConfiguration("seconds", 1, 5000, 600, Integer.class))
+      new RequesterConfiguration("seconds", 1, 50000, 50000, Integer.class))
     secondsRequester = secondsStatusAndRequester.second
     //println("Seconds status: " + secondsStatusAndRequester.first)
     //Set up the subscribers
 
     //registerSubscriber( String topic,long minimumSeparation,  long maximumSeparation,  long maximumLatency, long minimumRemainingLifetime, int consumptionTolerance, Subscriber<T> subscriber)
 // registerSubscriber(_topic, 1000, 2000, 400, _minimumRemainingLifetime, 1, _subscriber);
-    communicationManager.registerSubscriber(new SubscriberConfiguration("diastolic", 1, 9999999999999, 10000, 600, 1,new Subscriber.AbstractSubscriber() {
+    communicationManager.registerSubscriber(new SubscriberConfiguration("diastolic", 1, 9999999999999, 50000, 0, 2,new Subscriber.AbstractSubscriber() {
         void consume(java.io.Serializable data, long remainingLifetime) {
           edt { model.diastolic = data }
           onUpdate()
         }
     }))
-    communicationManager.registerSubscriber(new SubscriberConfiguration("systolic", 1, 9999999999999, 10000, 600, 1,new Subscriber.AbstractSubscriber() {
+    communicationManager.registerSubscriber(new SubscriberConfiguration("systolic", 1, 9999999999999, 50000, 0, 2,new Subscriber.AbstractSubscriber() {
         void consume(java.io.Serializable data, long remainingLifetime) {
           edt { model.systolic = data }
           onUpdate()
         }
     }))
-    communicationManager.registerSubscriber(new SubscriberConfiguration("insufflatorpressure", 1, 9999999999999, 10000, 600, 1,new Subscriber.AbstractSubscriber() {
+    communicationManager.registerSubscriber(new SubscriberConfiguration("insufflatorpressure", 1, 9999999999999, 50000, 0, 2,new Subscriber.AbstractSubscriber() {
         void consume(java.io.Serializable data, long remainingLifetime) {
           edt { model.pressure = data }
           onUpdate()
         }
     }))
-    communicationManager.registerSubscriber(new SubscriberConfiguration("devicestate", 1, 9999999999999, 10000, 600, 1,new Subscriber.AbstractSubscriber() {
+    communicationManager.registerSubscriber(new SubscriberConfiguration("devicestate", 1, 9999999999999, 50000, 0, 2,new Subscriber.AbstractSubscriber() {
         void consume(java.io.Serializable data, long remainingLifetime) {
           edt { model.state = data?"Active":"Inactive" }
           if (data == 1) {
+            Thread.start {
             bpFrequencySender.send(60);
+          }
           } else {
+            Thread.start {
             bpFrequencySender.send(180);
+          }
           }
         }
     }))
-    communicationManager.registerSubscriber(new SubscriberConfiguration("pulserate", 1, 9999999999999, 10000, 600, 1,new Subscriber.AbstractSubscriber() {
+    communicationManager.registerSubscriber(new SubscriberConfiguration("pulserate", 1, 9999999999999, 50000, 0, 2,new Subscriber.AbstractSubscriber() {
         void consume(java.io.Serializable data, long remainingLifetime) {
           edt { model.pulseRate = data }
           onUpdate()
@@ -166,7 +170,9 @@ class MonitorController {
       if (model.needToStop && model.state == "Active" && stoppedInsufflator == false) {
         stoppedInsufflator = true
         println("stop pump ${model.systolic} ${model.diastolic} ${model.pressure} ${model.pulseRate}")
+        Thread.start {
         insufflatorShutOffInitiator.initiate(1);
+      }
         Thread.start {
           JOptionPane.showMessageDialog(null,
             """ALERT: Insufflation pump stopped due to bad vitals.

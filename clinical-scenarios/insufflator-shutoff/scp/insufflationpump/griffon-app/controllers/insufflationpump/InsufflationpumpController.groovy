@@ -74,13 +74,14 @@ class InsufflationpumpController {
 
     //createPublisher( String topic, long minimumSeparation, long maximumLatency, long minimumRemainingLifetime, Class<T> dataType, CommunicationManager communicationManager)
 //createPublisher("testSuccessfulPublication", 1000, this.minimumInteractionLatency + 50, 600, Integer.class, this.communicationManager); 
-    deviceStatePublisher = communicationManager.createPublisher(new PublisherConfiguration("devicestate", 1, 1000, 600,  Integer.class)).second
-    pressurePublisher = communicationManager.createPublisher(new PublisherConfiguration("insufflatorpressure", 1, 1000, 600,  Integer.class)).second
+    deviceStatePublisher = communicationManager.createPublisher(new PublisherConfiguration("devicestate", 1, 50000, 50000,  Integer.class)).second
+    pressurePublisher = communicationManager.createPublisher(new PublisherConfiguration("insufflatorpressure", 1, 50000, 50000,  Integer.class)).second
     //Create the turn off executor
 
     //registerExecutor( String identifier, long minimumSeparation, long maximumLatency, Executor<Integer> executor)
 //registerExecutor(_executorId, 1000, 100, _tmp1);
-    communicationManager.registerExecutor(new ExecutorConfiguration("insufflatorshutoff", 1, 10000, new Executor() {
+Thread.start {
+    communicationManager.registerExecutor(new ExecutorConfiguration("insufflatorshutoff", 1, 50000, new Executor() {
         Executor.ExecutionAcknowledgement execute(java.io.Serializable action) {
           deviceOn = false
           edt{
@@ -89,6 +90,7 @@ class InsufflationpumpController {
           return Executor.ExecutionAcknowledgement.ACTION_SUCCEEDED
         }
     }));
+  }
 
     edt{
       model.state = 'Active'

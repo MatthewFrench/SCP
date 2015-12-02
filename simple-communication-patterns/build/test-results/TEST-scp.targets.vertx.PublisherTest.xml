@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.vertx.PublisherTest" tests="3" skipped="1" failures="0" errors="0" timestamp="2015-11-19T22:55:04" hostname="DESKTOP-PE2SLM5" time="0.031">
+<testsuite name="scp.targets.vertx.PublisherTest" tests="3" skipped="1" failures="0" errors="0" timestamp="2015-11-30T21:45:01" hostname="DESKTOP-PE2SLM5" time="0.046">
   <properties/>
-  <testcase name="testSuccessfulPublication" classname="scp.targets.vertx.PublisherTest" time="0.016"/>
-  <testcase name="testFastPublication" classname="scp.targets.vertx.PublisherTest" time="0.015"/>
+  <testcase name="testSuccessfulPublication" classname="scp.targets.vertx.PublisherTest" time="0.03"/>
+  <testcase name="testFastPublication" classname="scp.targets.vertx.PublisherTest" time="0.016"/>
   <testcase name="testPublicationTimeOut" classname="scp.targets.vertx.PublisherTest" time="0.0">
     <skipped/>
   </testcase>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[[Thread-18] WARN scp.impl.PublishRequester - Dropping 2-th message
+  <system-err><![CDATA[[Thread-296] WARN scp.impl.PublishRequester - Dropping 2-th message
 ]]></system-err>
 </testsuite>

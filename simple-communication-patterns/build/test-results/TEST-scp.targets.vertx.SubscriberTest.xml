@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.vertx.SubscriberTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2015-11-19T22:55:06" hostname="DESKTOP-PE2SLM5" time="5.335">
+<testsuite name="scp.targets.vertx.SubscriberTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2015-11-30T21:45:03" hostname="DESKTOP-PE2SLM5" time="5.369">
   <properties/>
-  <testcase name="testSlowConsumption" classname="scp.targets.vertx.SubscriberTest" time="4.002"/>
-  <testcase name="testSlowPublication" classname="scp.targets.vertx.SubscriberTest" time="1.114"/>
+  <testcase name="testSlowConsumption" classname="scp.targets.vertx.SubscriberTest" time="4.041"/>
+  <testcase name="testSlowPublication" classname="scp.targets.vertx.SubscriberTest" time="1.11"/>
   <testcase name="testStaleMessage" classname="scp.targets.vertx.SubscriberTest" time="0.109"/>
-  <testcase name="testSuccessfulConsumption" classname="scp.targets.vertx.SubscriberTest" time="0.11"/>
+  <testcase name="testSuccessfulConsumption" classname="scp.targets.vertx.SubscriberTest" time="0.109"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[[vert.x-eventloop-thread-0] WARN scp.impl.SubscriberInvoker - Timed out handling 1-th message
 [vert.x-eventloop-thread-0] WARN scp.impl.SubscriberInvoker - Timed out handling 2-th message

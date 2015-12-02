@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.mock.SubscriberTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2015-11-19T22:54:57" hostname="DESKTOP-PE2SLM5" time="5.226">
+<testsuite name="scp.targets.mock.SubscriberTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2015-11-30T21:44:55" hostname="DESKTOP-PE2SLM5" time="5.219">
   <properties/>
-  <testcase name="testSlowConsumption" classname="scp.targets.mock.SubscriberTest" time="4.156"/>
-  <testcase name="testSlowPublication" classname="scp.targets.mock.SubscriberTest" time="1.008"/>
+  <testcase name="testSlowConsumption" classname="scp.targets.mock.SubscriberTest" time="4.142"/>
+  <testcase name="testSlowPublication" classname="scp.targets.mock.SubscriberTest" time="1.015"/>
   <testcase name="testStaleMessage" classname="scp.targets.mock.SubscriberTest" time="0.031"/>
   <testcase name="testSuccessfulConsumption" classname="scp.targets.mock.SubscriberTest" time="0.031"/>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[[pool-64-thread-1] WARN scp.impl.SubscriberInvoker - Timed out handling 1-th message
-[pool-64-thread-1] WARN scp.impl.SubscriberInvoker - Timed out handling 2-th message
-[pool-64-thread-1] WARN scp.impl.SubscriberInvoker - Timed out handling 3-th message
-[pool-64-thread-1] WARN scp.impl.SubscriberInvoker - Timed out handling 4-th message
-[pool-64-thread-1] INFO scp.impl.SubscriberInvoker - Handling stale 1-th message
+  <system-err><![CDATA[[pool-125-thread-1] WARN scp.impl.SubscriberInvoker - Timed out handling 1-th message
+[pool-125-thread-1] WARN scp.impl.SubscriberInvoker - Timed out handling 2-th message
+[pool-125-thread-1] WARN scp.impl.SubscriberInvoker - Timed out handling 3-th message
+[pool-125-thread-1] WARN scp.impl.SubscriberInvoker - Timed out handling 4-th message
+[pool-125-thread-1] INFO scp.impl.SubscriberInvoker - Handling stale 1-th message
 ]]></system-err>
 </testsuite>

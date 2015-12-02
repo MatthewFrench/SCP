@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.mock.SenderReceiverTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2015-11-19T22:54:56" hostname="DESKTOP-PE2SLM5" time="1.031">
+<testsuite name="scp.targets.mock.SenderReceiverTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2015-11-30T21:44:54" hostname="DESKTOP-PE2SLM5" time="0.952">
   <properties/>
-  <testcase name="testExcessLoad" classname="scp.targets.mock.SenderReceiverTest" time="0.265"/>
-  <testcase name="testRemoteUnknownFailure" classname="scp.targets.mock.SenderReceiverTest" time="0.125"/>
+  <testcase name="testExcessLoad" classname="scp.targets.mock.SenderReceiverTest" time="0.25"/>
+  <testcase name="testRemoteUnknownFailure" classname="scp.targets.mock.SenderReceiverTest" time="0.124"/>
   <testcase name="testLocalTimeOut" classname="scp.targets.mock.SenderReceiverTest" time="0.016"/>
-  <testcase name="testDataAccepted" classname="scp.targets.mock.SenderReceiverTest" time="0.125"/>
-  <testcase name="testRemoteTimeOut" classname="scp.targets.mock.SenderReceiverTest" time="0.187"/>
-  <testcase name="testFastSend" classname="scp.targets.mock.SenderReceiverTest" time="0.157"/>
-  <testcase name="testDataRejected" classname="scp.targets.mock.SenderReceiverTest" time="0.141"/>
+  <testcase name="testDataAccepted" classname="scp.targets.mock.SenderReceiverTest" time="0.126"/>
+  <testcase name="testRemoteTimeOut" classname="scp.targets.mock.SenderReceiverTest" time="0.172"/>
+  <testcase name="testFastSend" classname="scp.targets.mock.SenderReceiverTest" time="0.124"/>
+  <testcase name="testDataRejected" classname="scp.targets.mock.SenderReceiverTest" time="0.14"/>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[[pool-48-thread-1] WARN scp.impl.ReceiverInvoker - Dropping 2-th reception
-[pool-48-thread-1] ERROR scp.impl.ReceiverInvoker - Failed to handle 1-th reception
+  <system-err><![CDATA[[pool-109-thread-1] WARN scp.impl.ReceiverInvoker - Dropping 2-th reception
+[pool-109-thread-1] ERROR scp.impl.ReceiverInvoker - Failed to handle 1-th reception
 java.util.concurrent.ExecutionException: java.lang.RuntimeException: Don't Panic! This exception is good :)
 	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
 	at java.util.concurrent.FutureTask.get(FutureTask.java:206)
@@ -27,7 +27,7 @@ Caused by: java.lang.RuntimeException: Don't Panic! This exception is good :)
 	at scp.impl.ReceiverInvoker.lambda$invokeHandler$3(ReceiverInvoker.java:96)
 	... 4 more
 [Test worker] WARN scp.impl.SendRequester - Timed out handling 1-th send
-[pool-48-thread-1] WARN scp.impl.ReceiverInvoker - Timed out handling 1-th reception
+[pool-109-thread-1] WARN scp.impl.ReceiverInvoker - Timed out handling 1-th reception
 [Test worker] ERROR scp.impl.SendRequester - Failed to handle 1-th send
 java.util.concurrent.ExecutionException: java.lang.RuntimeException: java.util.concurrent.ExecutionException: java.lang.NullPointerException
 	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
@@ -58,7 +58,7 @@ java.util.concurrent.ExecutionException: java.lang.RuntimeException: java.util.c
 	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecuter.execute(JUnitTestClassExecuter.java:49)
 	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassProcessor.processTestClass(JUnitTestClassProcessor.java:69)
 	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:48)
-	at sun.reflect.GeneratedMethodAccessor11.invoke(Unknown Source)
+	at sun.reflect.GeneratedMethodAccessor7.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:497)
 	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
@@ -67,7 +67,7 @@ java.util.concurrent.ExecutionException: java.lang.RuntimeException: java.util.c
 	at org.gradle.messaging.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:93)
 	at com.sun.proxy.$Proxy2.processTestClass(Unknown Source)
 	at org.gradle.api.internal.tasks.testing.worker.TestWorker.processTestClass(TestWorker.java:105)
-	at sun.reflect.GeneratedMethodAccessor10.invoke(Unknown Source)
+	at sun.reflect.GeneratedMethodAccessor6.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:497)
 	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)

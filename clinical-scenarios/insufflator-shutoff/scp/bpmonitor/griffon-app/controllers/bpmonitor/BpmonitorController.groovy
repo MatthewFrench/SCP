@@ -77,13 +77,21 @@ class BpmonitorController {
   	
   	communicationManager.setUp()
     //Create the publishers
-  	systolicPublisher = communicationManager.createPublisher(new PublisherConfiguration("systolic", 1000, 500, 800, Integer.class)).second
-  	diastolicPublisher = communicationManager.createPublisher(new PublisherConfiguration("diastolic", 1000, 500, 800, Integer.class)).second
-  	pulseRatePublisher = communicationManager.createPublisher(new PublisherConfiguration("pulserate", 1000, 500, 800, Integer.class)).second
+
+    //PublisherConfiguration(String topic,@Offers @NonZero @NonNegative minimumSeparation, @Expects @NonZero @NonNegative final long maximumLatency, @Offers @NonZero @NonNegative final long minimumRemainingLifetime, Class<S> dataType) {
+  	//PublisherConfiguration( topic, minimumSeparation, maximumLatency, minimumRemainingLifetime, dataType) {
+//createPublisher("testSuccessfulPublication", 1000, this.minimumInteractionLatency + 50, 600, Integer.class, this.communicationManager);
+    systolicPublisher = communicationManager.createPublisher(new PublisherConfiguration("systolic", 1, 5000, 600, Integer.class)).second
+  	diastolicPublisher = communicationManager.createPublisher(new PublisherConfiguration("diastolic", 1, 5000, 600, Integer.class)).second
+  	pulseRatePublisher = communicationManager.createPublisher(new PublisherConfiguration("pulserate", 1, 5000, 600, Integer.class)).second
 
     //Responds the current seconds of the BPMonitor
     //println("Creating seconds responder")
-  	Status secondsResponderStatus = communicationManager.registerResponder(new ResponderConfiguration("seconds", -1, 100, 20, new Responder() {
+
+    //ResponderConfiguration( @NonNull @NonEmpty final String identifier, @Supports @NonZero @NonNegative final long minimumSeparation, @Offers @NonZero @NonNegative final long maximumLatency, @Offers @NonZero @NonNegative final long minimumRemainingLifetime, @NonNull final Responder<T> responder)
+  	//ResponderConfiguration( identifier, minimumSeparation, maximumLatency, minimumRemainingLifetime,  responder)
+//registerResponder(_responderId, 1000, 100, 600, new BasicResponder());
+    Status secondsResponderStatus = communicationManager.registerResponder(new ResponderConfiguration("seconds", 1, 5000, 600, new Responder() {
   			Pair<Responder.ResponseStatus, Integer> respond() {
           //println("Sending seconds from responder");
   				return new Pair<>(Responder.ResponseStatus.RESPONSE_PROVIDED, currentSeconds);
@@ -91,7 +99,10 @@ class BpmonitorController {
     }))
     //println("Registered seconds responder: " + secondsResponderStatus);
     //Sets the interval until the next reading
-    communicationManager.registerReceiver(new ReceiverConfiguration("bpfrequency", 1000, 100, new Receiver() {
+
+    //registerReceiver(String identifier, long minimumSeparation, long maximumLatency, Receiver<Integer> receiver)
+//registerReceiver(_receiverId, 1000, 100, _tmp1);
+    communicationManager.registerReceiver(new ReceiverConfiguration("bpfrequency", 1, 5000, new Receiver() {
   			Receiver.ReceptionAcknowledgement receive(java.io.Serializable data) {
           currentInterval = data
           if (currentSeconds > currentInterval && currentState == STATE_IDLE) {

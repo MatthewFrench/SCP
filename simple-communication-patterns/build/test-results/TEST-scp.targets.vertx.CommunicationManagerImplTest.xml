@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.vertx.CommunicationManagerImplTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2015-11-19T22:55:03" hostname="DESKTOP-PE2SLM5" time="0.016">
+<testsuite name="scp.targets.vertx.CommunicationManagerImplTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2015-11-30T21:45:00" hostname="DESKTOP-PE2SLM5" time="0.031">
   <properties/>
   <testcase name="testCreateRequesterSuccess" classname="scp.targets.vertx.CommunicationManagerImplTest" time="0.0"/>
-  <testcase name="testCreateInitiatorSuccess" classname="scp.targets.vertx.CommunicationManagerImplTest" time="0.0"/>
-  <testcase name="testCreateSenderSuccess" classname="scp.targets.vertx.CommunicationManagerImplTest" time="0.016"/>
+  <testcase name="testCreateInitiatorSuccess" classname="scp.targets.vertx.CommunicationManagerImplTest" time="0.015"/>
+  <testcase name="testCreateSenderSuccess" classname="scp.targets.vertx.CommunicationManagerImplTest" time="0.0"/>
   <testcase name="testRegisterExecutorSuccess" classname="scp.targets.vertx.CommunicationManagerImplTest" time="0.0"/>
   <testcase name="testRegisterResponderSuccess" classname="scp.targets.vertx.CommunicationManagerImplTest" time="0.0"/>
   <testcase name="testRegisterReceiverSuccess" classname="scp.targets.vertx.CommunicationManagerImplTest" time="0.0"/>
-  <testcase name="testRegisterSubscriberSuccess" classname="scp.targets.vertx.CommunicationManagerImplTest" time="0.0"/>
+  <testcase name="testRegisterSubscriberSuccess" classname="scp.targets.vertx.CommunicationManagerImplTest" time="0.016"/>
   <testcase name="testCreatePublisherSuccess" classname="scp.targets.vertx.CommunicationManagerImplTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

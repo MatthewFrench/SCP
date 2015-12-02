@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.vertx.InitiatorExecutorTest" tests="8" skipped="1" failures="0" errors="0" timestamp="2015-11-19T22:55:03" hostname="DESKTOP-PE2SLM5" time="0.891">
+<testsuite name="scp.targets.vertx.InitiatorExecutorTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2015-11-30T21:45:00" hostname="DESKTOP-PE2SLM5" time="0.845">
   <properties/>
-  <testcase name="testActionFailed" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.094"/>
-  <testcase name="testExcessLoad" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.219"/>
-  <testcase name="testRemoteUnknownFailure" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.109"/>
+  <testcase name="testActionFailed" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.063"/>
+  <testcase name="testExcessLoad" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.203"/>
+  <testcase name="testRemoteUnknownFailure" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.11"/>
   <testcase name="testActionUnavailable" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.11"/>
-  <testcase name="testLocalTimeOut" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.0">
-    <skipped/>
-  </testcase>
-  <testcase name="testFastInitiation" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.11"/>
-  <testcase name="testActionSucceeded" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.109"/>
-  <testcase name="testRemoteTimeOut" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.14"/>
+  <testcase name="testLocalTimeOut" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.015"/>
+  <testcase name="testFastInitiation" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.094"/>
+  <testcase name="testActionSucceeded" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.11"/>
+  <testcase name="testRemoteTimeOut" classname="scp.targets.vertx.InitiatorExecutorTest" time="0.125"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[[vert.x-eventloop-thread-0] WARN scp.impl.ExecutorInvoker - Dropping 2-th request
 [vert.x-eventloop-thread-3] ERROR scp.impl.ExecutorInvoker - Failed to handle 1-th request
@@ -34,6 +32,7 @@ Caused by: java.lang.RuntimeException: Don't Panic! This exception is good :)
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	... 1 more
+[Test worker] WARN scp.impl.InitiateRequester - Timed out handling 1-th initiation
 [Test worker] WARN scp.impl.InitiateRequester - Dropping 2-th initiation
 [vert.x-eventloop-thread-3] WARN scp.impl.ExecutorInvoker - Timed out handling 1-th request
 ]]></system-err>

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.mock.RequesterResponderTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2015-11-19T22:54:55" hostname="DESKTOP-PE2SLM5" time="1.047">
+<testsuite name="scp.targets.mock.RequesterResponderTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2015-11-30T21:44:53" hostname="DESKTOP-PE2SLM5" time="1.001">
   <properties/>
-  <testcase name="testExcessLoad" classname="scp.targets.mock.RequesterResponderTest" time="0.281"/>
-  <testcase name="testRemoteUnknownFailure" classname="scp.targets.mock.RequesterResponderTest" time="0.126"/>
-  <testcase name="testLocalTimeOut" classname="scp.targets.mock.RequesterResponderTest" time="0.015"/>
+  <testcase name="testExcessLoad" classname="scp.targets.mock.RequesterResponderTest" time="0.25"/>
+  <testcase name="testRemoteUnknownFailure" classname="scp.targets.mock.RequesterResponderTest" time="0.109"/>
+  <testcase name="testLocalTimeOut" classname="scp.targets.mock.RequesterResponderTest" time="0.016"/>
   <testcase name="testStaleData" classname="scp.targets.mock.RequesterResponderTest" time="0.125"/>
   <testcase name="testDataUnavailable" classname="scp.targets.mock.RequesterResponderTest" time="0.125"/>
   <testcase name="testSuccessfulRequest" classname="scp.targets.mock.RequesterResponderTest" time="0.126"/>
   <testcase name="testFastRequest" classname="scp.targets.mock.RequesterResponderTest" time="0.124"/>
-  <testcase name="testRemoteTimeOut" classname="scp.targets.mock.RequesterResponderTest" time="0.125"/>
+  <testcase name="testRemoteTimeOut" classname="scp.targets.mock.RequesterResponderTest" time="0.126"/>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[[pool-30-thread-1] WARN scp.impl.ResponderInvoker - Dropping 2-th reception
-[pool-30-thread-1] ERROR scp.impl.ResponderInvoker - Failed to handle 1-th reception
+  <system-err><![CDATA[[pool-91-thread-1] WARN scp.impl.ResponderInvoker - Dropping 2-th reception
+[pool-91-thread-1] ERROR scp.impl.ResponderInvoker - Failed to handle 1-th reception
 java.util.concurrent.ExecutionException: java.lang.RuntimeException: Don't Panic! This exception is good :)
 	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
 	at java.util.concurrent.FutureTask.get(FutureTask.java:206)
@@ -29,6 +29,6 @@ Caused by: java.lang.RuntimeException: Don't Panic! This exception is good :)
 [Test worker] INFO scp.impl.RequestRequester - Handling stale 1-th response
 [Test worker] INFO scp.impl.RequestRequester - Handling stale 1-th response
 [Test worker] WARN scp.impl.RequestRequester - Dropping 2-th request
-[pool-30-thread-1] WARN scp.impl.ResponderInvoker - Timed out handling 1-th reception
+[pool-91-thread-1] WARN scp.impl.ResponderInvoker - Timed out handling 1-th reception
 ]]></system-err>
 </testsuite>

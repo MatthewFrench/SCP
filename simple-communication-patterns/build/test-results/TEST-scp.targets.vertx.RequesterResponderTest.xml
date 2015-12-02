@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.vertx.RequesterResponderTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2015-11-19T22:55:04" hostname="DESKTOP-PE2SLM5" time="0.829">
+<testsuite name="scp.targets.vertx.RequesterResponderTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2015-11-30T21:45:01" hostname="DESKTOP-PE2SLM5" time="0.813">
   <properties/>
-  <testcase name="testExcessLoad" classname="scp.targets.vertx.RequesterResponderTest" time="0.063"/>
-  <testcase name="testRemoteUnknownFailure" classname="scp.targets.vertx.RequesterResponderTest" time="0.109"/>
-  <testcase name="testLocalTimeOut" classname="scp.targets.vertx.RequesterResponderTest" time="0.016"/>
+  <testcase name="testExcessLoad" classname="scp.targets.vertx.RequesterResponderTest" time="0.047"/>
+  <testcase name="testRemoteUnknownFailure" classname="scp.targets.vertx.RequesterResponderTest" time="0.11"/>
+  <testcase name="testLocalTimeOut" classname="scp.targets.vertx.RequesterResponderTest" time="0.015"/>
   <testcase name="testStaleData" classname="scp.targets.vertx.RequesterResponderTest" time="0.203"/>
   <testcase name="testDataUnavailable" classname="scp.targets.vertx.RequesterResponderTest" time="0.109"/>
   <testcase name="testSuccessfulRequest" classname="scp.targets.vertx.RequesterResponderTest" time="0.11"/>
-  <testcase name="testFastRequest" classname="scp.targets.vertx.RequesterResponderTest" time="0.109"/>
-  <testcase name="testRemoteTimeOut" classname="scp.targets.vertx.RequesterResponderTest" time="0.11"/>
+  <testcase name="testFastRequest" classname="scp.targets.vertx.RequesterResponderTest" time="0.11"/>
+  <testcase name="testRemoteTimeOut" classname="scp.targets.vertx.RequesterResponderTest" time="0.109"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[[vert.x-eventloop-thread-0] WARN scp.impl.ResponderInvoker - Dropping 2-th reception
 [vert.x-eventloop-thread-3] ERROR scp.impl.ResponderInvoker - Failed to handle 1-th reception

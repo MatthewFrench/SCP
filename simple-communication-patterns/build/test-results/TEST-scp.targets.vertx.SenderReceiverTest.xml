@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.vertx.SenderReceiverTest" tests="7" skipped="1" failures="1" errors="0" timestamp="2015-11-19T22:55:05" hostname="DESKTOP-PE2SLM5" time="1.281">
+<testsuite name="scp.targets.vertx.SenderReceiverTest" tests="7" skipped="1" failures="1" errors="0" timestamp="2015-11-30T21:45:02" hostname="DESKTOP-PE2SLM5" time="1.281">
   <properties/>
-  <testcase name="testExcessLoad" classname="scp.targets.vertx.SenderReceiverTest" time="0.031"/>
-  <testcase name="testRemoteUnknownFailure" classname="scp.targets.vertx.SenderReceiverTest" time="0.11"/>
+  <testcase name="testExcessLoad" classname="scp.targets.vertx.SenderReceiverTest" time="0.03"/>
+  <testcase name="testRemoteUnknownFailure" classname="scp.targets.vertx.SenderReceiverTest" time="0.111"/>
   <testcase name="testLocalTimeOut" classname="scp.targets.vertx.SenderReceiverTest" time="0.0">
     <skipped/>
   </testcase>
-  <testcase name="testDataAccepted" classname="scp.targets.vertx.SenderReceiverTest" time="0.109"/>
-  <testcase name="testRemoteTimeOut" classname="scp.targets.vertx.SenderReceiverTest" time="0.218"/>
-  <testcase name="testFastSend" classname="scp.targets.vertx.SenderReceiverTest" time="0.407"/>
+  <testcase name="testDataAccepted" classname="scp.targets.vertx.SenderReceiverTest" time="0.108"/>
+  <testcase name="testRemoteTimeOut" classname="scp.targets.vertx.SenderReceiverTest" time="0.22"/>
+  <testcase name="testFastSend" classname="scp.targets.vertx.SenderReceiverTest" time="0.406"/>
   <testcase name="testDataRejected" classname="scp.targets.vertx.SenderReceiverTest" time="0.406">
     <failure message="java.lang.AssertionError: expected:&lt;DATA_REJECTED&gt; but was:&lt;LOCAL_TIME_OUT&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;DATA_REJECTED&gt; but was:&lt;LOCAL_TIME_OUT&gt;
 	at org.junit.Assert.fail(Assert.java:88)
@@ -39,7 +39,7 @@
 	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecuter.execute(JUnitTestClassExecuter.java:49)
 	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassProcessor.processTestClass(JUnitTestClassProcessor.java:69)
 	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:48)
-	at sun.reflect.GeneratedMethodAccessor11.invoke(Unknown Source)
+	at sun.reflect.GeneratedMethodAccessor7.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:497)
 	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
@@ -48,7 +48,7 @@
 	at org.gradle.messaging.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:93)
 	at com.sun.proxy.$Proxy2.processTestClass(Unknown Source)
 	at org.gradle.api.internal.tasks.testing.worker.TestWorker.processTestClass(TestWorker.java:105)
-	at sun.reflect.GeneratedMethodAccessor10.invoke(Unknown Source)
+	at sun.reflect.GeneratedMethodAccessor6.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:497)
 	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)

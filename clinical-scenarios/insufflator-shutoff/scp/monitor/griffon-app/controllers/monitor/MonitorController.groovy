@@ -78,34 +78,46 @@ class MonitorController {
 
     communicationManager.setUp()
     //Set up the BP Frequency sender. This is how we change read interval
-    bpFrequencySender = communicationManager.createSender(new SenderConfiguration("bpfrequency", 1000, 400, Integer.class)).second
+
+//Sender<Integer> registerSender( String identifier, long minimumSeparation, long maximumLatency)
+//registerSender(_receiverId, 1000, 400);
+    bpFrequencySender = communicationManager.createSender(new SenderConfiguration("bpfrequency", 1, 10000, Integer.class)).second
     //Set up the Insufflator Shutoff Initiator, it's how we telll the insufflator to turn off
-    insufflatorShutOffInitiator = communicationManager.createInitiator(new InitiatorConfiguration("insufflatorshutoff", -1, 15, Integer.class)).second
+
+    //registerInitiator( String identifier, long minimumSeparation, long maximumLatency)
+//registerInitiator(_executorId, 1000, 600);
+    insufflatorShutOffInitiator = communicationManager.createInitiator(new InitiatorConfiguration("insufflatorshutoff", 1, 10000, Integer.class)).second
     //The seconds requester gets the amount of seconds before next reading
-    Pair<Status, Requester<Integer>> secondsStatusAndRequester = communicationManager.createRequester(new RequesterConfiguration("seconds", -1, 15, 1, Integer.class))
+
+    //getRequester(  String identifier, long minimumSeparation, long maximumLatency, long minimumRemainingLifetime)
+//getRequester(_responderId, 1000, 600, 300);
+    Pair<Status, Requester<Integer>> secondsStatusAndRequester = communicationManager.createRequester(
+      new RequesterConfiguration("seconds", 1, 5000, 600, Integer.class))
     secondsRequester = secondsStatusAndRequester.second
     //println("Seconds status: " + secondsStatusAndRequester.first)
     //Set up the subscribers
-    
-    communicationManager.registerSubscriber(new SubscriberConfiguration("diastolic", 1000, 2000, 400, 50, 1,new Subscriber.AbstractSubscriber() {
+
+    //registerSubscriber( String topic,long minimumSeparation,  long maximumSeparation,  long maximumLatency, long minimumRemainingLifetime, int consumptionTolerance, Subscriber<T> subscriber)
+// registerSubscriber(_topic, 1000, 2000, 400, _minimumRemainingLifetime, 1, _subscriber);
+    communicationManager.registerSubscriber(new SubscriberConfiguration("diastolic", 1, 9999999999999, 10000, 600, 1,new Subscriber.AbstractSubscriber() {
         void consume(java.io.Serializable data, long remainingLifetime) {
           edt { model.diastolic = data }
           onUpdate()
         }
     }))
-    communicationManager.registerSubscriber(new SubscriberConfiguration("systolic", 1000, 2000, 400, 50, 1,new Subscriber.AbstractSubscriber() {
+    communicationManager.registerSubscriber(new SubscriberConfiguration("systolic", 1, 9999999999999, 10000, 600, 1,new Subscriber.AbstractSubscriber() {
         void consume(java.io.Serializable data, long remainingLifetime) {
           edt { model.systolic = data }
           onUpdate()
         }
     }))
-    communicationManager.registerSubscriber(new SubscriberConfiguration("insufflatorpressure", 1000, 2000, 400, 50, 1,new Subscriber.AbstractSubscriber() {
+    communicationManager.registerSubscriber(new SubscriberConfiguration("insufflatorpressure", 1, 9999999999999, 10000, 600, 1,new Subscriber.AbstractSubscriber() {
         void consume(java.io.Serializable data, long remainingLifetime) {
           edt { model.pressure = data }
           onUpdate()
         }
     }))
-    communicationManager.registerSubscriber(new SubscriberConfiguration("devicestate", 1000, 2000, 400, 50, 1,new Subscriber.AbstractSubscriber() {
+    communicationManager.registerSubscriber(new SubscriberConfiguration("devicestate", 1, 9999999999999, 10000, 600, 1,new Subscriber.AbstractSubscriber() {
         void consume(java.io.Serializable data, long remainingLifetime) {
           edt { model.state = data?"Active":"Inactive" }
           if (data == 1) {
@@ -115,7 +127,7 @@ class MonitorController {
           }
         }
     }))
-    communicationManager.registerSubscriber(new SubscriberConfiguration("pulserate", 1000, 2000, 400, 50, 1,new Subscriber.AbstractSubscriber() {
+    communicationManager.registerSubscriber(new SubscriberConfiguration("pulserate", 1, 9999999999999, 10000, 600, 1,new Subscriber.AbstractSubscriber() {
         void consume(java.io.Serializable data, long remainingLifetime) {
           edt { model.pulseRate = data }
           onUpdate()

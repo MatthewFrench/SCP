@@ -29,6 +29,7 @@ class MonitorView {
                      imageIcon('/griffon-icon-16x16.png').image]) {
         panel(border: emptyBorder(6)) {
           migLayout(layoutConstraints: 'fill')
+          System.out.println(model.griffonClass.propertyNames)
           model.griffonClass.propertyNames.each { name ->
             label text: name
             label text: bind(source:model, name), constraints: 'wrap'

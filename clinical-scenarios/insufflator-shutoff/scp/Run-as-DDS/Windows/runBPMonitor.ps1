@@ -27,5 +27,5 @@ cd "bpmonitor"
 
 gvm v
 
-griffon run-app dds
+gradlew run -PappArgs="['dds']"
 # Read-Host -Prompt "Press Enter to exit."

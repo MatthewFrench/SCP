@@ -8,4 +8,4 @@ cd $DIR
 cd ..
 cd ..
 cd "monitor/"
-griffon run-app dds
+gradle run -PappArgs="['dds']"

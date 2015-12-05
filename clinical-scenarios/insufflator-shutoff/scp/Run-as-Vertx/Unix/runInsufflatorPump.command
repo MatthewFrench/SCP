@@ -3,4 +3,4 @@ cd $DIR
 cd ..
 cd ..
 cd "insufflationpump/"
-griffon run-app vertx
+gradle run -PappArgs="['vertx']"

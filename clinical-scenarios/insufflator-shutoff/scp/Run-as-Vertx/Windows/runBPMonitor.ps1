@@ -22,5 +22,5 @@ $griffonScript = "griffon"
 
 gvm v
 
-.$griffonScript run-app vertx
+gradlew run -PappArgs="['vertx']"
 # Read-Host -Prompt "Press Enter to exit."

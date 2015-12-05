@@ -1,6 +1,0 @@
-1 Execute 
-    rtiddsgen -language java DataTypes.idl -package lib
-  in src/main/java folder.
-
-2 Execute 
-    gradle build copyLibs

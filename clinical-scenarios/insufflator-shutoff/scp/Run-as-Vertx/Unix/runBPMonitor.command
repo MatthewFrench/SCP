@@ -3,4 +3,4 @@ cd $DIR
 cd ..
 cd ..
 cd "bpmonitor/"
-griffon run-app vertx
+gradle run -PappArgs="['vertx']"

@@ -8,4 +8,4 @@ cd $DIR
 cd ..
 cd ..
 cd "bpmonitor/"
-griffon run-app dds
+gradle run -PappArgs="['dds']"

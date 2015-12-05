@@ -8,4 +8,4 @@ cd $DIR
 cd ..
 cd ..
 cd "insufflationpump/"
-griffon run-app dds
+gradle run -PappArgs="['dds']"

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - Class scp.targets.vertx.clustered.InitiatorExecutorTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>Class scp.targets.vertx.clustered.InitiatorExecutorTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/scp.targets.vertx.clustered.html">scp.targets.vertx.clustered</a> &gt; InitiatorExecutorTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">8</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.199s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard error</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">testActionFailed</td>
+<td>0.040s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testActionSucceeded</td>
+<td>0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testActionUnavailable</td>
+<td>0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testExcessLoad</td>
+<td>0.013s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testFastInitiation</td>
+<td>0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testLocalTimeOut</td>
+<td>0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testRemoteTimeOut</td>
+<td>0.110s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testRemoteUnknownFailure</td>
+<td>0.014s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard error</h2>
+<span class="code">
+<pre>Dec 04, 2015 12:12:31 PM com.hazelcast.config.AbstractXmlConfigHelper
+WARNING: Name of the hazelcast schema location incorrect using default
+Dec 04, 2015 12:12:31 PM com.hazelcast.instance.DefaultAddressPicker
+INFO: [LOCAL] [dev] [3.5.2] Prefer IPv4 stack is true.
+Dec 04, 2015 12:12:31 PM com.hazelcast.instance.DefaultAddressPicker
+INFO: [LOCAL] [dev] [3.5.2] Picked Address[192.168.1.2]:5702, using socket ServerSocket[addr=/0:0:0:0:0:0:0:0,localport=5702], bind any local is true
+Dec 04, 2015 12:12:31 PM com.hazelcast.spi.OperationService
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] Backpressure is disabled
+Dec 04, 2015 12:12:31 PM com.hazelcast.spi.impl.operationexecutor.classic.ClassicOperationExecutor
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] Starting with 2 generic operation threads and 4 partition operation threads.
+Dec 04, 2015 12:12:31 PM com.hazelcast.system
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] Hazelcast 3.5.2 (20150826 - ba8dbba) starting at Address[192.168.1.2]:5702
+Dec 04, 2015 12:12:31 PM com.hazelcast.system
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] Copyright (c) 2008-2015, Hazelcast, Inc. All Rights Reserved.
+Dec 04, 2015 12:12:31 PM com.hazelcast.instance.Node
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] Creating MulticastJoiner
+Dec 04, 2015 12:12:31 PM com.hazelcast.core.LifecycleService
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] Address[192.168.1.2]:5702 is STARTING
+Dec 04, 2015 12:12:31 PM com.hazelcast.cluster.impl.MulticastJoiner
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] Trying to join to discovered node: Address[192.168.1.2]:5701
+Dec 04, 2015 12:12:31 PM com.hazelcast.nio.tcp.SocketConnector
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] Connecting to /192.168.1.2:5701, timeout: 0, bind-any: true
+Dec 04, 2015 12:12:31 PM com.hazelcast.nio.tcp.SocketAcceptor
+INFO: [192.168.1.2]:5701 [dev] [3.5.2] Accepting socket connection from /192.168.1.2:52090
+Dec 04, 2015 12:12:31 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] Established socket connection between /192.168.1.2:52090
+Dec 04, 2015 12:12:31 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5701 [dev] [3.5.2] Established socket connection between /192.168.1.2:5701
+Dec 04, 2015 12:12:32 PM com.hazelcast.cluster.ClusterService
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] 
+
+Members [2] {
+	Member [192.168.1.2]:5701
+	Member [192.168.1.2]:5702 this
+}
+
+Dec 04, 2015 12:12:32 PM com.hazelcast.cluster.ClusterService
+INFO: [192.168.1.2]:5701 [dev] [3.5.2] 
+
+Members [2] {
+	Member [192.168.1.2]:5701 this
+	Member [192.168.1.2]:5702
+}
+
+Dec 04, 2015 12:12:33 PM com.hazelcast.partition.InternalPartitionService
+INFO: [192.168.1.2]:5701 [dev] [3.5.2] Re-partitioning cluster data... Migration queue size: 135
+Dec 04, 2015 12:12:34 PM com.hazelcast.partition.InternalPartitionService
+INFO: [192.168.1.2]:5701 [dev] [3.5.2] All migration tasks have been completed, queues are empty.
+Dec 04, 2015 12:12:34 PM com.hazelcast.core.LifecycleService
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] Address[192.168.1.2]:5702 is STARTED
+[vert.x-eventloop-thread-0] INFO scp.targets.vertx.CommunicationManagerImpl - Vertx creation succeeded
+[Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
+[Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
+[vert.x-eventloop-thread-5] WARN scp.impl.ExecutorInvoker - Dropping 2-th request
+[Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
+[vert.x-eventloop-thread-3] ERROR scp.impl.ExecutorInvoker - Failed to handle 1-th request
+java.util.concurrent.ExecutionException: java.lang.RuntimeException: Don't Panic! This exception is good :)
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:206)
+	at scp.impl.ExecutorInvoker.invokeHandler(ExecutorInvoker.java:103)
+	at scp.impl.ExecutorInvoker.execute(ExecutorInvoker.java:90)
+	at scp.targets.vertx.CommunicationManagerImpl.lambda$registerExecutor$21(CommunicationManagerImpl.java:226)
+	at scp.targets.vertx.CommunicationManagerImpl$$Lambda$36/1603186955.handle(Unknown Source)
+	at io.vertx.core.eventbus.impl.EventBusImpl$HandlerRegistration.handleMessage(EventBusImpl.java:1121)
+	at io.vertx.core.eventbus.impl.EventBusImpl$HandlerRegistration.handle(EventBusImpl.java:1115)
+	at io.vertx.core.eventbus.impl.EventBusImpl.lambda$doReceive$179(EventBusImpl.java:755)
+	at io.vertx.core.eventbus.impl.EventBusImpl$$Lambda$56/1361221987.handle(Unknown Source)
+	at io.vertx.core.impl.ContextImpl.lambda$wrapTask$16(ContextImpl.java:335)
+	at io.vertx.core.impl.ContextImpl$$Lambda$20/1411535830.run(Unknown Source)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:358)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:357)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:112)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.RuntimeException: Don't Panic! This exception is good :)
+	at scp.api.InitiatorExecutorTest$4.execute(InitiatorExecutorTest.java:161)
+	at scp.api.InitiatorExecutorTest$4.execute(InitiatorExecutorTest.java:158)
+	at scp.impl.ExecutorInvoker.lambda$invokeHandler$0(ExecutorInvoker.java:100)
+	at scp.impl.ExecutorInvoker$$Lambda$62/579964157.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	... 1 more
+[Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
+[Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
+[Test worker] WARN scp.impl.InitiateRequester - Timed out handling 1-th initiation
+Dec 04, 2015 12:12:34 PM io.vertx.core.eventbus.impl.EventBusImpl
+WARNING: Message reply handler timed out as no reply was received - it will be removed
+[vert.x-eventloop-thread-5] ERROR scp.targets.vertx.CommunicationManagerImpl - Vertx Send failed: TIMEOUT
+[Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
+[Test worker] WARN scp.impl.InitiateRequester - Dropping 2-th initiation
+[Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
+[Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
+[vert.x-eventloop-thread-7] WARN scp.impl.ExecutorInvoker - Timed out handling 1-th request
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>Generated by 
+<a href="http://www.gradle.org">Gradle 2.2.1</a> at Dec 4, 2015 12:13:00 PM</p>
+</div>
+</div>
+</body>

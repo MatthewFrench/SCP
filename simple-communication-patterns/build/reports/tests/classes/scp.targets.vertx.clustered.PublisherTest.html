@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - Class scp.targets.vertx.clustered.PublisherTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>Class scp.targets.vertx.clustered.PublisherTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/scp.targets.vertx.clustered.html">scp.targets.vertx.clustered</a> &gt; PublisherTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">3</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">1</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.015s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox skipped" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard error</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">testFastPublication</td>
+<td>0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="skipped">testPublicationTimeOut</td>
+<td>-</td>
+<td class="skipped">ignored</td>
+</tr>
+<tr>
+<td class="success">testSuccessfulPublication</td>
+<td>0.008s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard error</h2>
+<span class="code">
+<pre>Dec 04, 2015 12:12:35 PM com.hazelcast.config.AbstractXmlConfigHelper
+WARNING: Name of the hazelcast schema location incorrect using default
+Dec 04, 2015 12:12:35 PM com.hazelcast.instance.DefaultAddressPicker
+INFO: [LOCAL] [dev] [3.5.2] Prefer IPv4 stack is true.
+Dec 04, 2015 12:12:35 PM com.hazelcast.instance.DefaultAddressPicker
+INFO: [LOCAL] [dev] [3.5.2] Picked Address[192.168.1.2]:5703, using socket ServerSocket[addr=/0:0:0:0:0:0:0:0,localport=5703], bind any local is true
+Dec 04, 2015 12:12:35 PM com.hazelcast.spi.OperationService
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] Backpressure is disabled
+Dec 04, 2015 12:12:35 PM com.hazelcast.spi.impl.operationexecutor.classic.ClassicOperationExecutor
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] Starting with 2 generic operation threads and 4 partition operation threads.
+Dec 04, 2015 12:12:35 PM com.hazelcast.system
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] Hazelcast 3.5.2 (20150826 - ba8dbba) starting at Address[192.168.1.2]:5703
+Dec 04, 2015 12:12:35 PM com.hazelcast.system
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] Copyright (c) 2008-2015, Hazelcast, Inc. All Rights Reserved.
+Dec 04, 2015 12:12:35 PM com.hazelcast.instance.Node
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] Creating MulticastJoiner
+Dec 04, 2015 12:12:35 PM com.hazelcast.core.LifecycleService
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] Address[192.168.1.2]:5703 is STARTING
+Dec 04, 2015 12:12:35 PM com.hazelcast.cluster.impl.MulticastJoiner
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] Trying to join to discovered node: Address[192.168.1.2]:5701
+Dec 04, 2015 12:12:35 PM com.hazelcast.nio.tcp.SocketConnector
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] Connecting to /192.168.1.2:5701, timeout: 0, bind-any: true
+Dec 04, 2015 12:12:35 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] Established socket connection between /192.168.1.2:52092
+Dec 04, 2015 12:12:35 PM com.hazelcast.nio.tcp.SocketAcceptor
+INFO: [192.168.1.2]:5701 [dev] [3.5.2] Accepting socket connection from /192.168.1.2:52092
+Dec 04, 2015 12:12:35 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5701 [dev] [3.5.2] Established socket connection between /192.168.1.2:5701
+Dec 04, 2015 12:12:36 PM com.hazelcast.cluster.ClusterService
+INFO: [192.168.1.2]:5701 [dev] [3.5.2] 
+
+Members [3] {
+	Member [192.168.1.2]:5701 this
+	Member [192.168.1.2]:5702
+	Member [192.168.1.2]:5703
+}
+
+Dec 04, 2015 12:12:36 PM com.hazelcast.cluster.ClusterService
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] 
+
+Members [3] {
+	Member [192.168.1.2]:5701
+	Member [192.168.1.2]:5702 this
+	Member [192.168.1.2]:5703
+}
+
+Dec 04, 2015 12:12:36 PM com.hazelcast.nio.tcp.SocketConnector
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] Connecting to /192.168.1.2:5703, timeout: 0, bind-any: true
+Dec 04, 2015 12:12:36 PM com.hazelcast.cluster.ClusterService
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] 
+
+Members [3] {
+	Member [192.168.1.2]:5701
+	Member [192.168.1.2]:5702
+	Member [192.168.1.2]:5703 this
+}
+
+Dec 04, 2015 12:12:36 PM com.hazelcast.nio.tcp.SocketAcceptor
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] Accepting socket connection from /192.168.1.2:52093
+Dec 04, 2015 12:12:36 PM com.hazelcast.nio.tcp.SocketConnector
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] Connecting to /192.168.1.2:5702, timeout: 0, bind-any: true
+Dec 04, 2015 12:12:36 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] Established socket connection between /192.168.1.2:52093
+Dec 04, 2015 12:12:36 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] Established socket connection between /192.168.1.2:5703
+Dec 04, 2015 12:12:36 PM com.hazelcast.nio.tcp.SocketAcceptor
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] Accepting socket connection from /192.168.1.2:52094
+Dec 04, 2015 12:12:36 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] Established socket connection between /192.168.1.2:52094
+Dec 04, 2015 12:12:36 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] Established socket connection between /192.168.1.2:5702
+Dec 04, 2015 12:12:36 PM com.hazelcast.partition.InternalPartitionService
+INFO: [192.168.1.2]:5701 [dev] [3.5.2] Re-partitioning cluster data... Migration queue size: 90
+Dec 04, 2015 12:12:37 PM com.hazelcast.partition.InternalPartitionService
+INFO: [192.168.1.2]:5701 [dev] [3.5.2] All migration tasks have been completed, queues are empty.
+Dec 04, 2015 12:12:38 PM com.hazelcast.core.LifecycleService
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] Address[192.168.1.2]:5703 is STARTED
+[vert.x-eventloop-thread-0] INFO scp.targets.vertx.CommunicationManagerImpl - Vertx creation succeeded
+[Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
+[Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
+[Thread-30] WARN scp.impl.PublishRequester - Dropping 2-th message
+[Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>Generated by 
+<a href="http://www.gradle.org">Gradle 2.2.1</a> at Dec 4, 2015 12:13:00 PM</p>
+</div>
+</div>
+</body>

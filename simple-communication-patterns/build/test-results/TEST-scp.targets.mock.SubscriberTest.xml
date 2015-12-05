@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.mock.SubscriberTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2015-11-30T21:44:55" hostname="DESKTOP-PE2SLM5" time="5.219">
+<testsuite name="scp.targets.mock.SubscriberTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2015-12-04T18:12:21" hostname="Matthews-MacBook-Pro.local" time="5.173">
   <properties/>
-  <testcase name="testSlowConsumption" classname="scp.targets.mock.SubscriberTest" time="4.142"/>
-  <testcase name="testSlowPublication" classname="scp.targets.mock.SubscriberTest" time="1.015"/>
-  <testcase name="testStaleMessage" classname="scp.targets.mock.SubscriberTest" time="0.031"/>
-  <testcase name="testSuccessfulConsumption" classname="scp.targets.mock.SubscriberTest" time="0.031"/>
+  <testcase name="test11SlowPublication" classname="scp.targets.mock.SubscriberTest" time="1.009"/>
+  <testcase name="testSlowConsumption" classname="scp.targets.mock.SubscriberTest" time="4.118"/>
+  <testcase name="testStaleMessage" classname="scp.targets.mock.SubscriberTest" time="0.022"/>
+  <testcase name="test12SuccessfulConsumption" classname="scp.targets.mock.SubscriberTest" time="0.022"/>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[[pool-125-thread-1] WARN scp.impl.SubscriberInvoker - Timed out handling 1-th message
-[pool-125-thread-1] WARN scp.impl.SubscriberInvoker - Timed out handling 2-th message
-[pool-125-thread-1] WARN scp.impl.SubscriberInvoker - Timed out handling 3-th message
-[pool-125-thread-1] WARN scp.impl.SubscriberInvoker - Timed out handling 4-th message
-[pool-125-thread-1] INFO scp.impl.SubscriberInvoker - Handling stale 1-th message
+  <system-err><![CDATA[Dec 04, 2015 12:12:21 PM scp.api.SubscriberTest
+INFO: Consumed 40
+Dec 04, 2015 12:12:22 PM scp.api.SubscriberTest
+INFO: SlowPub
+[pool-64-thread-1] WARN scp.impl.SubscriberInvoker - Timed out handling 1-th message
+[pool-64-thread-1] WARN scp.impl.SubscriberInvoker - Timed out handling 2-th message
+[pool-64-thread-1] WARN scp.impl.SubscriberInvoker - Timed out handling 3-th message
+Dec 04, 2015 12:12:25 PM scp.api.SubscriberTest
+INFO: SlowCon 3
+[pool-64-thread-1] WARN scp.impl.SubscriberInvoker - Timed out handling 4-th message
+Dec 04, 2015 12:12:26 PM scp.api.SubscriberTest
+INFO: SlowCon 4
+[pool-64-thread-1] INFO scp.impl.SubscriberInvoker - Handling stale 1-th message
+Dec 04, 2015 12:12:27 PM scp.api.SubscriberTest
+INFO: Staled 30
+Dec 04, 2015 12:12:27 PM scp.api.SubscriberTest
+INFO: Consumed 10
 ]]></system-err>
 </testsuite>

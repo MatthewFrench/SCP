@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.mock.RequesterResponderTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2015-11-30T21:44:53" hostname="DESKTOP-PE2SLM5" time="1.001">
+<testsuite name="scp.targets.mock.RequesterResponderTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2015-12-04T18:12:20" hostname="Matthews-MacBook-Pro.local" time="0.884">
   <properties/>
-  <testcase name="testExcessLoad" classname="scp.targets.mock.RequesterResponderTest" time="0.25"/>
-  <testcase name="testRemoteUnknownFailure" classname="scp.targets.mock.RequesterResponderTest" time="0.109"/>
-  <testcase name="testLocalTimeOut" classname="scp.targets.mock.RequesterResponderTest" time="0.016"/>
-  <testcase name="testStaleData" classname="scp.targets.mock.RequesterResponderTest" time="0.125"/>
-  <testcase name="testDataUnavailable" classname="scp.targets.mock.RequesterResponderTest" time="0.125"/>
-  <testcase name="testSuccessfulRequest" classname="scp.targets.mock.RequesterResponderTest" time="0.126"/>
-  <testcase name="testFastRequest" classname="scp.targets.mock.RequesterResponderTest" time="0.124"/>
-  <testcase name="testRemoteTimeOut" classname="scp.targets.mock.RequesterResponderTest" time="0.126"/>
+  <testcase name="testExcessLoad" classname="scp.targets.mock.RequesterResponderTest" time="0.227"/>
+  <testcase name="testRemoteUnknownFailure" classname="scp.targets.mock.RequesterResponderTest" time="0.112"/>
+  <testcase name="testLocalTimeOut" classname="scp.targets.mock.RequesterResponderTest" time="0.002"/>
+  <testcase name="testStaleData" classname="scp.targets.mock.RequesterResponderTest" time="0.105"/>
+  <testcase name="testDataUnavailable" classname="scp.targets.mock.RequesterResponderTest" time="0.111"/>
+  <testcase name="testSuccessfulRequest" classname="scp.targets.mock.RequesterResponderTest" time="0.107"/>
+  <testcase name="testFastRequest" classname="scp.targets.mock.RequesterResponderTest" time="0.106"/>
+  <testcase name="testRemoteTimeOut" classname="scp.targets.mock.RequesterResponderTest" time="0.109"/>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[[pool-91-thread-1] WARN scp.impl.ResponderInvoker - Dropping 2-th reception
-[pool-91-thread-1] ERROR scp.impl.ResponderInvoker - Failed to handle 1-th reception
+  <system-err><![CDATA[[pool-30-thread-1] WARN scp.impl.ResponderInvoker - Dropping 2-th reception
+[pool-30-thread-1] ERROR scp.impl.ResponderInvoker - Failed to handle 1-th reception
 java.util.concurrent.ExecutionException: java.lang.RuntimeException: Don't Panic! This exception is good :)
 	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
 	at java.util.concurrent.FutureTask.get(FutureTask.java:206)
 	at scp.impl.ResponderInvoker.invokeHandler(ResponderInvoker.java:100)
 	at scp.impl.ResponderInvoker.serviceRequest(ResponderInvoker.java:87)
-	at scp.targets.mock.InProcessCommunicationManagerImpl$3.lambda$request$10(InProcessCommunicationManagerImpl.java:121)
+	at scp.targets.mock.InProcessCommunicationManagerImpl$3.lambda$request$10(InProcessCommunicationManagerImpl.java:125)
+	at scp.targets.mock.InProcessCommunicationManagerImpl$3$$Lambda$7/1995538404.call(Unknown Source)
 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	at java.lang.Thread.run(Thread.java:745)
 Caused by: java.lang.RuntimeException: Don't Panic! This exception is good :)
 	at scp.api.RequesterResponderTest$3.respond(RequesterResponderTest.java:163)
+	at scp.impl.ResponderInvoker$$Lambda$8/548231842.call(Unknown Source)
 	... 4 more
 [Test worker] WARN scp.impl.RequestRequester - Timed out handling 1-th request
 [Test worker] INFO scp.impl.RequestRequester - Handling stale 1-th response
 [Test worker] INFO scp.impl.RequestRequester - Handling stale 1-th response
 [Test worker] WARN scp.impl.RequestRequester - Dropping 2-th request
-[pool-91-thread-1] WARN scp.impl.ResponderInvoker - Timed out handling 1-th reception
+[pool-30-thread-2] WARN scp.impl.ResponderInvoker - Timed out handling 1-th reception
 ]]></system-err>
 </testsuite>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.api.PublisherConfigurationTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2015-11-30T21:42:46" hostname="DESKTOP-PE2SLM5" time="0.015">
+<testsuite name="scp.api.PublisherConfigurationTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2015-12-04T18:12:18" hostname="Matthews-MacBook-Pro.local" time="0.007">
   <properties/>
-  <testcase name="testNullDataType" classname="scp.api.PublisherConfigurationTest" time="0.0"/>
+  <testcase name="testNullDataType" classname="scp.api.PublisherConfigurationTest" time="0.001"/>
   <testcase name="testZeroMinimumRemainingLifetime" classname="scp.api.PublisherConfigurationTest" time="0.0"/>
-  <testcase name="testZeroMinimumSeparation" classname="scp.api.PublisherConfigurationTest" time="0.0"/>
+  <testcase name="testZeroMinimumSeparation" classname="scp.api.PublisherConfigurationTest" time="0.001"/>
   <testcase name="testMaximumLatencyGreaterThanOrEqualMinimumSeparation" classname="scp.api.PublisherConfigurationTest" time="0.0"/>
   <testcase name="testNullTopicName" classname="scp.api.PublisherConfigurationTest" time="0.0"/>
   <testcase name="testZeroMaximumLatency" classname="scp.api.PublisherConfigurationTest" time="0.0"/>
   <testcase name="testMinimumRemainingLifetimeLesserThanOrEqualMaximumLatency" classname="scp.api.PublisherConfigurationTest" time="0.0"/>
   <testcase name="testEmptyTopicName" classname="scp.api.PublisherConfigurationTest" time="0.0"/>
-  <testcase name="testSuccessfulCreation" classname="scp.api.PublisherConfigurationTest" time="0.015"/>
+  <testcase name="testSuccessfulCreation" classname="scp.api.PublisherConfigurationTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

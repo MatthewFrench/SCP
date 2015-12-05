@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="scp.targets.vertx.clustered.SubscriberTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2015-12-04T18:12:49" hostname="Matthews-MacBook-Pro.local" time="5.054">
+  <properties/>
+  <testcase name="test11SlowPublication" classname="scp.targets.vertx.clustered.SubscriberTest" time="1.01"/>
+  <testcase name="testSlowConsumption" classname="scp.targets.vertx.clustered.SubscriberTest" time="4.02"/>
+  <testcase name="testStaleMessage" classname="scp.targets.vertx.clustered.SubscriberTest" time="0.014"/>
+  <testcase name="test12SuccessfulConsumption" classname="scp.targets.vertx.clustered.SubscriberTest" time="0.009"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Dec 04, 2015 12:12:45 PM com.hazelcast.config.AbstractXmlConfigHelper
+WARNING: Name of the hazelcast schema location incorrect using default
+Dec 04, 2015 12:12:45 PM com.hazelcast.instance.DefaultAddressPicker
+INFO: [LOCAL] [dev] [3.5.2] Prefer IPv4 stack is true.
+Dec 04, 2015 12:12:45 PM com.hazelcast.instance.DefaultAddressPicker
+INFO: [LOCAL] [dev] [3.5.2] Picked Address[192.168.1.2]:5706, using socket ServerSocket[addr=/0:0:0:0:0:0:0:0,localport=5706], bind any local is true
+Dec 04, 2015 12:12:45 PM com.hazelcast.spi.OperationService
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Backpressure is disabled
+Dec 04, 2015 12:12:45 PM com.hazelcast.spi.impl.operationexecutor.classic.ClassicOperationExecutor
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Starting with 2 generic operation threads and 4 partition operation threads.
+Dec 04, 2015 12:12:45 PM com.hazelcast.system
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Hazelcast 3.5.2 (20150826 - ba8dbba) starting at Address[192.168.1.2]:5706
+Dec 04, 2015 12:12:45 PM com.hazelcast.system
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Copyright (c) 2008-2015, Hazelcast, Inc. All Rights Reserved.
+Dec 04, 2015 12:12:45 PM com.hazelcast.instance.Node
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Creating MulticastJoiner
+Dec 04, 2015 12:12:45 PM com.hazelcast.core.LifecycleService
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Address[192.168.1.2]:5706 is STARTING
+Dec 04, 2015 12:12:45 PM com.hazelcast.cluster.impl.MulticastJoiner
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Trying to join to discovered node: Address[192.168.1.2]:5701
+Dec 04, 2015 12:12:45 PM com.hazelcast.nio.tcp.SocketConnector
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Connecting to /192.168.1.2:5701, timeout: 0, bind-any: true
+Dec 04, 2015 12:12:45 PM com.hazelcast.nio.tcp.SocketAcceptor
+INFO: [192.168.1.2]:5701 [dev] [3.5.2] Accepting socket connection from /192.168.1.2:52117
+Dec 04, 2015 12:12:45 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Established socket connection between /192.168.1.2:52117
+Dec 04, 2015 12:12:45 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5701 [dev] [3.5.2] Established socket connection between /192.168.1.2:5701
+Dec 04, 2015 12:12:46 PM com.hazelcast.cluster.ClusterService
+INFO: [192.168.1.2]:5701 [dev] [3.5.2] 
+
+Members [6] {
+	Member [192.168.1.2]:5701 this
+	Member [192.168.1.2]:5702
+	Member [192.168.1.2]:5703
+	Member [192.168.1.2]:5704
+	Member [192.168.1.2]:5705
+	Member [192.168.1.2]:5706
+}
+
+Dec 04, 2015 12:12:46 PM com.hazelcast.cluster.ClusterService
+INFO: [192.168.1.2]:5704 [dev] [3.5.2] 
+
+Members [6] {
+	Member [192.168.1.2]:5701
+	Member [192.168.1.2]:5702
+	Member [192.168.1.2]:5703
+	Member [192.168.1.2]:5704 this
+	Member [192.168.1.2]:5705
+	Member [192.168.1.2]:5706
+}
+
+Dec 04, 2015 12:12:46 PM com.hazelcast.nio.tcp.SocketConnector
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] Connecting to /192.168.1.2:5706, timeout: 0, bind-any: true
+Dec 04, 2015 12:12:46 PM com.hazelcast.nio.tcp.SocketConnector
+INFO: [192.168.1.2]:5704 [dev] [3.5.2] Connecting to /192.168.1.2:5706, timeout: 0, bind-any: true
+Dec 04, 2015 12:12:46 PM com.hazelcast.cluster.ClusterService
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] 
+
+Members [6] {
+	Member [192.168.1.2]:5701
+	Member [192.168.1.2]:5702
+	Member [192.168.1.2]:5703
+	Member [192.168.1.2]:5704
+	Member [192.168.1.2]:5705
+	Member [192.168.1.2]:5706 this
+}
+
+Dec 04, 2015 12:12:46 PM com.hazelcast.cluster.ClusterService
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] 
+
+Members [6] {
+	Member [192.168.1.2]:5701
+	Member [192.168.1.2]:5702
+	Member [192.168.1.2]:5703 this
+	Member [192.168.1.2]:5704
+	Member [192.168.1.2]:5705
+	Member [192.168.1.2]:5706
+}
+
+Dec 04, 2015 12:12:46 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] Established socket connection between /192.168.1.2:52118
+Dec 04, 2015 12:12:46 PM com.hazelcast.cluster.ClusterService
+INFO: [192.168.1.2]:5705 [dev] [3.5.2] 
+
+Members [6] {
+	Member [192.168.1.2]:5701
+	Member [192.168.1.2]:5702
+	Member [192.168.1.2]:5703
+	Member [192.168.1.2]:5704
+	Member [192.168.1.2]:5705 this
+	Member [192.168.1.2]:5706
+}
+
+Dec 04, 2015 12:12:46 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5704 [dev] [3.5.2] Established socket connection between /192.168.1.2:52120
+Dec 04, 2015 12:12:46 PM com.hazelcast.cluster.ClusterService
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] 
+
+Members [6] {
+	Member [192.168.1.2]:5701
+	Member [192.168.1.2]:5702 this
+	Member [192.168.1.2]:5703
+	Member [192.168.1.2]:5704
+	Member [192.168.1.2]:5705
+	Member [192.168.1.2]:5706
+}
+
+Dec 04, 2015 12:12:46 PM com.hazelcast.nio.tcp.SocketConnector
+INFO: [192.168.1.2]:5705 [dev] [3.5.2] Connecting to /192.168.1.2:5706, timeout: 0, bind-any: true
+Dec 04, 2015 12:12:46 PM com.hazelcast.nio.tcp.SocketConnector
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Connecting to /192.168.1.2:5705, timeout: 0, bind-any: true
+Dec 04, 2015 12:12:46 PM com.hazelcast.nio.tcp.SocketConnector
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Connecting to /192.168.1.2:5704, timeout: 0, bind-any: true
+Dec 04, 2015 12:12:46 PM com.hazelcast.nio.tcp.SocketConnector
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Connecting to /192.168.1.2:5703, timeout: 0, bind-any: true
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Established socket connection between /192.168.1.2:52124
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.SocketAcceptor
+INFO: [192.168.1.2]:5705 [dev] [3.5.2] Accepting socket connection from /192.168.1.2:52124
+Dec 04, 2015 12:12:46 PM com.hazelcast.nio.tcp.SocketConnector
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Connecting to /192.168.1.2:5702, timeout: 0, bind-any: true
+Dec 04, 2015 12:12:46 PM com.hazelcast.nio.tcp.SocketAcceptor
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Accepting socket connection from /192.168.1.2:52118
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.SocketAcceptor
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Accepting socket connection from /192.168.1.2:52120
+Dec 04, 2015 12:12:46 PM com.hazelcast.nio.tcp.SocketConnector
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] Connecting to /192.168.1.2:5706, timeout: 0, bind-any: true
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Established socket connection between /192.168.1.2:5706
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.SocketAcceptor
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Accepting socket connection from /192.168.1.2:52125
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] Established socket connection between /192.168.1.2:52119
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.SocketAcceptor
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] Accepting socket connection from /192.168.1.2:52121
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Established socket connection between /192.168.1.2:5706
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Established socket connection between /192.168.1.2:52121
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5705 [dev] [3.5.2] Established socket connection between /192.168.1.2:5705
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.SocketAcceptor
+INFO: [192.168.1.2]:5704 [dev] [3.5.2] Accepting socket connection from /192.168.1.2:52123
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Established socket connection between /192.168.1.2:52123
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5705 [dev] [3.5.2] Established socket connection between /192.168.1.2:52125
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5704 [dev] [3.5.2] Established socket connection between /192.168.1.2:5704
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Established socket connection between /192.168.1.2:52122
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.SocketAcceptor
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] Accepting socket connection from /192.168.1.2:52122
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.SocketAcceptor
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Accepting socket connection from /192.168.1.2:52119
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5703 [dev] [3.5.2] Established socket connection between /192.168.1.2:5703
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5702 [dev] [3.5.2] Established socket connection between /192.168.1.2:5702
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Established socket connection between /192.168.1.2:5706
+Dec 04, 2015 12:12:47 PM com.hazelcast.nio.tcp.TcpIpConnectionManager
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Established socket connection between /192.168.1.2:5706
+Dec 04, 2015 12:12:47 PM com.hazelcast.partition.InternalPartitionService
+INFO: [192.168.1.2]:5701 [dev] [3.5.2] Re-partitioning cluster data... Migration queue size: 45
+Dec 04, 2015 12:12:48 PM com.hazelcast.partition.InternalPartitionService
+INFO: [192.168.1.2]:5701 [dev] [3.5.2] All migration tasks have been completed, queues are empty.
+Dec 04, 2015 12:12:48 PM com.hazelcast.core.LifecycleService
+INFO: [192.168.1.2]:5706 [dev] [3.5.2] Address[192.168.1.2]:5706 is STARTED
+[vert.x-eventloop-thread-0] INFO scp.targets.vertx.CommunicationManagerImpl - Vertx creation succeeded
+[Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
+Dec 04, 2015 12:12:49 PM scp.api.SubscriberTest
+INFO: Consumed 40
+Dec 04, 2015 12:12:50 PM scp.api.SubscriberTest
+INFO: SlowPub
+[Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
+[vert.x-eventloop-thread-3] WARN scp.impl.SubscriberInvoker - Timed out handling 1-th message
+[vert.x-eventloop-thread-3] WARN scp.impl.SubscriberInvoker - Timed out handling 2-th message
+[vert.x-eventloop-thread-3] WARN scp.impl.SubscriberInvoker - Timed out handling 3-th message
+Dec 04, 2015 12:12:52 PM scp.api.SubscriberTest
+INFO: SlowCon 3
+[vert.x-eventloop-thread-3] WARN scp.impl.SubscriberInvoker - Timed out handling 4-th message
+Dec 04, 2015 12:12:53 PM scp.api.SubscriberTest
+INFO: SlowCon 4
+[Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
+[vert.x-eventloop-thread-5] INFO scp.impl.SubscriberInvoker - Handling stale 1-th message
+Dec 04, 2015 12:12:54 PM scp.api.SubscriberTest
+INFO: Staled 30
+[Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
+Dec 04, 2015 12:12:54 PM scp.api.SubscriberTest
+INFO: Consumed 10
+]]></system-err>
+</testsuite>

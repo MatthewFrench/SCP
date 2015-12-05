@@ -294,12 +294,12 @@ public class CommunicationManagerImpl implements CommunicationManager {
             } else {
                 LOGGER.error("Vertx Send failed: {}",
                         ((ReplyException) event.cause()).failureType());
-                try {
-                    Thread.sleep(maximumLatency * 2);
-                } catch (final InterruptedException _e) {
-                    LOGGER.error("This is bad!", _e);
-                    throw new RuntimeException(_e);
-                }
+                //try {
+                    //Thread.sleep(maximumLatency * 2);
+                //} catch (final InterruptedException _e) {
+                //    LOGGER.error("This is bad!", _e);
+                //    throw new RuntimeException(_e);
+                //}
             }
             sem.release();
         }

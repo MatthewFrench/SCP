@@ -1,51 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.vertx.clustered.CommunicationManagerImplTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2015-12-04T18:12:31" hostname="Matthews-MacBook-Pro.local" time="0.019">
+<testsuite name="scp.targets.vertx.clustered.CommunicationManagerImplTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2015-12-05T01:29:36" hostname="DESKTOP-PE2SLM5" time="0.032">
   <properties/>
-  <testcase name="testCreateRequesterSuccess" classname="scp.targets.vertx.clustered.CommunicationManagerImplTest" time="0.001"/>
-  <testcase name="testCreateInitiatorSuccess" classname="scp.targets.vertx.clustered.CommunicationManagerImplTest" time="0.002"/>
-  <testcase name="testCreateSenderSuccess" classname="scp.targets.vertx.clustered.CommunicationManagerImplTest" time="0.001"/>
-  <testcase name="testRegisterExecutorSuccess" classname="scp.targets.vertx.clustered.CommunicationManagerImplTest" time="0.005"/>
-  <testcase name="testRegisterResponderSuccess" classname="scp.targets.vertx.clustered.CommunicationManagerImplTest" time="0.001"/>
-  <testcase name="testRegisterReceiverSuccess" classname="scp.targets.vertx.clustered.CommunicationManagerImplTest" time="0.002"/>
-  <testcase name="testRegisterSubscriberSuccess" classname="scp.targets.vertx.clustered.CommunicationManagerImplTest" time="0.003"/>
-  <testcase name="testCreatePublisherSuccess" classname="scp.targets.vertx.clustered.CommunicationManagerImplTest" time="0.002"/>
+  <testcase name="testCreateRequesterSuccess" classname="scp.targets.vertx.clustered.CommunicationManagerImplTest" time="0.0"/>
+  <testcase name="testCreateInitiatorSuccess" classname="scp.targets.vertx.clustered.CommunicationManagerImplTest" time="0.0"/>
+  <testcase name="testCreateSenderSuccess" classname="scp.targets.vertx.clustered.CommunicationManagerImplTest" time="0.0"/>
+  <testcase name="testRegisterExecutorSuccess" classname="scp.targets.vertx.clustered.CommunicationManagerImplTest" time="0.0"/>
+  <testcase name="testRegisterResponderSuccess" classname="scp.targets.vertx.clustered.CommunicationManagerImplTest" time="0.0"/>
+  <testcase name="testRegisterReceiverSuccess" classname="scp.targets.vertx.clustered.CommunicationManagerImplTest" time="0.0"/>
+  <testcase name="testRegisterSubscriberSuccess" classname="scp.targets.vertx.clustered.CommunicationManagerImplTest" time="0.016"/>
+  <testcase name="testCreatePublisherSuccess" classname="scp.targets.vertx.clustered.CommunicationManagerImplTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[Dec 04, 2015 12:12:27 PM com.hazelcast.config.AbstractXmlConfigHelper
+  <system-err><![CDATA[Dec 04, 2015 7:29:30 PM com.hazelcast.config.AbstractXmlConfigHelper
 WARNING: Name of the hazelcast schema location incorrect using default
-Dec 04, 2015 12:12:27 PM com.hazelcast.instance.DefaultAddressPicker
+Dec 04, 2015 7:29:30 PM scp.api.SubscriberTest
+INFO: SlowPub
+Dec 04, 2015 7:29:30 PM com.hazelcast.instance.DefaultAddressPicker
 INFO: [LOCAL] [dev] [3.5.2] Prefer IPv4 stack is true.
-Dec 04, 2015 12:12:27 PM com.hazelcast.instance.DefaultAddressPicker
-INFO: [LOCAL] [dev] [3.5.2] Picked Address[192.168.1.2]:5701, using socket ServerSocket[addr=/0:0:0:0:0:0:0:0,localport=5701], bind any local is true
-Dec 04, 2015 12:12:28 PM scp.api.SubscriberTest
+Dec 04, 2015 7:29:30 PM com.hazelcast.instance.DefaultAddressPicker
+INFO: [LOCAL] [dev] [3.5.2] Picked Address[10.211.55.6]:5701, using socket ServerSocket[addr=/0:0:0:0:0:0:0:0,localport=5701], bind any local is true
+Dec 04, 2015 7:29:31 PM com.hazelcast.spi.OperationService
+INFO: [10.211.55.6]:5701 [dev] [3.5.2] Backpressure is disabled
+Dec 04, 2015 7:29:31 PM com.hazelcast.spi.impl.operationexecutor.classic.ClassicOperationExecutor
+INFO: [10.211.55.6]:5701 [dev] [3.5.2] Starting with 2 generic operation threads and 2 partition operation threads.
+Dec 04, 2015 7:29:31 PM scp.api.SubscriberTest
 INFO: SlowPub
-Dec 04, 2015 12:12:28 PM com.hazelcast.spi.OperationService
-INFO: [192.168.1.2]:5701 [dev] [3.5.2] Backpressure is disabled
-Dec 04, 2015 12:12:28 PM com.hazelcast.spi.impl.operationexecutor.classic.ClassicOperationExecutor
-INFO: [192.168.1.2]:5701 [dev] [3.5.2] Starting with 2 generic operation threads and 4 partition operation threads.
-Dec 04, 2015 12:12:28 PM com.hazelcast.system
-INFO: [192.168.1.2]:5701 [dev] [3.5.2] Hazelcast 3.5.2 (20150826 - ba8dbba) starting at Address[192.168.1.2]:5701
-Dec 04, 2015 12:12:28 PM com.hazelcast.system
-INFO: [192.168.1.2]:5701 [dev] [3.5.2] Copyright (c) 2008-2015, Hazelcast, Inc. All Rights Reserved.
-Dec 04, 2015 12:12:28 PM com.hazelcast.instance.Node
-INFO: [192.168.1.2]:5701 [dev] [3.5.2] Creating MulticastJoiner
-Dec 04, 2015 12:12:28 PM com.hazelcast.core.LifecycleService
-INFO: [192.168.1.2]:5701 [dev] [3.5.2] Address[192.168.1.2]:5701 is STARTING
-Dec 04, 2015 12:12:29 PM scp.api.SubscriberTest
+Dec 04, 2015 7:29:32 PM com.hazelcast.system
+INFO: [10.211.55.6]:5701 [dev] [3.5.2] Hazelcast 3.5.2 (20150826 - ba8dbba) starting at Address[10.211.55.6]:5701
+Dec 04, 2015 7:29:32 PM com.hazelcast.system
+INFO: [10.211.55.6]:5701 [dev] [3.5.2] Copyright (c) 2008-2015, Hazelcast, Inc. All Rights Reserved.
+Dec 04, 2015 7:29:32 PM com.hazelcast.instance.Node
+INFO: [10.211.55.6]:5701 [dev] [3.5.2] Creating MulticastJoiner
+Dec 04, 2015 7:29:32 PM com.hazelcast.core.LifecycleService
+INFO: [10.211.55.6]:5701 [dev] [3.5.2] Address[10.211.55.6]:5701 is STARTING
+Dec 04, 2015 7:29:32 PM scp.api.SubscriberTest
 INFO: SlowPub
-Dec 04, 2015 12:12:30 PM scp.api.SubscriberTest
-INFO: SlowPub
-Dec 04, 2015 12:12:31 PM com.hazelcast.cluster.impl.MulticastJoiner
-INFO: [192.168.1.2]:5701 [dev] [3.5.2] 
+Dec 04, 2015 7:29:35 PM com.hazelcast.cluster.impl.MulticastJoiner
+INFO: [10.211.55.6]:5701 [dev] [3.5.2] 
 
 
 Members [1] {
-	Member [192.168.1.2]:5701 this
+	Member [10.211.55.6]:5701 this
 }
 
-Dec 04, 2015 12:12:31 PM com.hazelcast.core.LifecycleService
-INFO: [192.168.1.2]:5701 [dev] [3.5.2] Address[192.168.1.2]:5701 is STARTED
-Dec 04, 2015 12:12:31 PM com.hazelcast.partition.InternalPartitionService
-INFO: [192.168.1.2]:5701 [dev] [3.5.2] Initializing cluster partition table first arrangement...
+Dec 04, 2015 7:29:35 PM com.hazelcast.core.LifecycleService
+INFO: [10.211.55.6]:5701 [dev] [3.5.2] Address[10.211.55.6]:5701 is STARTED
+Dec 04, 2015 7:29:35 PM com.hazelcast.internal.monitors.HealthMonitor
+INFO: [10.211.55.6]:5701 [dev] [3.5.2] processors=2, physical.memory.total=4.0G, physical.memory.free=2.2G, swap.space.total=4.7G, swap.space.free=2.5G, heap.memory.used=18.1M, heap.memory.free=93.4M, heap.memory.total=111.5M, heap.memory.max=908.5M, heap.memory.used/total=16.27%, heap.memory.used/max=2.00%, minor.gc.count=12, minor.gc.time=122ms, major.gc.count=1, major.gc.time=41ms, load.process=100.00%, load.system=100.00%, load.systemAverage=n/a, thread.count=131, thread.peakCount=131, cluster.timeDiff=0, event.q.size=0, executor.q.async.size=0, executor.q.client.size=0, executor.q.query.size=0, executor.q.scheduled.size=0, executor.q.io.size=0, executor.q.system.size=0, executor.q.operation.size=0, executor.q.priorityOperation.size=0, executor.q.response.size=0, operations.remote.size=0, operations.running.size=0, operations.pending.invocations.count=0, operations.pending.invocations.percentage=0.00%, proxy.count=1, clientEndpoint.count=0, connection.active.count=0, client.connection.count=0, connection.count=0
+Dec 04, 2015 7:29:35 PM com.hazelcast.partition.InternalPartitionService
+INFO: [10.211.55.6]:5701 [dev] [3.5.2] Initializing cluster partition table first arrangement...
 [vert.x-eventloop-thread-0] INFO scp.targets.vertx.CommunicationManagerImpl - Vertx creation succeeded
 [Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
 [Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus

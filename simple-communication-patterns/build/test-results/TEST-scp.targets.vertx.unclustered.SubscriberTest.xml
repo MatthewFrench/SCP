@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.vertx.unclustered.SubscriberTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2015-12-04T18:12:54" hostname="Matthews-MacBook-Pro.local" time="5.029">
+<testsuite name="scp.targets.vertx.unclustered.SubscriberTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2015-12-05T01:30:05" hostname="DESKTOP-PE2SLM5" time="5.049">
   <properties/>
-  <testcase name="test11SlowPublication" classname="scp.targets.vertx.unclustered.SubscriberTest" time="1.007"/>
-  <testcase name="testSlowConsumption" classname="scp.targets.vertx.unclustered.SubscriberTest" time="4.016"/>
-  <testcase name="testStaleMessage" classname="scp.targets.vertx.unclustered.SubscriberTest" time="0.003"/>
-  <testcase name="test12SuccessfulConsumption" classname="scp.targets.vertx.unclustered.SubscriberTest" time="0.002"/>
+  <testcase name="test11SlowPublication" classname="scp.targets.vertx.unclustered.SubscriberTest" time="1.001"/>
+  <testcase name="testSlowConsumption" classname="scp.targets.vertx.unclustered.SubscriberTest" time="4.033"/>
+  <testcase name="testStaleMessage" classname="scp.targets.vertx.unclustered.SubscriberTest" time="0.0"/>
+  <testcase name="test12SuccessfulConsumption" classname="scp.targets.vertx.unclustered.SubscriberTest" time="0.015"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[[Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
-Dec 04, 2015 12:12:54 PM scp.api.SubscriberTest
+Dec 04, 2015 7:30:05 PM scp.api.SubscriberTest
 INFO: Consumed 40
-Dec 04, 2015 12:12:55 PM scp.api.SubscriberTest
+Dec 04, 2015 7:30:05 PM scp.api.SubscriberTest
 INFO: SlowPub
-Dec 04, 2015 12:12:55 PM scp.api.SubscriberTest
+Dec 04, 2015 7:30:06 PM scp.api.SubscriberTest
 INFO: SlowPub
 [Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
 [vert.x-eventloop-thread-2] WARN scp.impl.SubscriberInvoker - Timed out handling 1-th message
-Dec 04, 2015 12:12:56 PM scp.api.SubscriberTest
+Dec 04, 2015 7:30:06 PM scp.api.SubscriberTest
 INFO: SlowPub
 [vert.x-eventloop-thread-2] WARN scp.impl.SubscriberInvoker - Timed out handling 2-th message
-Dec 04, 2015 12:12:57 PM scp.api.SubscriberTest
+Dec 04, 2015 7:30:07 PM scp.api.SubscriberTest
 INFO: SlowPub
 [vert.x-eventloop-thread-2] WARN scp.impl.SubscriberInvoker - Timed out handling 3-th message
-Dec 04, 2015 12:12:57 PM scp.api.SubscriberTest
+Dec 04, 2015 7:30:08 PM scp.api.SubscriberTest
 INFO: SlowCon 3
 [vert.x-eventloop-thread-2] WARN scp.impl.SubscriberInvoker - Timed out handling 4-th message
-Dec 04, 2015 12:12:58 PM scp.api.SubscriberTest
+Dec 04, 2015 7:30:09 PM scp.api.SubscriberTest
 INFO: SlowCon 4
 [Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
 [vert.x-eventloop-thread-3] INFO scp.impl.SubscriberInvoker - Handling stale 1-th message
-Dec 04, 2015 12:12:59 PM scp.api.SubscriberTest
+Dec 04, 2015 7:30:10 PM scp.api.SubscriberTest
 INFO: Staled 30
 [Test worker] INFO scp.targets.vertx.CommunicationManagerImpl - Done setting up vertx eventbus
-Dec 04, 2015 12:12:59 PM scp.api.SubscriberTest
+Dec 04, 2015 7:30:10 PM scp.api.SubscriberTest
 INFO: Consumed 10
 ]]></system-err>
 </testsuite>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.api.ExecutorConfigurationTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2015-12-04T18:12:18" hostname="Matthews-MacBook-Pro.local" time="0.007">
+<testsuite name="scp.api.ExecutorConfigurationTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2015-12-05T01:27:08" hostname="DESKTOP-PE2SLM5" time="0.0">
   <properties/>
-  <testcase name="testValidConfiguration" classname="scp.api.ExecutorConfigurationTest" time="0.002"/>
+  <testcase name="testValidConfiguration" classname="scp.api.ExecutorConfigurationTest" time="0.0"/>
   <testcase name="testZeroMinimumSeparation" classname="scp.api.ExecutorConfigurationTest" time="0.0"/>
-  <testcase name="testMaximumLatencyGreaterThanOrEqualMinimumSeparation" classname="scp.api.ExecutorConfigurationTest" time="0.001"/>
+  <testcase name="testMaximumLatencyGreaterThanOrEqualMinimumSeparation" classname="scp.api.ExecutorConfigurationTest" time="0.0"/>
   <testcase name="testEmptyIdentifier" classname="scp.api.ExecutorConfigurationTest" time="0.0"/>
   <testcase name="testNullIdentifier" classname="scp.api.ExecutorConfigurationTest" time="0.0"/>
   <testcase name="testNullHandler" classname="scp.api.ExecutorConfigurationTest" time="0.0"/>

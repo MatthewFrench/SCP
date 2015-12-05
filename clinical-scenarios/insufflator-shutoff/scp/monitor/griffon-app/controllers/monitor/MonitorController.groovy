@@ -92,7 +92,7 @@ class MonitorController {
     //getRequester(  String identifier, long minimumSeparation, long maximumLatency, long minimumRemainingLifetime)
 //getRequester(_responderId, 1000, 600, 300);
     Pair<Status, Requester<Integer>> secondsStatusAndRequester = communicationManager.createRequester(
-      new RequesterConfiguration("seconds", 1, 50000, 50000, Integer.class))
+      new RequesterConfiguration("seconds", 1, 2000 /*Integer.MAX_VALUE*/, 50000, Integer.class))
     secondsRequester = secondsStatusAndRequester.second
     //println("Seconds status: " + secondsStatusAndRequester.first)
     //Set up the subscribers

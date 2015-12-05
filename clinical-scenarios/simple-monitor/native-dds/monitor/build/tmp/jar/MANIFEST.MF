@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: Matt
+Created-By: 1.8.0_65 (Oracle Corporation 25.65-b01)
+Build-Date: 2015-12-04
+Build-Time: 18:32:49.069-0600
+Specification-Title: monitor
+Specification-Version: 0.2
+Implementation-Title: monitor
+Implementation-Version: 0.2
+

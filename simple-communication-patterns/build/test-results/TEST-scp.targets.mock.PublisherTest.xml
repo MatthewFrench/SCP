@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.mock.PublisherTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2015-12-04T18:12:20" hostname="Matthews-MacBook-Pro.local" time="0.064">
+<testsuite name="scp.targets.mock.PublisherTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2015-12-05T01:29:22" hostname="DESKTOP-PE2SLM5" time="0.108">
   <properties/>
-  <testcase name="testSuccessfulPublication" classname="scp.targets.mock.PublisherTest" time="0.032"/>
-  <testcase name="testFastPublication" classname="scp.targets.mock.PublisherTest" time="0.027"/>
-  <testcase name="testPublicationTimeOut" classname="scp.targets.mock.PublisherTest" time="0.003"/>
+  <testcase name="testSuccessfulPublication" classname="scp.targets.mock.PublisherTest" time="0.061"/>
+  <testcase name="testFastPublication" classname="scp.targets.mock.PublisherTest" time="0.032"/>
+  <testcase name="testPublicationTimeOut" classname="scp.targets.mock.PublisherTest" time="0.015"/>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[[Thread-6] WARN scp.impl.PublishRequester - Dropping 2-th message
-[Thread-7] WARN scp.impl.PublishRequester - Timed out handling 1-th message
+  <system-err><![CDATA[[Thread-284] WARN scp.impl.PublishRequester - Dropping 2-th message
+[Thread-285] WARN scp.impl.PublishRequester - Timed out handling 1-th message
 ]]></system-err>
 </testsuite>

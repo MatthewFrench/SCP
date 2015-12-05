@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<JDepend>
+    <Packages>
+
+        <Package name="Default">
+            <Stats>
+                <TotalClasses>5</TotalClasses>
+                <ConcreteClasses>5</ConcreteClasses>
+                <AbstractClasses>0</AbstractClasses>
+                <Ca>0</Ca>
+                <Ce>11</Ce>
+                <A>0</A>
+                <I>1</I>
+                <D>0</D>
+                <V>1</V>
+            </Stats>
+
+            <AbstractClasses>
+            </AbstractClasses>
+
+            <ConcreteClasses>
+                <Class sourceFile="Config.groovy">
+                    Config
+                </Class>
+                <Class sourceFile="Config.groovy">
+                    Config$_run_closure1
+                </Class>
+                <Class sourceFile="Config.groovy">
+                    Config$_run_closure2
+                </Class>
+                <Class sourceFile="Config.groovy">
+                    Config$_run_closure2$_closure3
+                </Class>
+                <Class sourceFile="Initialize.groovy">
+                    Initialize
+                </Class>
+            </ConcreteClasses>
+
+            <DependsUpon>
+                <Package>griffon.core</Package>
+                <Package>griffon.util</Package>
+                <Package>groovy.lang</Package>
+                <Package>groovy.swing</Package>
+                <Package>java.lang</Package>
+                <Package>java.lang.ref</Package>
+                <Package>org.codehaus.griffon.runtime.core</Package>
+                <Package>org.codehaus.groovy.reflection</Package>
+                <Package>org.codehaus.groovy.runtime</Package>
+                <Package>org.codehaus.groovy.runtime.callsite</Package>
+                <Package>org.codehaus.groovy.runtime.typehandling</Package>
+            </DependsUpon>
+
+            <UsedBy>
+            </UsedBy>
+        </Package>
+
+        <Package name="clinicalscenario.simplemonitor">
+            <Stats>
+                <TotalClasses>14</TotalClasses>
+                <ConcreteClasses>14</ConcreteClasses>
+                <AbstractClasses>0</AbstractClasses>
+                <Ca>0</Ca>
+                <Ce>17</Ce>
+                <A>0</A>
+                <I>1</I>
+                <D>0</D>
+                <V>1</V>
+            </Stats>
+
+            <AbstractClasses>
+            </AbstractClasses>
+
+            <ConcreteClasses>
+                <Class sourceFile="ApplicationEventHandler.groovy">
+                    clinicalscenario.simplemonitor.ApplicationEventHandler
+                </Class>
+                <Class sourceFile="ApplicationModule.groovy">
+                    clinicalscenario.simplemonitor.ApplicationModule
+                </Class>
+                <Class sourceFile="Launcher.groovy">
+                    clinicalscenario.simplemonitor.Launcher
+                </Class>
+                <Class sourceFile="MonitorController.groovy">
+                    clinicalscenario.simplemonitor.MonitorController
+                </Class>
+                <Class sourceFile="MonitorController.groovy">
+                    clinicalscenario.simplemonitor.MonitorController$_onETCO2_closure2
+                </Class>
+                <Class sourceFile="MonitorController.groovy">
+                    clinicalscenario.simplemonitor.MonitorController$_onPulseRate_closure4
+                </Class>
+                <Class sourceFile="MonitorController.groovy">
+                    clinicalscenario.simplemonitor.MonitorController$_onRespiratoryRate_closure3
+                </Class>
+                <Class sourceFile="MonitorController.groovy">
+                    clinicalscenario.simplemonitor.MonitorController$_onSPO2_closure1
+                </Class>
+                <Class sourceFile="MonitorModel.groovy">
+                    clinicalscenario.simplemonitor.MonitorModel
+                </Class>
+                <Class sourceFile="MonitorView.groovy">
+                    clinicalscenario.simplemonitor.MonitorView
+                </Class>
+                <Class sourceFile="MonitorView.groovy">
+                    clinicalscenario.simplemonitor.MonitorView$_initUI_closure1
+                </Class>
+                <Class sourceFile="MonitorView.groovy">
+                    clinicalscenario.simplemonitor.MonitorView$_initUI_closure1$_closure2
+                </Class>
+                <Class sourceFile="MonitorView.groovy">
+                    clinicalscenario.simplemonitor.MonitorView$_initUI_closure1$_closure2$_closure3
+                </Class>
+                <Class sourceFile="MonitorView.groovy">
+                    clinicalscenario.simplemonitor.MonitorView$_initUI_closure1$_closure2$_closure3$_closure4
+                </Class>
+            </ConcreteClasses>
+
+            <DependsUpon>
+                <Package>griffon.builder.swing</Package>
+                <Package>griffon.core.event</Package>
+                <Package>griffon.swing</Package>
+                <Package>griffon.util</Package>
+                <Package>groovy.lang</Package>
+                <Package>groovy.util</Package>
+                <Package>java.lang</Package>
+                <Package>java.lang.ref</Package>
+                <Package>java.util</Package>
+                <Package>javax.swing</Package>
+                <Package>lib</Package>
+                <Package>org.codehaus.griffon.runtime.core.artifact</Package>
+                <Package>org.codehaus.griffon.runtime.core.injection</Package>
+                <Package>org.codehaus.groovy.reflection</Package>
+                <Package>org.codehaus.groovy.runtime</Package>
+                <Package>org.codehaus.groovy.runtime.callsite</Package>
+                <Package>org.codehaus.groovy.runtime.typehandling</Package>
+            </DependsUpon>
+
+            <UsedBy>
+            </UsedBy>
+        </Package>
+
+        <Package name="griffon.builder.swing">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="griffon.core">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="griffon.core.event">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="griffon.swing">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="griffon.util">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="groovy.lang">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="groovy.swing">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="groovy.util">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="java.lang">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="java.lang.ref">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="java.util">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="javax.swing">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="lib">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="org.codehaus.griffon.runtime.core">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="org.codehaus.griffon.runtime.core.artifact">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="org.codehaus.griffon.runtime.core.injection">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="org.codehaus.groovy.reflection">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="org.codehaus.groovy.runtime">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="org.codehaus.groovy.runtime.callsite">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="org.codehaus.groovy.runtime.typehandling">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+    </Packages>
+
+    <Cycles>
+    </Cycles>
+</JDepend>

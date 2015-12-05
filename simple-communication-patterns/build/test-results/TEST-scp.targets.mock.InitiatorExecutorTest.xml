@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scp.targets.mock.InitiatorExecutorTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2015-12-04T18:12:19" hostname="Matthews-MacBook-Pro.local" time="1.001">
+<testsuite name="scp.targets.mock.InitiatorExecutorTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2015-12-05T01:29:21" hostname="DESKTOP-PE2SLM5" time="0.936">
   <properties/>
-  <testcase name="testExcessLoad" classname="scp.targets.mock.InitiatorExecutorTest" time="0.403"/>
-  <testcase name="testRemoteUnknownFailure" classname="scp.targets.mock.InitiatorExecutorTest" time="0.11"/>
-  <testcase name="testLocalTimeOut" classname="scp.targets.mock.InitiatorExecutorTest" time="0.004"/>
-  <testcase name="testDataAccepted" classname="scp.targets.mock.InitiatorExecutorTest" time="0.105"/>
-  <testcase name="testRemoteTimeOut" classname="scp.targets.mock.InitiatorExecutorTest" time="0.158"/>
-  <testcase name="testFastSend" classname="scp.targets.mock.InitiatorExecutorTest" time="0.108"/>
-  <testcase name="testDataRejected" classname="scp.targets.mock.InitiatorExecutorTest" time="0.111"/>
+  <testcase name="testExcessLoad" classname="scp.targets.mock.InitiatorExecutorTest" time="0.25"/>
+  <testcase name="testRemoteUnknownFailure" classname="scp.targets.mock.InitiatorExecutorTest" time="0.125"/>
+  <testcase name="testLocalTimeOut" classname="scp.targets.mock.InitiatorExecutorTest" time="0.015"/>
+  <testcase name="testDataAccepted" classname="scp.targets.mock.InitiatorExecutorTest" time="0.124"/>
+  <testcase name="testRemoteTimeOut" classname="scp.targets.mock.InitiatorExecutorTest" time="0.173"/>
+  <testcase name="testFastSend" classname="scp.targets.mock.InitiatorExecutorTest" time="0.125"/>
+  <testcase name="testDataRejected" classname="scp.targets.mock.InitiatorExecutorTest" time="0.124"/>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[[pool-1-thread-1] WARN scp.impl.ReceiverInvoker - Dropping 2-th reception
-[pool-1-thread-1] ERROR scp.impl.ReceiverInvoker - Failed to handle 1-th reception
+  <system-err><![CDATA[[pool-62-thread-1] WARN scp.impl.ReceiverInvoker - Dropping 2-th reception
+[pool-62-thread-1] ERROR scp.impl.ReceiverInvoker - Failed to handle 1-th reception
 java.util.concurrent.ExecutionException: java.lang.RuntimeException: Don't Panic! This exception is good :)
 	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
 	at java.util.concurrent.FutureTask.get(FutureTask.java:206)
 	at scp.impl.ReceiverInvoker.invokeHandler(ReceiverInvoker.java:99)
 	at scp.impl.ReceiverInvoker.receive(ReceiverInvoker.java:86)
 	at scp.targets.mock.InProcessCommunicationManagerImpl$4.lambda$send$11(InProcessCommunicationManagerImpl.java:171)
-	at scp.targets.mock.InProcessCommunicationManagerImpl$4$$Lambda$2/685879852.call(Unknown Source)
 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
@@ -26,10 +25,9 @@ Caused by: java.lang.RuntimeException: Don't Panic! This exception is good :)
 	at scp.api.SenderReceiverTest$3.receive(SenderReceiverTest.java:146)
 	at scp.api.SenderReceiverTest$3.receive(SenderReceiverTest.java:143)
 	at scp.impl.ReceiverInvoker.lambda$invokeHandler$3(ReceiverInvoker.java:96)
-	at scp.impl.ReceiverInvoker$$Lambda$3/1279611766.call(Unknown Source)
 	... 4 more
 [Test worker] WARN scp.impl.SendRequester - Timed out handling 1-th send
-[pool-1-thread-1] WARN scp.impl.ReceiverInvoker - Timed out handling 1-th reception
+[pool-62-thread-1] WARN scp.impl.ReceiverInvoker - Timed out handling 1-th reception
 [Test worker] WARN scp.impl.SendRequester - Dropping 2-th send
 ]]></system-err>
 </testsuite>

@@ -11,10 +11,13 @@ package lib
 
 import java.util.concurrent.TimeoutException
 import com.rti.connext.requestreply.Requester
+import com.rti.connext.requestreply.RequesterParams
 import com.rti.connext.requestreply.Replier
 import com.rti.connext.requestreply.SimpleReplier
+import com.rti.connext.requestreply.SimpleReplierParams
 import com.rti.dds.domain.DomainParticipant
 import com.rti.dds.domain.DomainParticipantFactory
+import com.rti.dds.domain.DomainParticipantFactoryQos
 import com.rti.dds.infrastructure.InstanceHandle_t
 import com.rti.dds.infrastructure.Duration_t
 import com.rti.dds.infrastructure.StatusKind
@@ -22,7 +25,7 @@ import com.rti.dds.publication.Publisher
 import com.rti.dds.subscription.Subscriber
 
 class DDS {
-  private static final WAIT_DURATION = new Duration_t(2, 0)
+  private static final WAIT_DURATION = Duration_t.from_seconds(30)
   private final int DOMAIN_ID = 0
   private final participant
   private final topicName2reader = [:], 
@@ -31,7 +34,14 @@ class DDS {
                 deviceName2replier = [:]
 
   public def DDS() {
-    participant = DomainParticipantFactory.get_instance().create_participant(
+    def factory = DomainParticipantFactory.get_instance()
+    def qos = new DomainParticipantFactoryQos()
+    factory.get_qos(qos)
+    qos.profile.string_profile.add(
+        this.getClass().getResource("/QOS_Profiles.xml").getText())
+    //println(qos.profile.string_profile)
+    factory.set_qos(qos)
+    participant = factory.create_participant(
         DOMAIN_ID, 
         DomainParticipantFactory.PARTICIPANT_QOS_DEFAULT,
         null, // Listener
@@ -45,11 +55,14 @@ class DDS {
   public initializeCommandSendCapability(deviceName) {
     if (!deviceName2requester.containsKey(deviceName)) {
       println("requester $deviceName")
-      def requester = new Requester<CommandRequest, CommandResponse>(
+      def params = new RequesterParams(
           this.participant,
-          deviceName,
           CommandRequestTypeSupport.get_instance(),
           CommandResponseTypeSupport.get_instance())
+      params.setServiceName(deviceName)
+      params = params.setQosProfile('ClinicalScenarioProfiles',
+          'RequesterProfile')
+      def requester = new Requester(params)
       deviceName2requester[deviceName] = requester
     }
   }
@@ -57,12 +70,15 @@ class DDS {
   public initializeCommandHandlerFor(handler, deviceName) {
     if (!deviceName2replier.containsKey(deviceName)) {
       println("replier $deviceName")
-	  def replier = new SimpleReplier<CommandRequest, CommandResponse>(
-            this.participant,
-            deviceName,
-            new CommandRequestHandlerWrapper(handler),
-            CommandRequestTypeSupport.get_instance(),
-            CommandResponseTypeSupport.get_instance())
+      def params = new SimpleReplierParams(
+              this.participant,
+              new CommandRequestHandlerWrapper(handler),
+              CommandRequestTypeSupport.get_instance(),
+              CommandResponseTypeSupport.get_instance())
+      params.setServiceName(deviceName)
+      params = params.setQosProfile('ClinicalScenarioProfiles',
+              'ReplierProfile')
+      def replier = new SimpleReplier(params)
       deviceName2replier[deviceName] = replier
     }
   }

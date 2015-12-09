@@ -32,29 +32,29 @@ dependencies {
 task copyLibsToPCAMonitor(type: Copy) {
   from 'libs'
   from 'build/libs'
-  into '../monitor/lib'
+  into '../pcamonitor/lib'
 }
 
 task copyLibsToCapnometer(type: Copy) {
   from 'libs'
   from 'build/libs'
-  into '../bpmonitor/lib'
+  into '../capnometer/lib'
 }
 
 task copyLibsToPulseOximeter(type: Copy) {
   from 'libs'
   from 'build/libs'
-  into '../monitor/lib'
+  into '../pulseoximeter/lib'
 }
 
 task copyLibsToInfusionPump(type: Copy) {
   from 'libs'
   from 'build/libs'
-  into '../insufflationpump/lib'
+  into '../infusionpump/lib'
 }
 
 task copyLibs() { }
 
 copyLibs.dependsOn copyLibsToPCAMonitor, copyLibsToCapnometer,copyLibsToPulseOximeter, copyLibsToInfusionPump
 
-version = '0.1'
+version = '0.2'

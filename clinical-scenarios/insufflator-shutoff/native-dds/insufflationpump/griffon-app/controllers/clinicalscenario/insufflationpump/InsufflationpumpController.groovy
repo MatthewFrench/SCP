@@ -68,10 +68,10 @@ class InsufflationpumpController {
     println(cmd)
     println(cmd == Command.STOP)
     if (cmd == Command.STOP) { 
-        edt{
+        //edt{
           model.state = 'Inactive'
 		  deviceOn = false
-        }
+        //}
     }
 	def tmp1 = new SimpleValue()
     tmp1.value = deviceOn?1:0

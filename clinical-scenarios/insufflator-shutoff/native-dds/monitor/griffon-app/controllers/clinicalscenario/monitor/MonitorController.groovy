@@ -90,7 +90,8 @@ class MonitorController {
      model.systolic = systolic// }
     allhookedup |= 0x1
     if (!model.needToStop && allhookedup == 0xF) {
-      app.event "Update"
+      //app.event "Update"
+      onUpdate();
     }
   }
 
@@ -99,7 +100,8 @@ class MonitorController {
     	model.diastolic = diastolic //}
     allhookedup |= 0x2
     if (!model.needToStop && allhookedup == 0xF) {
-      app.event "Update"
+      //app.event "Update"
+      onUpdate();
     }
   }
 
@@ -108,7 +110,8 @@ class MonitorController {
      model.pressure = pressure //}
     allhookedup |= 0x4
     if (!model.needToStop && allhookedup == 0xF) {
-      app.event "Update"
+      //app.event "Update"
+      onUpdate();
     }
   }
 
@@ -117,19 +120,19 @@ class MonitorController {
     	model.pulseRate = pr //}
     allhookedup |= 0x8
     if (!model.needToStop && allhookedup == 0xF) {
-      app.event "Update"
+      //app.event "Update"
+      onUpdate();
     }
   }
 
-  def onUpdate = { evt ->
+  def onUpdate() {
     println("updating $allhookedup")
     def needToStop = model.systolic < 96 || 
       model.diastolic < 50 || model.pulseRate < 50
 
     if (needToStop) {
       println("stop pump ${model.systolic} ${model.diastolic} ${model.pressure} ${model.pulseRate}")
-      CompletionStatus reply = dds.issueCommandTo(Command.STOP, 
-          Constants.INSUFFLATION_PUMP)
+      CompletionStatus reply = dds.issueCommandTo(Command.STOP,  Constants.INSUFFLATION_PUMP)
 
       if (reply == CompletionStatus.SUCCESS) {
         //edt {

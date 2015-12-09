@@ -11,5 +11,4 @@ package lib
 
 class Constants {
   public static final INSUFFLATION_PUMP = 'insufflationPump'
-  public static final INFUSION_PUMP = 'infusionPump'
 }

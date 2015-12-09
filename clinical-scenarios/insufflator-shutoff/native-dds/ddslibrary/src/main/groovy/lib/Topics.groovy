@@ -17,5 +17,4 @@ class Topics {
                       DEVICE_STATE = 'deviceState',
                       BPFREQUENCY = 'bpFrequency',
 					  SECONDS = 'seconds'
-
 }

@@ -56,7 +56,7 @@ class BpmonitorController {
   }
   
   def onBPFREQUENCY(frequency) { 
-  edt { 
+ // edt { 
 	if (frequency == 1 && fastRate == false) {
 		fastRate = true
 		currentSeconds = INFLATING_TIME 
@@ -66,7 +66,7 @@ class BpmonitorController {
 		currentSeconds = INFLATING_TIME 
 		currentState = STATE_INFLATING
 	}
-	}
+	//}
     //edt { model.systolic = systolic }
     //allhookedup |= 0x1
     //if (!model.needToStop && allhookedup == 0xF) {

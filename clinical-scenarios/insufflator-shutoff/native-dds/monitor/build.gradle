@@ -102,3 +102,8 @@ if (hasProperty('debugRun') && ((project.debugRun as boolean))) {
         jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005'
     }
 }
+
+run {         if ( project.hasProperty("dyldLibraryPath") ) {
+        systemProperty "java.library.path", "$dyldLibraryPath"
+}
+}

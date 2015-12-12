@@ -99,3 +99,8 @@ startScripts {
     windowsScript.text = windowsScript.text.replaceAll('"(-Xdock:(name|icon)=)([^"]*?)(")', ' ')
   }
 }
+
+run {         if ( project.hasProperty("dyldLibraryPath") ) {
+        systemProperty "java.library.path", "$dyldLibraryPath"
+}
+}

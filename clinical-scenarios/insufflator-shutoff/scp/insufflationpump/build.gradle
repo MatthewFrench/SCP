@@ -103,6 +103,12 @@ if (hasProperty('debugRun') && ((project.debugRun as boolean))) {
 }
 run {
    if ( project.hasProperty("appArgs") ) {
-        args Eval.me(appArgs)
+      def argList = Eval.me(appArgs)
+      if ( argList.any { if (it.contains('dds')) return true} ) {
+         if ( project.hasProperty("dyldLibraryPath") ) {
+        systemProperty "java.library.path", "$dyldLibraryPath"
+}
+      }
+        args argList
     }
 }

@@ -1,6 +1,6 @@
-Griffon is the tool we use to make the clinician scenarios. It's like an abstraction of Java. Makes things a little easier.
-
 Install griffon by installing sdkman(http://sdkman.io) and then running "sdk install griffon".
+
+Griffon is the tool we use to make the clinician scenarios. It's like an abstraction of Java. Makes things a little easier.
 
 simple-communication-patterns folder contains the SCP source code. It's the Java code for having dds, mock or vertx communication. You can build it using the gradle build script.
 
